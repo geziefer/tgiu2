@@ -6,16 +6,16 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 
 @Entity
-@NamedQuery(name = "User.findAll", query="SELECT u FROM User u")
-public class User {
+@NamedQuery(name = "Player.findAll", query="SELECT p FROM Player p")
+public class Player {
 	@Id
-	Integer id;
+	private Integer id;
 	
 	@Column
-	String username;
+	private String name;
 	
 	@Column
-	String password;
+	private String password;
 
 	public Integer getId() {
 		return id;
@@ -25,12 +25,12 @@ public class User {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getName() {
+		return name;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getPassword() {

@@ -10,7 +10,8 @@ import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import geziefer.tgiu2.entity.User;
+import geziefer.tgiu2.entity.Game;
+import geziefer.tgiu2.entity.Player;
 import geziefer.tgiu2.listener.LocalEntityManagerFactory;
 
 @ManagedBean
@@ -19,16 +20,23 @@ public class OverviewController implements Serializable {
 
 	private static final long serialVersionUID = 3893948528151679341L;
 
-	private List<User> users = new ArrayList<>();
+	private List<Game> games = new ArrayList<>();
+	private List<Player> players = new ArrayList<>();
 
 	@PostConstruct
-	public void populateUserlist() {
+	public void populateLists() {
 		EntityManager em = LocalEntityManagerFactory.createEntityManager();
-		TypedQuery<User> tq = em.createNamedQuery("User.findAll", User.class);
-		users = tq.getResultList();
+		TypedQuery<Game> tq1 = em.createNamedQuery("Game.findAll", Game.class);
+		games = tq1.getResultList();
+		TypedQuery<Player> tq2 = em.createNamedQuery("Player.findAll", Player.class);
+		players = tq2.getResultList();
 	}
 
-	public List<User> getUsers() {
-		return users;
+	public List<Game> getGames() {
+		return games;
+	}
+
+	public List<Player> getPlayers() {
+		return players;
 	}
 }

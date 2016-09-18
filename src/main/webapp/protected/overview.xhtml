@@ -13,18 +13,37 @@
 				style="margin-bottom:10px;">
 				<p:messages id="messages" />
 
-				<p:dataTable var="user" value="#{overviewController.users}"
+				<p:dataTable var="player" value="#{overviewController.players}"
 					style="margin-bottom:40px">
-					<p:column headerText="Id" sortBy="#{user.id}">
-						<h:outputText value="#{user.id}" />
+					<f:facet name="header">Players</f:facet>
+
+					<p:column headerText="Id" sortBy="#{player.id}">
+						<h:outputText value="#{player.id}" />
 					</p:column>
 
-					<p:column headerText="Username" sortBy="#{user.username}">
-						<h:outputText value="#{user.username}" />
+					<p:column headerText="Name" sortBy="#{player.name}">
+						<h:outputText value="#{player.name}" />
 					</p:column>
 
-					<p:column headerText="Passwort" sortBy="#{user.password}">
-						<h:outputText value="#{user.password}" />
+					<p:column headerText="Passwort" sortBy="#{player.password}">
+						<h:outputText value="#{player.password}" />
+					</p:column>
+				</p:dataTable>
+
+				<p:dataTable var="game" value="#{overviewController.games}"
+					style="margin-bottom:40px">
+					<f:facet name="header">Games</f:facet>
+
+					<p:column headerText="Id" sortBy="#{game.id}">
+						<h:outputText value="#{game.id}" />
+					</p:column>
+
+					<p:column headerText="Name" sortBy="#{game.name}">
+						<h:outputText value="#{game.name}" />
+					</p:column>
+
+					<p:column headerText="Wert" sortBy="#{game.value}">
+						<h:outputText value="#{game.value}" />
 					</p:column>
 				</p:dataTable>
 			</p:panel>
