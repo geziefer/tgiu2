@@ -12,9 +12,23 @@
 			<p:panel id="panel" header="The Game Is up - Overview"
 				style="margin-bottom:10px;">
 				<p:messages id="messages" />
+
+				<p:dataTable var="user" value="#{overviewController.users}"
+					style="margin-bottom:40px">
+					<p:column headerText="Id" sortBy="#{user.id}">
+						<h:outputText value="#{user.id}" />
+					</p:column>
+
+					<p:column headerText="Username" sortBy="#{user.username}">
+						<h:outputText value="#{user.username}" />
+					</p:column>
+
+					<p:column headerText="Passwort" sortBy="#{user.password}">
+						<h:outputText value="#{user.password}" />
+					</p:column>
+				</p:dataTable>
 			</p:panel>
-			<p:commandButton action="#{overviewController.queryUsers}"
-				value="Query"></p:commandButton>
+
 			<p:commandButton action="#{loginController.logout}" value="Logout"></p:commandButton>
 		</h:form>
 	</ui:define>

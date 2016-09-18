@@ -1,8 +1,10 @@
 package geziefer.tgiu2.view;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
@@ -17,13 +19,16 @@ public class OverviewController implements Serializable {
 
 	private static final long serialVersionUID = 3893948528151679341L;
 
-	public String queryUsers() {
-			EntityManager em = LocalEntityManagerFactory.createEntityManager();
-			TypedQuery<User> tq = em.createNamedQuery("User.findAll", User.class);
-			List<User> users = tq.getResultList();
-			for (User user : users) {
-				System.out.println(user.getUsername());
-			}
-			return "";
+	private List<User> users = new ArrayList<>();
+
+	@PostConstruct
+	public void populateUserlist() {
+		EntityManager em = LocalEntityManagerFactory.createEntityManager();
+		TypedQuery<User> tq = em.createNamedQuery("User.findAll", User.class);
+		users = tq.getResultList();
+	}
+
+	public List<User> getUsers() {
+		return users;
 	}
 }
