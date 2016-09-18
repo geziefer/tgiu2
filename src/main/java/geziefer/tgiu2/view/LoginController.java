@@ -34,7 +34,6 @@ public class LoginController implements Serializable {
 	}
 
 	public String login() {
-		// TODO: hardcoded login, replace by database check with hashed pw
 		if (username.equals("alex") && password.equals("alex")) {
 			return "/protected/overview";
 		} else {
