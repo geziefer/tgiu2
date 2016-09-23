@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
@@ -14,7 +14,7 @@ import geziefer.tgiu2.entity.Game;
 import geziefer.tgiu2.entity.Player;
 import geziefer.tgiu2.listener.LocalEntityManagerFactory;
 
-@ManagedBean
+@Named
 @SessionScoped
 public class OverviewController implements Serializable {
 

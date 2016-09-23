@@ -8,20 +8,20 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	template="../template/ui.xhtml">
 	<ui:define name="body">
-			<p:dataTable var="game" value="#{overviewController.games}"
+			<p:dataTable var="player" value="#{overviewController.players}"
 				style="margin-bottom:40px">
-				<f:facet name="header">Overview</f:facet>
+				<f:facet name="header">Players</f:facet>
 
-				<p:column headerText="Id" sortBy="#{game.id}">
-					<h:outputText value="#{game.id}" />
+				<p:column headerText="Id" sortBy="#{player.id}">
+					<h:outputText value="#{player.id}" />
 				</p:column>
 
-				<p:column headerText="Name" sortBy="#{game.name}">
-					<h:outputText value="#{game.name}" />
+				<p:column headerText="Name" sortBy="#{player.name}">
+					<h:outputText value="#{player.name}" />
 				</p:column>
 
-				<p:column headerText="Wert" sortBy="#{game.value}">
-					<h:outputText value="#{game.value}" />
+				<p:column headerText="Passwort" sortBy="#{player.password}">
+					<h:outputText value="#{player.password}" />
 				</p:column>
 			</p:dataTable>
 	</ui:define>

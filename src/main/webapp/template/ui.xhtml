@@ -3,21 +3,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 <f:view locale="de">
 	<h:head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<ui:insert name="header">
-			<title></title>
-		</ui:insert>
-		<h:outputScript library="javax.faces" name="jsf.js" target="head"/>
 	</h:head>
-	
+
 	<h:body>
-		<ui:insert name="body">
-		</ui:insert>
-		<ui:insert name="script">
-		</ui:insert>
+		<div align="center">
+			<h:form id="primeForm">
+				<div align="center">
+					<h:graphicImage name="images/logo.png" 
+						style="max-width: 100%" />
+				</div>
+
+				<p:messages id="messages" autoUpdate="true" showDetail="false" globalOnly="true" />
+
+				<ui:insert name="body">
+				</ui:insert>
+
+				<p:dock position="bottom" itemWidth="66" proximity="99"
+					rendered="#{loginController.loggedIn}">
+					<p:menuitem value="Übersicht" icon="/resources/images/overview.png"
+						url="overview.jsf" />
+					<p:menuitem value="Spielrunden" icon="/resources/images/round.png"
+						url="rounds.jsf" />
+					<p:menuitem value="Spiele" icon="/resources/images/game.png"
+						url="games.jsf" />
+					<p:menuitem value="Spieler" icon="/resources/images/player.png"
+						url="players.jsf" />
+					<p:menuitem value="Statistik"
+						icon="/resources/images/statistics.png" url="statistics.jsf" />
+					<p:menuitem value="Logout" icon="/resources/images/logout.png"
+						action="#{loginController.logout}" />
+				</p:dock>
+			</h:form>
+		</div>
 	</h:body>
 </f:view>
 </html>

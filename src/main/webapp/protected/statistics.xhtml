@@ -10,7 +10,7 @@
 	<ui:define name="body">
 			<p:dataTable var="game" value="#{overviewController.games}"
 				style="margin-bottom:40px">
-				<f:facet name="header">Overview</f:facet>
+				<f:facet name="header">Statistics</f:facet>
 
 				<p:column headerText="Id" sortBy="#{game.id}">
 					<h:outputText value="#{game.id}" />
