@@ -8,14 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 
 @Entity
-@NamedQuery(name = "Game.findAll", query="SELECT g FROM Game g")
+@NamedQuery(name = "Game.findAll", query = "SELECT g FROM Game g ORDER BY g.name")
 public class Game {
 	@Id
 	private Integer id;
-	
-	@Column
+
+	@Column(unique = true)
 	private String name;
-	
+
 	@Column
 	@Enumerated(EnumType.STRING)
 	private GameValue value;

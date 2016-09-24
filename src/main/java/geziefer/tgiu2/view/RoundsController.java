@@ -8,8 +8,8 @@ import javax.inject.Named;
 
 @Named
 @SessionScoped
-public class OverviewController implements Serializable {
-	private static final long serialVersionUID = 6382467439487851769L;
+public class RoundsController implements Serializable {
+	private static final long serialVersionUID = -4061642452157056938L;
 
 	@PostConstruct
 	public void populateList() {

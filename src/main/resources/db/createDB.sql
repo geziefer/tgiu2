@@ -1,16 +1,23 @@
 create table Player(
 	id integer not null auto_increment,
 	name varchar(20) not null,
-	password varchar(20) not null,
+	password varchar(42) not null,
 	primary key (id)
 );
+
+alter table Player
+add unique (name);
 
 create table Game(
 	id integer not null auto_increment,
 	name varchar(50) not null,
 	value varchar(10) not null,
 	primary key (id)
+	
 )
+
+alter table Game
+add unique (name);
 
 create table Round(
 	id integer not null auto_increment,
@@ -29,3 +36,10 @@ create table Rank(
 	foreign key (round_id) references Round (id),
 	foreign key (player_id) references Player (id)
 );
+
+insert into Player (name, password) values ('Alex', sha1('Alex'));
+insert into Player (name, password) values ('Bernd', sha1('Bernd'));
+insert into Player (name, password) values ('Birger', sha1('Birger'));
+insert into Player (name, password) values ('Michael', sha1('Michael'));
+insert into Player (name, password) values ('Thorsten', sha1('Thorsten'));
+

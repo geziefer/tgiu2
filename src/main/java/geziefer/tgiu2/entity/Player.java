@@ -3,17 +3,19 @@ package geziefer.tgiu2.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 @Entity
-@NamedQuery(name = "Player.findAll", query="SELECT p FROM Player p")
+@NamedQueries({ @NamedQuery(name = "Player.findAll", query = "SELECT p FROM Player p ORDER BY p.name"),
+		@NamedQuery(name = "Player.findByName", query = "SELECT p FROM Player p where p.name = :name") })
 public class Player {
 	@Id
 	private Integer id;
-	
-	@Column
+
+	@Column(unique = true)
 	private String name;
-	
+
 	@Column
 	private String password;
 

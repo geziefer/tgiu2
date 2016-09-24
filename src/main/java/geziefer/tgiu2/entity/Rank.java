@@ -15,7 +15,7 @@ public class Rank {
 	@ManyToOne
 	@JoinColumn(name = "round_id")
 	private Round round;
-	
+
 	@OneToOne
 	@JoinColumn(name = "player_id")
 	private Player player;

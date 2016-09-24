@@ -8,21 +8,9 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	template="../template/ui.xhtml">
 	<ui:define name="body">
-			<p:dataTable var="game" value="#{overviewController.games}"
-				style="margin-bottom:40px">
-				<f:facet name="header">Statistics</f:facet>
-
-				<p:column headerText="Id" sortBy="#{game.id}">
-					<h:outputText value="#{game.id}" />
-				</p:column>
-
-				<p:column headerText="Name" sortBy="#{game.name}">
-					<h:outputText value="#{game.name}" />
-				</p:column>
-
-				<p:column headerText="Wert" sortBy="#{game.value}">
-					<h:outputText value="#{game.value}" />
-				</p:column>
-			</p:dataTable>
+		<p:dataTable var="statistics" value=""
+			style="margin-bottom:40px">
+			<f:facet name="header">#{msg['menu.statistics']}</f:facet>
+		</p:dataTable>
 	</ui:define>
 </ui:composition>
