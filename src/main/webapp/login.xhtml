@@ -8,20 +8,22 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	template="template/ui.xhtml">
 	<ui:define name="body">
-		<h:panelGrid id="loginGrid" columns="3" cellpadding="5"
-			styleClass="centered">
-			<p:outputLabel for="username" value="#{msg['login.username']}" />
-			<p:inputText id="username" value="#{loginController.username}"
-				required="true" requiredMessage="#{msg['login.username.required']}" />
-			<p:message for="username" />
+		<p:panel header="#{msg['menu.login']}">
+			<h:panelGrid id="loginGrid" columns="3" cellpadding="5"
+				styleClass="centered">
+				<p:outputLabel for="username" value="#{msg['login.username']}" />
+				<p:inputText id="username" value="#{loginController.username}"
+					required="true" requiredMessage="#{msg['login.username.required']}" />
+				<p:message for="username" />
 
-			<p:outputLabel for="password" value="#{msg['login.password']}" />
-			<p:inputText id="password" value="#{loginController.password}"
-				required="true" requiredMessage="#{msg['login.password.required']}" />
-			<p:message for="password" />
+				<p:outputLabel for="password" value="#{msg['login.password']}" />
+				<p:inputText id="password" value="#{loginController.password}"
+					required="true" requiredMessage="#{msg['login.password.required']}" />
+				<p:message for="password" />
 
-			<p:commandButton action="#{loginController.login}" value="#{msg['login.button']}"
-				update="loginGrid" />
-		</h:panelGrid>
+				<p:commandButton action="#{loginController.login}"
+					value="#{msg['login.button']}" update="loginGrid" />
+			</h:panelGrid>
+		</p:panel>
 	</ui:define>
 </ui:composition>

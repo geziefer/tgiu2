@@ -6,9 +6,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <f:view locale="de">
+<!-- TODO: activate for login check 
 	<f:event type="preRenderView"
 		listener="#{loginController.checkLoginAndRedirect}" />
-
+ -->
 	<h:head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<h:outputStylesheet name="css/style.css" />
@@ -21,7 +22,7 @@
 					<h:graphicImage name="images/logo.png" style="max-width: 100%" />
 				</div>
 
-				<div align="center" style="max-width: 900px">
+				<div align="center" style="max-width: 800px">
 					<p:messages id="messages" autoUpdate="true" showDetail="false"
 						globalOnly="true" />
 

@@ -2,6 +2,7 @@ package geziefer.tgiu2.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -11,6 +12,7 @@ import javax.persistence.NamedQuery;
 		@NamedQuery(name = "Player.findByName", query = "SELECT p FROM Player p where p.name = :name") })
 public class Player {
 	@Id
+	@GeneratedValue
 	private Integer id;
 
 	@Column(unique = true)

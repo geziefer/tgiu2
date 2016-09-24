@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 
@@ -11,6 +12,7 @@ import javax.persistence.NamedQuery;
 @NamedQuery(name = "Game.findAll", query = "SELECT g FROM Game g ORDER BY g.name")
 public class Game {
 	@Id
+	@GeneratedValue
 	private Integer id;
 
 	@Column(unique = true)

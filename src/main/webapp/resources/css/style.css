@@ -5,6 +5,14 @@
 	font-size: 30px;
 }
 
+.ui-panel {
+	padding: 0 !important;
+}
+
+.ui-panel-content {
+	padding: 20px !important;
+}
+
 .ui-dock-container-bottom {
 	background-color: #f4f4f4;
 }

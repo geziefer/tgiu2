@@ -2,6 +2,7 @@ package geziefer.tgiu2.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -10,6 +11,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class Rank {
 	@Id
+	@GeneratedValue
 	private Integer id;
 
 	@ManyToOne
