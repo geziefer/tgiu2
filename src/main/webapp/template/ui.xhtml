@@ -8,17 +8,18 @@
 <f:view locale="de">
 	<h:head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<h:outputStylesheet name="css/style.css" />
 	</h:head>
 
 	<h:body>
 		<div align="center">
 			<h:form id="primeForm">
 				<div align="center">
-					<h:graphicImage name="images/logo.png" 
-						style="max-width: 100%" />
+					<h:graphicImage name="images/logo.png" style="max-width: 100%" />
 				</div>
 
-				<p:messages id="messages" autoUpdate="true" showDetail="false" globalOnly="true" />
+				<p:messages id="messages" autoUpdate="true" showDetail="false"
+					globalOnly="true" />
 
 				<ui:insert name="body">
 				</ui:insert>

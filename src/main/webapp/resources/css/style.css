@@ -1,0 +1,14 @@
+@CHARSET "ISO-8859-1";
+
+.ui-widget-header {
+	color: #107bc2;
+	font-size: 30px;
+}
+
+.ui-dock-container-bottom {
+	background-color: #f4f4f4;
+}
+
+.ui-datatable-odd {
+	background-color: #e1f5fb;
+}
