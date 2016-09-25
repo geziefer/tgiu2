@@ -7,12 +7,14 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:o="http://omnifaces.org/ui" template="../template/ui.xhtml">
+	<f:metadata>
+		<f:viewAction action="#{gamesController.initFields()}" />
+	</f:metadata>
 	<ui:define name="body">
-		<p:panel id="gameHeader" header="#{msg['menu.games']}">
+		<p:panel id="gamesHeader" header="#{msg['menu.games']}">
 			<p:panel header="" collapsed="true" toggleable="true"
 				style="border:none" widgetVar="gamePanel">
-				<h:panelGrid id="gameGrid" columns="3" cellpadding="5"
-					styleClass="centered">
+				<h:panelGrid columns="3" cellpadding="5" styleClass="centered">
 					<p:outputLabel for="name" value="#{msg['games.name']}" />
 					<p:inputText id="name" value="#{gamesController.name}"
 						required="true" requiredMessage="#{msg['games.name.required']}" />
@@ -30,8 +32,8 @@
 					</p:selectOneMenu>
 					<p:message for="value" />
 
-					<p:commandButton action="#{gamesController.createGame}"
-						value="#{msg['global.save']}" update="gameHeader" />
+					<p:commandButton action="#{gamesController.createGame()}"
+						value="#{msg['global.save']}" update="gamesHeader" />
 				</h:panelGrid>
 			</p:panel>
 

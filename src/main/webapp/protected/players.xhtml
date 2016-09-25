@@ -14,8 +14,7 @@
 		<p:panel id="playerHeader" header="#{msg['menu.players']}">
 			<p:panel header="" collapsed="true" toggleable="true"
 				style="border:none" widgetVar="playerPanel">
-				<h:panelGrid id="playerGrid" columns="3" cellpadding="5"
-					styleClass="centered">
+				<h:panelGrid columns="3" cellpadding="5" styleClass="centered">
 					<p:outputLabel for="name" value="#{msg['players.name']}" />
 					<p:inputText id="name" value="#{playersController.name}"
 						required="true" requiredMessage="#{msg['players.name.required']}" />
@@ -27,7 +26,7 @@
 						requiredMessage="#{msg['players.password.required']}" />
 					<p:message for="password" />
 
-					<p:commandButton action="#{playersController.createPlayer}"
+					<p:commandButton action="#{playersController.createPlayer()}"
 						value="#{msg['global.save']}" update="playerHeader" />
 				</h:panelGrid>
 			</p:panel>
@@ -42,8 +41,8 @@
 					<h:outputText value="#{row + 1}" />
 				</p:column>
 
-				<p:column headerText="#{msg['players.name']}" sortBy="#{player.name}"
-					style="width: 80%">
+				<p:column headerText="#{msg['players.name']}"
+					sortBy="#{player.name}" style="width: 80%">
 					<h:outputText value="#{player.name}" />
 				</p:column>
 			</p:dataTable>
