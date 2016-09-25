@@ -6,7 +6,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui">
 <f:view locale="de">
-<!-- TODO: activate for login check 
+	<!-- TODO: activate for login check 
 	<f:event type="preRenderView"
 		listener="#{loginController.checkLoginAndRedirect}" />
  -->
@@ -28,6 +28,8 @@
 
 					<ui:insert name="body">
 					</ui:insert>
+
+					<div style="height: 100px" />
 				</div>
 
 				<p:dock position="bottom" itemWidth="66" proximity="99"

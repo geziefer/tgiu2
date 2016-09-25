@@ -12,8 +12,8 @@
 	</f:metadata>
 	<ui:define name="body">
 		<p:panel id="playerHeader" header="#{msg['menu.players']}">
-			<p:panel header="" collapsed="true" toggleable="true" style="border:none"
-				widgetVar="playerPanel">
+			<p:panel header="" collapsed="true" toggleable="true"
+				style="border:none" widgetVar="playerPanel">
 				<h:panelGrid id="playerGrid" columns="3" cellpadding="5"
 					styleClass="centered">
 					<p:outputLabel for="name" value="Name" />
@@ -34,7 +34,11 @@
 			</p:panel>
 
 			<p:dataTable id="playerTable" var="player" rowIndexVar="row"
-				value="#{playersController.players}">
+				value="#{playersController.players}" rows="10" paginator="true"
+				sortBy="#{player.name}"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				currentPageReportTemplate="{totalRecords} #{msg['global.count']}"
+				paginatorPosition="bottom" rowsPerPageTemplate="5,10,20,50">
 				<p:column headerText="#{msg['global.number']}" style="width: 20%">
 					<h:outputText value="#{row + 1}" />
 				</p:column>

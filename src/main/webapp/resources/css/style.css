@@ -1,6 +1,6 @@
 @CHARSET "ISO-8859-1";
 
-.ui-widget-header {
+.ui-panel-title, .ui-datatable-header {
 	color: #107bc2;
 	font-size: 30px;
 }
