@@ -9,7 +9,7 @@ import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({ @NamedQuery(name = "Player.findAll", query = "SELECT p FROM Player p ORDER BY p.name"),
-		@NamedQuery(name = "Player.findByName", query = "SELECT p FROM Player p where p.name = :name") })
+		@NamedQuery(name = "Player.findByName", query = "SELECT p FROM Player p WHERE p.name = :name") })
 public class Player {
 	@Id
 	@GeneratedValue

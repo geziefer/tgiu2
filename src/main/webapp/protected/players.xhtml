@@ -16,20 +16,19 @@
 				style="border:none" widgetVar="playerPanel">
 				<h:panelGrid id="playerGrid" columns="3" cellpadding="5"
 					styleClass="centered">
-					<p:outputLabel for="name" value="Name" />
+					<p:outputLabel for="name" value="#{msg['players.name']}" />
 					<p:inputText id="name" value="#{playersController.name}"
-						required="true"
-						requiredMessage="#{msg['login.username.required']}" />
+						required="true" requiredMessage="#{msg['players.name.required']}" />
 					<p:message for="name" />
 
-					<p:outputLabel for="password" value="Passwort" />
+					<p:outputLabel for="password" value="#{msg['players.password']}" />
 					<p:password id="password" value="#{playersController.password}"
 						required="true" autocomplete="new-password"
-						requiredMessage="#{msg['login.password.required']}" />
+						requiredMessage="#{msg['players.password.required']}" />
 					<p:message for="password" />
 
 					<p:commandButton action="#{playersController.createPlayer}"
-						value="Speichern" update="playerHeader" />
+						value="#{msg['global.save']}" update="playerHeader" />
 				</h:panelGrid>
 			</p:panel>
 
@@ -43,7 +42,7 @@
 					<h:outputText value="#{row + 1}" />
 				</p:column>
 
-				<p:column headerText="Name" sortBy="#{player.name}"
+				<p:column headerText="#{msg['players.name']}" sortBy="#{player.name}"
 					style="width: 80%">
 					<h:outputText value="#{player.name}" />
 				</p:column>

@@ -6,10 +6,12 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 @Entity
-@NamedQuery(name = "Game.findAll", query = "SELECT g FROM Game g ORDER BY g.name")
+@NamedQueries({ @NamedQuery(name = "Game.findAll", query = "SELECT g FROM Game g ORDER BY g.name"),
+		@NamedQuery(name = "Game.findByName", query = "SELECT g FROM Game g WHERE g.name = :name") })
 public class Game {
 	@Id
 	@GeneratedValue
