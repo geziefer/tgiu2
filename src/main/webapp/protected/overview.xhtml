@@ -8,9 +8,17 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	template="../template/ui.xhtml">
 	<ui:define name="body">
-		<p:dataTable var="overview" value=""
-			style="margin-bottom:40px">
+		<p:dataTable var="overview" value="" style="margin-bottom:40px">
 			<f:facet name="header">#{msg['menu.overview']}</f:facet>
 		</p:dataTable>
+
+		<div class="ui-fluid">
+			<p:panelGrid columns="1" layout="grid">
+				<h:outputText id="output" value="#{overviewController.rank}" />
+				<h:inputHidden id="val" value="#{overviewController.rank}" />
+				<p:slider for="val" display="output" displayTemplate="{value}"
+					minValue="0" maxValue="6" />
+			</p:panelGrid>
+		</div>
 	</ui:define>
 </ui:composition>
