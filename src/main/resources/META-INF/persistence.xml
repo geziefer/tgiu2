@@ -5,7 +5,7 @@
     http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 	version="2.0">
 
-	<!-- This is the standard PU for the application using a MySQL database 
+	<!-- This is the standard PU for the application using a MySQL database --> 
 	<persistence-unit name="tgiuPU" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<non-jta-data-source>java:/comp/env/jdbc/tgiuDS</non-jta-data-source>
@@ -19,9 +19,9 @@
 			<property name="hibernate.cache.use_second_level_cache"
 				value="false" />
 		</properties>
-	</persistence-unit> -->
+	</persistence-unit>
 	
-	<!-- Use this PU instead of above for inmemory database for testing purposes -->
+	<!-- Use this PU instead of above for inmemory database for testing purposes 
 	<persistence-unit name="tgiuPU" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<non-jta-data-source>java:/comp/env/jdbc/tgiuDS</non-jta-data-source>
@@ -32,6 +32,6 @@
 			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
 			<property name="hibernate.show_sql" value="true" />
 		</properties>
-	</persistence-unit>
+	</persistence-unit> -->
 
 </persistence>

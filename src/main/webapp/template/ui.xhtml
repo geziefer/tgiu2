@@ -1,10 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
 <f:view locale="de">
 	<!-- TODO: activate for login check 
 	<f:event type="preRenderView"
@@ -12,41 +9,32 @@
  -->
 	<h:head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<h:outputStylesheet name="css/style.css" />
 	</h:head>
 
 	<h:body>
+		<h:outputStylesheet name="css/style.css" />
 		<div align="center">
-			<h:form id="primeForm">
 				<div align="center">
 					<h:graphicImage name="images/logo.png" style="max-width: 100%" />
 				</div>
 
 				<div align="center" style="max-width: 800px">
-					<p:messages id="messages" autoUpdate="true" showDetail="false"
-						globalOnly="true" />
+					<p:messages id="messages" autoUpdate="true" showDetail="false" globalOnly="true" />
 
 					<ui:insert name="body">
 					</ui:insert>
 
-					<div style="height: 100px" />
 				</div>
+			<div style="height: 120px" />
 
-				<p:dock position="bottom" itemWidth="66" proximity="99"
-					rendered="#{loginController.loggedIn}">
-					<p:menuitem value="#{msg['menu.overview']}"
-						icon="/resources/images/overview.png" url="overview.jsf" />
-					<p:menuitem value="#{msg['menu.rounds']}"
-						icon="/resources/images/round.png" url="rounds.jsf" />
-					<p:menuitem value="#{msg['menu.games']}"
-						icon="/resources/images/game.png" url="games.jsf" />
-					<p:menuitem value="#{msg['menu.players']}"
-						icon="/resources/images/player.png" url="players.jsf" />
-					<p:menuitem value="#{msg['menu.statistics']}"
-						icon="/resources/images/statistics.png" url="statistics.jsf" />
-					<p:menuitem value="#{msg['menu.logout']}"
-						icon="/resources/images/logout.png"
-						action="#{loginController.logout}" />
+			<h:form>
+				<p:dock position="bottom" itemWidth="66" proximity="99" rendered="#{loginController.loggedIn}">
+					<p:menuitem value="#{msg['menu.overview']}" icon="/resources/images/overview.png" url="overview.jsf" />
+					<p:menuitem value="#{msg['menu.rounds']}" icon="/resources/images/round.png" url="rounds.jsf" />
+					<p:menuitem value="#{msg['menu.games']}" icon="/resources/images/game.png" url="games.jsf" />
+					<p:menuitem value="#{msg['menu.players']}" icon="/resources/images/player.png" url="players.jsf" />
+					<p:menuitem value="#{msg['menu.statistics']}" icon="/resources/images/statistics.png" url="statistics.jsf" />
+					<p:menuitem value="#{msg['menu.logout']}" icon="/resources/images/logout.png" action="#{loginController.logout()}" />
 				</p:dock>
 			</h:form>
 		</div>

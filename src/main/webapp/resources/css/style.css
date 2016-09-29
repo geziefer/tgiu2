@@ -20,3 +20,16 @@
 .ui-datatable-odd {
 	background-color: #e1f5fb;
 }
+
+.ui-slider {
+	margin-left: 10px;
+	margin-right: 60px;	
+}
+
+.noBorder tr, .noBorder td {
+	border: 0 !important;
+}
+
+.transparentBackground tr, .transparentBackground td {
+	background: transparent;
+}

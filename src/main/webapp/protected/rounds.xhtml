@@ -1,33 +1,40 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	template="../template/ui.xhtml">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core" template="../template/ui.xhtml">
 	<f:metadata>
 		<f:viewAction action="#{roundsController.initFields()}" />
 	</f:metadata>
 	<ui:define name="body">
 		<p:panel id="roundsHeader" header="#{msg['menu.rounds']}">
-			<p:panel header="" collapsed="true" toggleable="true"
-				style="border:none" widgetVar="roundPanel">
-				<h:panelGrid columns="3" cellpadding="5" styleClass="centered">
-					<p:pickList value="#{roundsController.gameModel}" var="games"
-						itemLabel="#{games}" itemValue="#{games}">
-						<f:facet name="sourceCaption">Spieler</f:facet>
-						<f:facet name="targetCaption">Reihenfolge</f:facet>
-						<p:column style="width:25%">
-							<p:selectBooleanCheckbox></p:selectBooleanCheckbox>
-						</p:column>
-						<p:column style="width:75%">#{games}</p:column>
-					</p:pickList>
+			<p:panel header="" collapsed="false" toggleable="true" style="border:none" widgetVar="roundPanel">
+				<h:form>
+					<h:panelGrid columns="1" cellpadding="5" styleClass="centered">
+						<p:dataTable var="rank" value="#{roundsController.ranks}">
+							<p:column headerText="#{msg['players.name']}" style="width: 20%">
+								<h:outputText value="#{rank.player.name}" />
+							</p:column>
+							<p:column style="width: 80%">
+								<f:facet name="header">
+									<p:panelGrid columns="7" styleClass="noBorder transparentBackground">
+										<h:outputText value="0" />
+										<h:outputText value="1" />
+										<h:outputText value="2" />
+										<h:outputText value="3" />
+										<h:outputText value="4" />
+										<h:outputText value="5" />
+										<h:outputText value="6" />
+									</p:panelGrid>
+								</f:facet>
+								<h:inputHidden id="rankNumber" value="#{rank.rank}" />
+								<p:slider for="rankNumber" minValue="0" maxValue="6" />
+							</p:column>
+						</p:dataTable>
 
-					<p:commandButton action="#{roundsController.createRound()}"
-						value="#{msg['global.save']}" update="roundsHeader" />
-				</h:panelGrid>
+						<p:commandButton action="#{roundsController.createRound()}" value="#{msg['global.save']}" update="roundsHeader" />
+					</h:panelGrid>
+				</h:form>
 			</p:panel>
 		</p:panel>
 	</ui:define>

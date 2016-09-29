@@ -10,9 +10,8 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import org.primefaces.model.DualListModel;
-
 import geziefer.tgiu2.entity.Player;
+import geziefer.tgiu2.entity.Rank;
 import geziefer.tgiu2.listener.LocalEntityManagerFactory;
 
 @Named
@@ -20,36 +19,39 @@ import geziefer.tgiu2.listener.LocalEntityManagerFactory;
 public class RoundsController implements Serializable {
 	private static final long serialVersionUID = -4061642452157056938L;
 
-	private List<String> players = new ArrayList<>();
-	private List<String> selectedPlayers = new ArrayList<>();
-	private DualListModel<String> gameModel;
+	private List<Player> players = new ArrayList<>();
+
+	private List<Rank> ranks = new ArrayList<>();
 
 	@PostConstruct
 	public void populateList() {
 		EntityManager em = LocalEntityManagerFactory.createEntityManager();
 		TypedQuery<Player> query = em.createNamedQuery("Player.findAll", Player.class);
-		List<Player> players = query.getResultList();
-		for (Player player : players) {
-			this.players.add(player.getName());
-		}
+		players = query.getResultList();
 	}
 
 	public void initFields() {
-		gameModel = new DualListModel<>(players, selectedPlayers);
+		ranks = new ArrayList<>();
+		for (Player player : players) {
+			Rank rank = new Rank();
+			rank.setPlayer(player);
+			rank.setRank(0);
+			ranks.add(rank);
+		}
 	}
 
-	public DualListModel<String> getGameModel() {
-		return gameModel;
+	public List<Rank> getRanks() {
+		return ranks;
 	}
 
-	public void setGameModel(DualListModel<String> gameModel) {
-		this.gameModel = gameModel;
+	public void setRanks(List<Rank> ranks) {
+		this.ranks = ranks;
 	}
 
 	public String createRound() {
-		selectedPlayers = gameModel.getTarget();
-		for (String name : selectedPlayers) {
-			System.out.println(name);
+		for (Rank rank : ranks) {
+			System.out.println(rank.getPlayer().getName());
+			System.out.println(rank.getRank());
 		}
 
 		return "";

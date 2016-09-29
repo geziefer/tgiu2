@@ -38,7 +38,7 @@ public class GamesController implements Serializable {
 
 	public void initFields() {
 		name = "";
-		value = GameValue.LARGE;
+		value = null;
 	}
 
 	public String getName() {
