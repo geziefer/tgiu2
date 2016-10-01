@@ -90,7 +90,8 @@ public class RoundsController implements Serializable {
 	}
 
 	public String createRound() {
-		List<Rank> newRanks = ranks.stream().filter(r -> r.getRank() > 0).collect(Collectors.toList());
+		List<Rank> newRanks = checkAndAdaptRanks(ranks);
+
 		Round newRound = new Round();
 		newRound.setDate(date);
 		newRound.setGame(game);
@@ -107,5 +108,11 @@ public class RoundsController implements Serializable {
 				new FacesMessage(FacesMessage.SEVERITY_INFO, msg.getString("rounds.info.success"), ""));
 
 		return "";
+	}
+
+	List<Rank> checkAndAdaptRanks(List<Rank> ranks) {
+		List<Rank> newRanks = ranks.stream().filter(r -> r.getRank() > 0)
+				.sorted((r1, r2) -> Integer.compare(r1.getRank(), r2.getRank())).collect(Collectors.toList());
+		return newRanks;
 	}
 }
