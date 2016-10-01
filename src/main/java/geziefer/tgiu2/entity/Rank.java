@@ -2,18 +2,12 @@ package geziefer.tgiu2.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Rank {
-	@Id
-	@GeneratedValue
-	private Integer id;
-
+public class Rank extends Base {
 	@ManyToOne
 	@JoinColumn(name = "round_id")
 	private Round round;
@@ -24,14 +18,6 @@ public class Rank {
 
 	@Column
 	private Integer rank;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public Round getRound() {
 		return round;

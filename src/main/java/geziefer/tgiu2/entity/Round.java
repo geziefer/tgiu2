@@ -3,20 +3,15 @@ package geziefer.tgiu2.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Round {
-	@Id
-	@GeneratedValue
-	private Integer id;
-
+public class Round extends Base {
 	@Column
 	private Date date;
 
@@ -24,16 +19,8 @@ public class Round {
 	@JoinColumn(name = "game_id")
 	private Game game;
 
-	@OneToMany(mappedBy = "rank")
+	@OneToMany(mappedBy = "rank", cascade = CascadeType.PERSIST)
 	private List<Rank> ranks;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public Date getDate() {
 		return date;

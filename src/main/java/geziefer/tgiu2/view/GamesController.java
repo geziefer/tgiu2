@@ -3,25 +3,30 @@ package geziefer.tgiu2.view;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PropertyResourceBundle;
+import java.util.ResourceBundle;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import org.primefaces.context.RequestContext;
-
+import geziefer.tgiu2.LocalEntityManagerFactory;
 import geziefer.tgiu2.entity.Game;
 import geziefer.tgiu2.entity.GameValue;
-import geziefer.tgiu2.listener.LocalEntityManagerFactory;
 
 @Named
 @SessionScoped
 public class GamesController implements Serializable {
 	private static final long serialVersionUID = -5095638556476107999L;
+
+	@Inject
+	private transient PropertyResourceBundle msg;
 
 	private List<Game> games = new ArrayList<>();
 
@@ -75,12 +80,12 @@ public class GamesController implements Serializable {
 			em.getTransaction().commit();
 			initFields();
 			populateList();
-			RequestContext.getCurrentInstance().execute("PF('gamePanel').collapse();");
+
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Spiel gespeichert", ""));
+					new FacesMessage(FacesMessage.SEVERITY_INFO, msg.getString("games.info.success"), ""));
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Spiel bereits vorhanden", ""));
+					new FacesMessage(FacesMessage.SEVERITY_WARN, msg.getString("games.warn.uniqueness"), ""));
 		}
 
 		return "";

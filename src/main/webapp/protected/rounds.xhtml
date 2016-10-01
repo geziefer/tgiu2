@@ -7,32 +7,57 @@
 		<f:viewAction action="#{roundsController.initFields()}" />
 	</f:metadata>
 	<ui:define name="body">
+		<h:outputScript library="js" name="locales.js" />
 		<p:panel id="roundsHeader" header="#{msg['menu.rounds']}">
-			<p:panel header="" collapsed="false" toggleable="true" style="border:none" widgetVar="roundPanel">
+			<p:panel header="" toggleable="true" style="border:none" widgetVar="roundPanel">
 				<h:form>
+					<p:panelGrid columns="3" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
+						<div />
+						<p:calendar id="cal" value="#{roundsController.date}" locale="de" required="true"
+							requiredMessage="#{msg['rounds.date.required']}" navigator="true" placeholder="#{msg['rounds.date']}"
+							pattern="dd.MM.yyyy" />
+						<p:message for="cal" />
+
+						<div />
+						<p:selectOneMenu id="game" value="#{roundsController.game}" effect="fade" filter="true"
+							filterMatchMode="startsWith" required="true" requiredMessage="#{msg['rounds.game.required']}"
+							converter="omnifaces.SelectItemsConverter">
+							<f:selectItem itemLabel="#{msg['rounds.game.select']}" noSelectionOption="true" />
+							<f:selectItems value="#{roundsController.games}" var="game" itemLabel="#{game.name}" itemValue="#{game}" />
+							<p:column>
+								<h:outputText value="#{game.name}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{game.value.toString()}" />
+							</p:column>
+						</p:selectOneMenu>
+						<p:message for="game" />
+
+						<div />
+						<p:commandButton action="#{roundsController.createRound()}" value="#{msg['global.save']}" update="roundsHeader" />
+					</p:panelGrid>
+
 					<h:panelGrid columns="1" cellpadding="5" styleClass="centered">
 						<p:dataTable var="rank" value="#{roundsController.ranks}">
-							<p:column headerText="#{msg['players.name']}" style="width: 20%">
+							<p:column headerText="#{msg['rounds.name']}" style="width: 20%">
 								<h:outputText value="#{rank.player.name}" />
 							</p:column>
 							<p:column style="width: 80%">
 								<f:facet name="header">
 									<p:panelGrid columns="7" styleClass="noBorder transparentBackground">
-										<h:outputText value="0" />
-										<h:outputText value="1" />
-										<h:outputText value="2" />
-										<h:outputText value="3" />
-										<h:outputText value="4" />
-										<h:outputText value="5" />
-										<h:outputText value="6" />
+										<h:outputText value="#{msg['rounds.rank.NA']}" />
+										<h:outputText value="#{msg['rounds.rank.1']}" />
+										<h:outputText value="#{msg['rounds.rank.2']}" />
+										<h:outputText value="#{msg['rounds.rank.3']}" />
+										<h:outputText value="#{msg['rounds.rank.4']}" />
+										<h:outputText value="#{msg['rounds.rank.5']}" />
+										<h:outputText value="#{msg['rounds.rank.6']}" />
 									</p:panelGrid>
 								</f:facet>
 								<h:inputHidden id="rankNumber" value="#{rank.rank}" />
 								<p:slider for="rankNumber" minValue="0" maxValue="6" />
 							</p:column>
 						</p:dataTable>
-
-						<p:commandButton action="#{roundsController.createRound()}" value="#{msg['global.save']}" update="roundsHeader" />
 					</h:panelGrid>
 				</h:form>
 			</p:panel>

@@ -4,33 +4,19 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({ @NamedQuery(name = "Game.findAll", query = "SELECT g FROM Game g ORDER BY g.name"),
 		@NamedQuery(name = "Game.findByName", query = "SELECT g FROM Game g WHERE g.name = :name") })
-public class Game {
-	@Id
-	@GeneratedValue
-	private Integer id;
-
+public class Game extends Base {
 	@Column(unique = true)
 	private String name;
 
 	@Column
 	@Enumerated(EnumType.STRING)
 	private GameValue value;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;

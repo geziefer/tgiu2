@@ -1,4 +1,4 @@
-package geziefer.tgiu2.listener;
+package geziefer.tgiu2;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

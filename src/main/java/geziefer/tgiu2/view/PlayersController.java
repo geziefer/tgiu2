@@ -3,25 +3,29 @@ package geziefer.tgiu2.view;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PropertyResourceBundle;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.primefaces.context.RequestContext;
 
+import geziefer.tgiu2.LocalEntityManagerFactory;
 import geziefer.tgiu2.entity.Player;
-import geziefer.tgiu2.listener.LocalEntityManagerFactory;
 
 @Named
 @SessionScoped
 public class PlayersController implements Serializable {
 	private static final long serialVersionUID = 2694864640991849406L;
+
+	@Inject
+	private transient PropertyResourceBundle msg;
 
 	private List<Player> players = new ArrayList<>();
 
@@ -35,7 +39,7 @@ public class PlayersController implements Serializable {
 		TypedQuery<Player> query = em.createNamedQuery("Player.findAll", Player.class);
 		players = query.getResultList();
 	}
-	
+
 	public void initFields() {
 		name = "";
 		password = "";
@@ -75,12 +79,11 @@ public class PlayersController implements Serializable {
 			em.getTransaction().commit();
 			initFields();
 			populateList();
-			RequestContext.getCurrentInstance().execute("PF('playerPanel').collapse();");
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO, "Spieler gespeichert", ""));
+					new FacesMessage(FacesMessage.SEVERITY_INFO, msg.getString("players.info.success"), ""));
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Spieler bereits vorhanden", ""));
+					new FacesMessage(FacesMessage.SEVERITY_WARN, msg.getString("games.warn.uniqueness"), ""));
 		}
 
 		return "";

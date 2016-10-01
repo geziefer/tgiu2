@@ -2,35 +2,52 @@ package geziefer.tgiu2.view;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.PropertyResourceBundle;
+import java.util.stream.Collectors;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import geziefer.tgiu2.LocalEntityManagerFactory;
+import geziefer.tgiu2.entity.Game;
 import geziefer.tgiu2.entity.Player;
 import geziefer.tgiu2.entity.Rank;
-import geziefer.tgiu2.listener.LocalEntityManagerFactory;
+import geziefer.tgiu2.entity.Round;
 
 @Named
 @SessionScoped
 public class RoundsController implements Serializable {
 	private static final long serialVersionUID = -4061642452157056938L;
 
+	@Inject
+	private transient PropertyResourceBundle msg;
+
 	private List<Player> players = new ArrayList<>();
+
+	private List<Game> games = new ArrayList<>();
+
+	private Game game;
+
+	private Date date;
 
 	private List<Rank> ranks = new ArrayList<>();
 
-	@PostConstruct
-	public void populateList() {
-		EntityManager em = LocalEntityManagerFactory.createEntityManager();
-		TypedQuery<Player> query = em.createNamedQuery("Player.findAll", Player.class);
-		players = query.getResultList();
-	}
-
 	public void initFields() {
+		EntityManager em = LocalEntityManagerFactory.createEntityManager();
+		TypedQuery<Player> query1 = em.createNamedQuery("Player.findAll", Player.class);
+		players = query1.getResultList();
+		TypedQuery<Game> query2 = em.createNamedQuery("Game.findAll", Game.class);
+		setGames(query2.getResultList());
+
+		game = null;
+		date = null;
 		ranks = new ArrayList<>();
 		for (Player player : players) {
 			Rank rank = new Rank();
@@ -48,11 +65,46 @@ public class RoundsController implements Serializable {
 		this.ranks = ranks;
 	}
 
+	public List<Game> getGames() {
+		return games;
+	}
+
+	public void setGames(List<Game> games) {
+		this.games = games;
+	}
+
+	public Game getGame() {
+		return game;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
 	public String createRound() {
-		for (Rank rank : ranks) {
-			System.out.println(rank.getPlayer().getName());
-			System.out.println(rank.getRank());
-		}
+		List<Rank> newRanks = ranks.stream().filter(r -> r.getRank() > 0).collect(Collectors.toList());
+		Round newRound = new Round();
+		newRound.setDate(date);
+		newRound.setGame(game);
+		newRanks.stream().forEach(r -> r.setRound(newRound));
+		newRound.setRanks(newRanks);
+
+		EntityManager em = LocalEntityManagerFactory.createEntityManager();
+		em.getTransaction().begin();
+		em.persist(newRound);
+		em.getTransaction().commit();
+		initFields();
+
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, msg.getString("rounds.info.success"), ""));
 
 		return "";
 	}

@@ -2,12 +2,14 @@ package geziefer.tgiu2.view;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.PropertyResourceBundle;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -15,8 +17,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+import geziefer.tgiu2.LocalEntityManagerFactory;
 import geziefer.tgiu2.entity.Player;
-import geziefer.tgiu2.listener.LocalEntityManagerFactory;
 
 @Named
 @SessionScoped
@@ -25,6 +27,9 @@ public class LoginController implements Serializable {
 	private static final long serialVersionUID = 3973801993975443027L;
 
 	private static Logger log = Logger.getLogger(LoginController.class.getName());
+
+	@Inject
+	private transient PropertyResourceBundle msg;
 
 	private String username = "";
 	private String password = "";
@@ -70,7 +75,7 @@ public class LoginController implements Serializable {
 			return "/protected/overview?faces-redirect=true";
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, "Falscher Username / Passwort", ""));
+					new FacesMessage(FacesMessage.SEVERITY_WARN, msg.getString("login.warn.credentials"), ""));
 			log.warning("Login with wrong credentials from user " + username);
 			return "/login";
 		}
