@@ -7,10 +7,12 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
+@NamedQuery(name = "Round.findAll", query = "SELECT r FROM Round r ORDER BY r.date DESC")
 public class Round extends Base {
 	@Column
 	private Date date;

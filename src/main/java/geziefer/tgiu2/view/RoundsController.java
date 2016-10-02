@@ -39,12 +39,16 @@ public class RoundsController implements Serializable {
 
 	private List<Rank> ranks = new ArrayList<>();
 
+	private List<Round> rounds = new ArrayList<>();
+
 	public void initFields() {
 		EntityManager em = LocalEntityManagerFactory.createEntityManager();
 		TypedQuery<Player> query1 = em.createNamedQuery("Player.findAll", Player.class);
 		players = query1.getResultList();
 		TypedQuery<Game> query2 = em.createNamedQuery("Game.findAll", Game.class);
 		setGames(query2.getResultList());
+		TypedQuery<Round> query3 = em.createNamedQuery("Round.findAll", Round.class);
+		setRounds(query3.getResultList());
 
 		game = null;
 		date = null;
@@ -79,6 +83,34 @@ public class RoundsController implements Serializable {
 
 	public void setGame(Game game) {
 		this.game = game;
+	}
+
+	public List<Round> getRounds() {
+		return rounds;
+	}
+
+	public void setRounds(List<Round> rounds) {
+		this.rounds = rounds;
+	}
+
+	public String getPlayersForRank(Round round, int rankNumber) {
+		List<Rank> ranks = round.getRanks().stream()
+				.filter(r -> rankNumber <= 3 ? r.getRank() == rankNumber : r.getRank() > 3)
+				.sorted((r1, r2) -> r1.getPlayer().getName().compareTo(r2.getPlayer().getName()))
+				.collect(Collectors.toList());
+
+		StringBuilder result = new StringBuilder();
+		String delimiter = "";
+		for (Rank rank : ranks) {
+			result.append(delimiter).append(rank.getPlayer().getName());
+			delimiter = ", ";
+		}
+
+		if (result.length() == 0) {
+			result.append("-");
+		}
+
+		return result.toString();
 	}
 
 	public Date getDate() {

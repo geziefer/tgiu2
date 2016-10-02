@@ -26,6 +26,10 @@
 	margin-right: 60px;	
 }
 
+.ui-datatable-empty-message {
+    display: none;
+}
+
 .noBorder tr, .noBorder td {
 	border: 0 !important;
 }
