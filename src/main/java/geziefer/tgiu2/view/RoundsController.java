@@ -110,9 +110,31 @@ public class RoundsController implements Serializable {
 		return "";
 	}
 
+	// tested by RankTest
 	List<Rank> checkAndAdaptRanks(List<Rank> ranks) {
 		List<Rank> newRanks = ranks.stream().filter(r -> r.getRank() > 0)
 				.sorted((r1, r2) -> Integer.compare(r1.getRank(), r2.getRank())).collect(Collectors.toList());
+
+		int last = 0;
+		int count = 1;
+		int add = 0;
+		for (Rank rank : newRanks) {
+			int current = rank.getRank() + add;
+			if (current == last + count || current == last) {
+				if (current == last) {
+					count++;
+				} else {
+					count = 1;
+				}
+			} else {
+				add += last + count - current;
+				current = last + count;
+				count = 1;
+			}
+			rank.setRank(current);
+			last = current;
+		}
+
 		return newRanks;
 	}
 }
