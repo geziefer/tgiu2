@@ -125,7 +125,7 @@ public class RoundsController implements Serializable {
 		List<Rank> newRanks = checkAndAdaptRanks(ranks);
 		if (newRanks.size() < 3) {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, msg.getString("rounds.warn.players"), ""));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, msg.getString("rounds.error.players"), ""));
 		} else {
 			Round newRound = new Round();
 			newRound.setDate(date);

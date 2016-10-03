@@ -83,7 +83,7 @@ public class GamesController implements Serializable {
 					new FacesMessage(FacesMessage.SEVERITY_INFO, msg.getString("games.info.success"), ""));
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN, msg.getString("games.warn.uniqueness"), ""));
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, msg.getString("games.error.uniqueness"), ""));
 		}
 
 		return "";
