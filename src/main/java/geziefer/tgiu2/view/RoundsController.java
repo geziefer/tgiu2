@@ -123,21 +123,25 @@ public class RoundsController implements Serializable {
 
 	public String createRound() {
 		List<Rank> newRanks = checkAndAdaptRanks(ranks);
+		if (newRanks.size() < 3) {
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_WARN, msg.getString("rounds.warn.players"), ""));
+		} else {
+			Round newRound = new Round();
+			newRound.setDate(date);
+			newRound.setGame(game);
+			newRanks.stream().forEach(r -> r.setRound(newRound));
+			newRound.setRanks(newRanks);
 
-		Round newRound = new Round();
-		newRound.setDate(date);
-		newRound.setGame(game);
-		newRanks.stream().forEach(r -> r.setRound(newRound));
-		newRound.setRanks(newRanks);
+			EntityManager em = LocalEntityManagerFactory.createEntityManager();
+			em.getTransaction().begin();
+			em.persist(newRound);
+			em.getTransaction().commit();
+			initFields();
 
-		EntityManager em = LocalEntityManagerFactory.createEntityManager();
-		em.getTransaction().begin();
-		em.persist(newRound);
-		em.getTransaction().commit();
-		initFields();
-
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, msg.getString("rounds.info.success"), ""));
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, msg.getString("rounds.info.success"), ""));
+		}
 
 		return "";
 	}
