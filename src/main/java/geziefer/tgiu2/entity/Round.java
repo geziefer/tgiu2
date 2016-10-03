@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -21,7 +22,7 @@ public class Round extends Base {
 	@JoinColumn(name = "game_id")
 	private Game game;
 
-	@OneToMany(mappedBy = "rank", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "round", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Rank> ranks;
 
 	public Date getDate() {

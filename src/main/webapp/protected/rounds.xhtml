@@ -66,8 +66,10 @@
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				currentPageReportTemplate="{totalRecords} #{msg['global.count']}" paginatorPosition="bottom"
 				rowsPerPageTemplate="5,10,20,50">
-				<p:column headerText="#{msg['rounds.date']}" sortBy="#{round.date}" style="width: 10%">
-					<h:outputText value="#{game.name}" />
+				<p:column headerText="#{msg['rounds.date']}" sortBy="#{round.date}" style="width: 15%">
+					<h:outputText value="#{round.date}">
+						<f:convertDateTime pattern="dd.MM.yyyy" timeZone="Europe/Berlin" />
+					</h:outputText>
 				</p:column>
 
 				<p:column headerText="#{msg['games.name']}" sortBy="#{round.game.name}" style="width: 20%">
@@ -86,7 +88,7 @@
 					<h:outputText value="#{roundsController.getPlayersForRank(round, 3)}" />
 				</p:column>
 
-				<p:column headerText="#{msg['rounds.rank.dnf']}" style="width: 25%">
+				<p:column headerText="#{msg['rounds.rank.dnf']}" style="width: 20%">
 					<h:outputText value="#{roundsController.getPlayersForRank(round, 4)}" />
 				</p:column>
 			</p:dataTable>
