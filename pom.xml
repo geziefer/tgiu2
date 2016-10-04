@@ -108,6 +108,9 @@
 					<url>http://localhost:8080/manager/text</url>
 					<server>TomcatServer</server>
 					<path>/tgiu2</path>
+				  	<username>admin</username>
+					<password>admin</password>
+					<update>true</update>
 				</configuration>
 			</plugin>
 		</plugins>
