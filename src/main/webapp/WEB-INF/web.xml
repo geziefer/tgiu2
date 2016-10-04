@@ -6,7 +6,7 @@
 	<display-name>tgiu2</display-name>
 	<resource-ref>
 		<description>DB Connection</description>
-		<res-ref-name>jdbc/tgiuDS</res-ref-name>
+		<res-ref-name>${db.datasource}</res-ref-name>
 		<res-type>javax.sql.DataSource</res-type>
 		<res-auth>Container</res-auth>
 	</resource-ref>

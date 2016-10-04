@@ -1,4 +1,10 @@
 <Context>
 	<Resource name="BeanManager" auth="Container"
 		type="javax.enterprise.inject.spi.BeanManager" factory="org.jboss.weld.resources.ManagerObjectFactory" />
+	<Resource name="jdbc/tgiuDSProd" auth="Container" type="javax.sql.DataSource"
+		driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/tgiu"
+		username="tgiu" password="tgiu" maxActive="20" maxIdle="10" maxWait="-1" />
+	<Resource name="jdbc/tgiuDSDev" auth="Container" type="javax.sql.DataSource"
+		driverClassName="org.hsqldb.jdbcDriver" url="jdbc:hsqldb:mem:tgiu"
+		username="SA" password="" maxActive="20" maxIdle="10" maxWait="-1" />
 </Context>
