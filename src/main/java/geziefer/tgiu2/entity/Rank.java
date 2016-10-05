@@ -43,4 +43,17 @@ public class Rank extends Base {
 		this.rank = rank;
 	}
 
+	public Double calculateValue() {
+		switch (rank) {
+		case 1:
+			return 1.0;
+		case 2:
+			return 3.0 / 7.0;
+		case 3:
+			return 1.0 / 7.0;
+		default:
+			return 0.0;
+		}
+	}
+
 }

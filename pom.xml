@@ -65,12 +65,12 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>4.3.1.Final</version>
+			<version>5.2.3.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>4.3.1.Final</version>
+			<version>5.2.3.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
@@ -109,7 +109,7 @@
 					<url>http://localhost:8080/manager/text</url>
 					<server>TomcatServer</server>
 					<path>/tgiu2</path>
-				  	<username>admin</username>
+					<username>admin</username>
 					<password>admin</password>
 					<update>true</update>
 				</configuration>

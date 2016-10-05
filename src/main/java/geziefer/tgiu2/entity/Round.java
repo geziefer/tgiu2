@@ -1,6 +1,6 @@
 package geziefer.tgiu2.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -8,15 +8,17 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-@NamedQuery(name = "Round.findAll", query = "SELECT r FROM Round r ORDER BY r.date DESC")
+@NamedQueries({ @NamedQuery(name = "Round.findAll", query = "SELECT r FROM Round r ORDER BY r.date DESC"),
+		@NamedQuery(name = "Round.findByDate", query = "SELECT r FROM Round r WHERE r.date >= :from AND r.date <= :to") })
 public class Round extends Base {
 	@Column
-	private Date date;
+	private LocalDate date;
 
 	@OneToOne
 	@JoinColumn(name = "game_id")
@@ -25,11 +27,11 @@ public class Round extends Base {
 	@OneToMany(mappedBy = "round", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Rank> ranks;
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 

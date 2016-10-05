@@ -1,8 +1,8 @@
 package geziefer.tgiu2.view;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.PropertyResourceBundle;
 import java.util.stream.Collectors;
@@ -35,7 +35,7 @@ public class RoundsController implements Serializable {
 
 	private Game game;
 
-	private Date date;
+	private LocalDate date;
 
 	private List<Rank> ranks = new ArrayList<>();
 
@@ -113,11 +113,11 @@ public class RoundsController implements Serializable {
 		return result.toString();
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
