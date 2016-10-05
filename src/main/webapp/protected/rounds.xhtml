@@ -68,6 +68,7 @@
 				rowsPerPageTemplate="5,10,20,50">
 				<p:column headerText="#{msg['rounds.date']}" sortBy="#{round.date}" style="width: 15%">
 					<h:outputText value="#{round.date}">
+						<f:convertDateTime pattern="dd.MM.yyyy" timeZone="Europe/Berlin" />
 					</h:outputText>
 				</p:column>
 
