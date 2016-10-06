@@ -23,11 +23,15 @@
 				</p:column>
 
 				<p:column headerText="#{msg['overview.sum']}" style="width: 25%">
-					<h:outputText value="#{ranking.sum}" />
+					<h:outputText value="#{ranking.sum}">
+						<f:convertNumber minFractionDigits="3" />
+					</h:outputText>
 				</p:column>
 
 				<p:column headerText="#{msg['overview.score']}" style="width: 25%">
-					<h:outputText value="#{ranking.score}" />
+					<h:outputText value="#{ranking.score}">
+						<f:convertNumber minFractionDigits="3" />
+					</h:outputText>
 				</p:column>
 			</p:dataTable>
 		</p:panel>

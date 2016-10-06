@@ -2,6 +2,7 @@ package geziefer.tgiu2.entity;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -51,4 +52,12 @@ public class Round extends Base {
 		this.ranks = ranks;
 	}
 
+	public boolean checkPlayer(String name) {
+		return ranks.stream().anyMatch(r -> r.getPlayer().getName().equals(name));
+	}
+
+	public Double getPlayerPoints(String name) {
+		Optional<Rank> rank = ranks.stream().filter(r -> r.getPlayer().getName().equals(name)).findFirst();
+		return rank.isPresent() ? rank.get().calculateValue() * game.getValue().value : 0.0;
+	}
 }
