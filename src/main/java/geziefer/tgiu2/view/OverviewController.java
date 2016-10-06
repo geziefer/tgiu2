@@ -31,7 +31,7 @@ public class OverviewController implements Serializable {
 		query.setParameter("from", from);
 		query.setParameter("to", to);
 		rounds = query.getResultList();
-		
+
 		Ranking ranking = new Ranking();
 		ranking.setName("Alex");
 		ranking.setRounds(5);

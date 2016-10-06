@@ -2,7 +2,10 @@ package geziefer.tgiu2.view;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.PropertyResourceBundle;
 import java.util.stream.Collectors;
@@ -35,7 +38,7 @@ public class RoundsController implements Serializable {
 
 	private Game game;
 
-	private LocalDate date;
+	private Date date;
 
 	private List<Rank> ranks = new ArrayList<>();
 
@@ -113,12 +116,17 @@ public class RoundsController implements Serializable {
 		return result.toString();
 	}
 
-	public LocalDate getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDate date) {
+	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public String formatDate(LocalDate date) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+		return date.format(formatter);
 	}
 
 	public String createRound() {
@@ -128,7 +136,7 @@ public class RoundsController implements Serializable {
 					new FacesMessage(FacesMessage.SEVERITY_ERROR, msg.getString("rounds.error.players"), ""));
 		} else {
 			Round newRound = new Round();
-			newRound.setDate(date);
+			newRound.setDate(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 			newRound.setGame(game);
 			newRanks.stream().forEach(r -> r.setRound(newRound));
 			newRound.setRanks(newRanks);
