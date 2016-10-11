@@ -4,9 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 @Entity
+@NamedQuery(name = "Rank.findByDate", query = "SELECT r FROM Rank r WHERE r.round.date >= :from AND r.round.date <= :to")
 public class Rank extends Base {
 	@ManyToOne
 	@JoinColumn(name = "round_id")
