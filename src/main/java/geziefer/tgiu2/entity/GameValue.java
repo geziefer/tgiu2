@@ -3,7 +3,7 @@ package geziefer.tgiu2.entity;
 import java.util.ResourceBundle;
 
 public enum GameValue {
-	SMALL(1), MEDIUM(2), LARGE(3);
+	LARGE(3), MEDIUM(2), SMALL(1);
 
 	int value;
 

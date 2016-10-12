@@ -56,8 +56,6 @@ public class StatisticsController implements Serializable {
 		TypedQuery<Player> query2 = em.createNamedQuery("Player.findAll", Player.class);
 		players = query2.getResultList();
 
-		roundCount = ranks.stream().filter(distinctByKey(r -> r.getRound().getId())).count();
-
 		year = msg.getString("statistics.selection.all");
 		years = new ArrayList<>();
 		years.add(msg.getString("statistics.selection.all"));
@@ -75,12 +73,14 @@ public class StatisticsController implements Serializable {
 	public void changeYear() {
 		if (year.equals(msg.getString("statistics.selection.all"))) {
 			filteredRanks = ranks.stream().collect(Collectors.toList());
+			roundCount = filteredRanks.stream().filter(distinctByKey(r -> r.getRound().getId())).count();
 		} else {
 			filteredRanks = ranks.stream().filter(
 					r -> r.getRound().getDate().isAfter(LocalDate.of(Integer.parseInt(year), 1, 1).minusDays(1)))
 					.filter(r -> r.getRound().getDate()
 							.isBefore(LocalDate.of(Integer.parseInt(year), 12, 31).plusDays(1)))
 					.collect(Collectors.toList());
+			roundCount = filteredRanks.stream().filter(distinctByKey(r -> r.getRound().getId())).count();
 		}
 	}
 
@@ -184,7 +184,8 @@ public class StatisticsController implements Serializable {
 		model.setShowDataLabels(true);
 		for (Player player : players) {
 			Long count = filteredRanks.stream().filter(r -> r.getPlayer().getName().equals(player.getName()))
-					.filter(r -> r.getRound().getGame().getValue().equals(GameValue.LARGE)).count();
+					.filter(r -> r.getRound().getGame().getValue().equals(GameValue.LARGE))
+					.filter(r -> (r.getRank() == 1)).count();
 			model.set(player.getName(), count);
 		}
 
@@ -193,13 +194,14 @@ public class StatisticsController implements Serializable {
 
 	public PieChartModel getBestMedium() {
 		PieChartModel model = new PieChartModel();
-		model.setTitle(msg.getString("statistics.chart.bestlarge.title"));
+		model.setTitle(msg.getString("statistics.chart.bestmedium.title"));
 		model.setLegendPosition("e");
 		model.setLegendPlacement(LegendPlacement.OUTSIDEGRID);
 		model.setShowDataLabels(true);
 		for (Player player : players) {
 			Long count = filteredRanks.stream().filter(r -> r.getPlayer().getName().equals(player.getName()))
-					.filter(r -> r.getRound().getGame().getValue().equals(GameValue.MEDIUM)).count();
+					.filter(r -> r.getRound().getGame().getValue().equals(GameValue.MEDIUM))
+					.filter(r -> (r.getRank() == 1)).count();
 			model.set(player.getName(), count);
 		}
 
