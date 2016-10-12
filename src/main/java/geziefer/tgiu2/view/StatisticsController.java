@@ -89,7 +89,7 @@ public class StatisticsController implements Serializable {
 	public PieChartModel getSecondRanks() {
 		PieChartModel model = new PieChartModel();
 		model.setTitle(msg.getString("statistics.chart.secondranks.title"));
-		model.setLegendPosition("w");
+		model.setLegendPosition("e");
 		model.setLegendPlacement(LegendPlacement.OUTSIDEGRID);
 		model.setShowDataLabels(true);
 		for (Player player : players) {
@@ -119,7 +119,7 @@ public class StatisticsController implements Serializable {
 	public PieChartModel getDNFRanks() {
 		PieChartModel model = new PieChartModel();
 		model.setTitle(msg.getString("statistics.chart.dnfranks.title"));
-		model.setLegendPosition("w");
+		model.setLegendPosition("e");
 		model.setLegendPlacement(LegendPlacement.OUTSIDEGRID);
 		model.setShowDataLabels(true);
 		for (Player player : players) {
