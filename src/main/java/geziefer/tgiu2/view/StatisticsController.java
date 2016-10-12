@@ -22,6 +22,7 @@ import org.primefaces.model.chart.LegendPlacement;
 import org.primefaces.model.chart.PieChartModel;
 
 import geziefer.tgiu2.LocalEntityManagerFactory;
+import geziefer.tgiu2.entity.GameValue;
 import geziefer.tgiu2.entity.Player;
 import geziefer.tgiu2.entity.Rank;
 
@@ -125,6 +126,36 @@ public class StatisticsController implements Serializable {
 		for (Player player : players) {
 			Long count = ranks.stream().filter(r -> r.getPlayer().getName().equals(player.getName()))
 					.filter(r -> (r.getRank() > 3)).count();
+			model.set(player.getName(), count);
+		}
+
+		return model;
+	}
+
+	public PieChartModel getBestLarge() {
+		PieChartModel model = new PieChartModel();
+		model.setTitle(msg.getString("statistics.chart.bestlarge.title"));
+		model.setLegendPosition("w");
+		model.setLegendPlacement(LegendPlacement.OUTSIDEGRID);
+		model.setShowDataLabels(true);
+		for (Player player : players) {
+			Long count = ranks.stream().filter(r -> r.getPlayer().getName().equals(player.getName()))
+					.filter(r -> r.getRound().getGame().getValue().equals(GameValue.LARGE)).count();
+			model.set(player.getName(), count);
+		}
+
+		return model;
+	}
+
+	public PieChartModel getBestMedium() {
+		PieChartModel model = new PieChartModel();
+		model.setTitle(msg.getString("statistics.chart.bestlarge.title"));
+		model.setLegendPosition("e");
+		model.setLegendPlacement(LegendPlacement.OUTSIDEGRID);
+		model.setShowDataLabels(true);
+		for (Player player : players) {
+			Long count = ranks.stream().filter(r -> r.getPlayer().getName().equals(player.getName()))
+					.filter(r -> r.getRound().getGame().getValue().equals(GameValue.MEDIUM)).count();
 			model.set(player.getName(), count);
 		}
 

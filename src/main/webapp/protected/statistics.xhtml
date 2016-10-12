@@ -10,7 +10,7 @@
 		<p:panel id="statisticsHeader" header="#{msg['menu.statistics']}">
 			<h:form>
 				<p:panelGrid columns="1" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
-					<p:chart type="bar" model="#{statisticsController.rounds}" responsive="true" style="height:250px" />
+					<p:chart type="bar" model="#{statisticsController.rounds}" responsive="true" style="height:350px" />
 				</p:panelGrid>
 				<hr></hr>
 				<p:panelGrid columns="2" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
@@ -18,6 +18,11 @@
 					<p:chart type="pie" model="#{statisticsController.secondRanks}" responsive="true" style="height:250px" />
 					<p:chart type="pie" model="#{statisticsController.thirdRanks}" responsive="true" style="height:250px" />
 					<p:chart type="pie" model="#{statisticsController.DNFRanks}" responsive="true" style="height:250px" />
+				</p:panelGrid>
+				<hr></hr>
+				<p:panelGrid columns="2" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
+					<p:chart type="pie" model="#{statisticsController.bestLarge}" responsive="true" style="height:250px" />
+					<p:chart type="pie" model="#{statisticsController.bestMedium}" responsive="true" style="height:250px" />
 				</p:panelGrid>
 			</h:form>
 		</p:panel>
