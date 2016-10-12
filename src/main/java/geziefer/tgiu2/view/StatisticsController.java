@@ -5,10 +5,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.PropertyResourceBundle;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -36,24 +38,50 @@ public class StatisticsController implements Serializable {
 
 	private List<Rank> ranks = new ArrayList<>();
 
+	private List<Rank> filteredRanks = new ArrayList<>();
+
 	private List<Player> players = new ArrayList<>();
 
 	private Long roundCount;
 
+	private String year;
+
+	private List<String> years = new ArrayList<>();
+
 	public void initFields() {
 		EntityManager em = LocalEntityManagerFactory.createEntityManager();
-		// TODO: depending on combobox selection
-		LocalDate from = LocalDate.now().withDayOfYear(1);
-		LocalDate to = from.plusYears(1).minusDays(1);
-		TypedQuery<Rank> query1 = em.createNamedQuery("Rank.findByDate", Rank.class);
-		query1.setParameter("from", from);
-		query1.setParameter("to", to);
+		TypedQuery<Rank> query1 = em.createNamedQuery("Rank.findAll", Rank.class);
 		ranks = query1.getResultList();
 
 		TypedQuery<Player> query2 = em.createNamedQuery("Player.findAll", Player.class);
 		players = query2.getResultList();
 
 		roundCount = ranks.stream().filter(distinctByKey(r -> r.getRound().getId())).count();
+
+		year = msg.getString("statistics.selection.all");
+		years = new ArrayList<>();
+		years.add(msg.getString("statistics.selection.all"));
+		Optional<LocalDate> minDate = ranks.stream().map(r -> r.getRound().getDate()).min(LocalDate::compareTo);
+		Optional<LocalDate> maxDate = ranks.stream().map(r -> r.getRound().getDate()).max(LocalDate::compareTo);
+		if (minDate.isPresent() && maxDate.isPresent()) {
+			for (int i = maxDate.get().getYear(); i >= minDate.get().getYear(); i--) {
+				years.add("" + i);
+			}
+		}
+
+		changeYear();
+	}
+
+	public void changeYear() {
+		if (year.equals(msg.getString("statistics.selection.all"))) {
+			filteredRanks = ranks.stream().collect(Collectors.toList());
+		} else {
+			filteredRanks = ranks.stream().filter(
+					r -> r.getRound().getDate().isAfter(LocalDate.of(Integer.parseInt(year), 1, 1).minusDays(1)))
+					.filter(r -> r.getRound().getDate()
+							.isBefore(LocalDate.of(Integer.parseInt(year), 12, 31).plusDays(1)))
+					.collect(Collectors.toList());
+		}
 	}
 
 	public HorizontalBarChartModel getRounds() {
@@ -63,13 +91,29 @@ public class StatisticsController implements Serializable {
 		ChartSeries series = new ChartSeries();
 		for (int i = players.size() - 1; i >= 0; i--) {
 			Player player = players.get(i);
-			Long count = ranks.stream().filter(r -> r.getPlayer().getName().equals(player.getName())).count();
+			Long count = filteredRanks.stream().filter(r -> r.getPlayer().getName().equals(player.getName())).count();
 			series.set(player.getName(), count);
 		}
 		series.set(msg.getString("statistics.chart.rounds.total"), roundCount);
 		model.addSeries(series);
 
 		return model;
+	}
+
+	public Long getRoundCount() {
+		return roundCount;
+	}
+
+	public List<String> getYears() {
+		return years;
+	}
+
+	public String getYear() {
+		return year;
+	}
+
+	public void setYear(String year) {
+		this.year = year;
 	}
 
 	public PieChartModel getFirstRanks() {
@@ -79,7 +123,7 @@ public class StatisticsController implements Serializable {
 		model.setLegendPlacement(LegendPlacement.OUTSIDEGRID);
 		model.setShowDataLabels(true);
 		for (Player player : players) {
-			Long count = ranks.stream().filter(r -> r.getPlayer().getName().equals(player.getName()))
+			Long count = filteredRanks.stream().filter(r -> r.getPlayer().getName().equals(player.getName()))
 					.filter(r -> (r.getRank() == 1)).count();
 			model.set(player.getName(), count);
 		}
@@ -94,7 +138,7 @@ public class StatisticsController implements Serializable {
 		model.setLegendPlacement(LegendPlacement.OUTSIDEGRID);
 		model.setShowDataLabels(true);
 		for (Player player : players) {
-			Long count = ranks.stream().filter(r -> r.getPlayer().getName().equals(player.getName()))
+			Long count = filteredRanks.stream().filter(r -> r.getPlayer().getName().equals(player.getName()))
 					.filter(r -> (r.getRank() == 2)).count();
 			model.set(player.getName(), count);
 		}
@@ -109,7 +153,7 @@ public class StatisticsController implements Serializable {
 		model.setLegendPlacement(LegendPlacement.OUTSIDEGRID);
 		model.setShowDataLabels(true);
 		for (Player player : players) {
-			Long count = ranks.stream().filter(r -> r.getPlayer().getName().equals(player.getName()))
+			Long count = filteredRanks.stream().filter(r -> r.getPlayer().getName().equals(player.getName()))
 					.filter(r -> (r.getRank() == 3)).count();
 			model.set(player.getName(), count);
 		}
@@ -124,7 +168,7 @@ public class StatisticsController implements Serializable {
 		model.setLegendPlacement(LegendPlacement.OUTSIDEGRID);
 		model.setShowDataLabels(true);
 		for (Player player : players) {
-			Long count = ranks.stream().filter(r -> r.getPlayer().getName().equals(player.getName()))
+			Long count = filteredRanks.stream().filter(r -> r.getPlayer().getName().equals(player.getName()))
 					.filter(r -> (r.getRank() > 3)).count();
 			model.set(player.getName(), count);
 		}
@@ -139,7 +183,7 @@ public class StatisticsController implements Serializable {
 		model.setLegendPlacement(LegendPlacement.OUTSIDEGRID);
 		model.setShowDataLabels(true);
 		for (Player player : players) {
-			Long count = ranks.stream().filter(r -> r.getPlayer().getName().equals(player.getName()))
+			Long count = filteredRanks.stream().filter(r -> r.getPlayer().getName().equals(player.getName()))
 					.filter(r -> r.getRound().getGame().getValue().equals(GameValue.LARGE)).count();
 			model.set(player.getName(), count);
 		}
@@ -154,7 +198,7 @@ public class StatisticsController implements Serializable {
 		model.setLegendPlacement(LegendPlacement.OUTSIDEGRID);
 		model.setShowDataLabels(true);
 		for (Player player : players) {
-			Long count = ranks.stream().filter(r -> r.getPlayer().getName().equals(player.getName()))
+			Long count = filteredRanks.stream().filter(r -> r.getPlayer().getName().equals(player.getName()))
 					.filter(r -> r.getRound().getGame().getValue().equals(GameValue.MEDIUM)).count();
 			model.set(player.getName(), count);
 		}
@@ -165,9 +209,5 @@ public class StatisticsController implements Serializable {
 	private <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
 		Map<Object, Boolean> seen = new ConcurrentHashMap<>();
 		return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
-	}
-
-	public Long getRoundCount() {
-		return roundCount;
 	}
 }

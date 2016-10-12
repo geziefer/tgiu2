@@ -8,7 +8,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 @Entity
-@NamedQuery(name = "Rank.findByDate", query = "SELECT r FROM Rank r WHERE r.round.date >= :from AND r.round.date <= :to")
+@NamedQuery(name = "Rank.findAll", query = "SELECT r FROM Rank r")
 public class Rank extends Base {
 	@ManyToOne
 	@JoinColumn(name = "round_id")
