@@ -9,14 +9,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-@NamedQueries({ @NamedQuery(name = "Round.findAll", query = "SELECT r FROM Round r ORDER BY r.date DESC"),
-		@NamedQuery(name = "Round.findByDate", query = "SELECT r FROM Round r WHERE r.date >= :from AND r.date <= :to") })
+@NamedQuery(name = "Round.findAll", query = "SELECT r FROM Round r ORDER BY r.date DESC")
 public class Round extends Base {
 	@Column
 	private LocalDate date;

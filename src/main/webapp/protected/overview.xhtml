@@ -7,7 +7,38 @@
 		<f:viewAction action="#{overviewController.initFields()}" />
 	</f:metadata>
 	<ui:define name="body">
-		<p:panel id="overviewHeader" header="#{msg['menu.overview']}">
+		<p:panel header="#{msg['overview.current']} #{overviewController.year}">
+			<p:dataTable var="filteredRanking" rowIndexVar="row" value="#{overviewController.filteredRankings}"
+				sortBy="#{filteredRanking.score}" sortOrder="descending">
+				<p:column headerText="#{msg['global.number']}" style="width: 10%">
+					<h:outputText value="#{row + 1}" />
+				</p:column>
+
+				<p:column headerText="#{msg['overview.name']}" style="width: 25%">
+					<h:outputText value="#{filteredRanking.name}" />
+				</p:column>
+
+				<p:column headerText="#{msg['overview.rounds']}" style="width: 15%">
+					<h:outputText value="#{filteredRanking.rounds}" />
+				</p:column>
+
+				<p:column headerText="#{msg['overview.sum']}" style="width: 25%">
+					<h:outputText value="#{filteredRanking.sum}">
+						<f:convertNumber minFractionDigits="3" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="#{msg['overview.score']}" style="width: 25%">
+					<h:outputText value="#{filteredRanking.score}">
+						<f:convertNumber minFractionDigits="3" />
+					</h:outputText>
+				</p:column>
+			</p:dataTable>
+		</p:panel>
+
+		<br />
+
+		<p:panel header="#{msg['overview.overall']}">
 			<p:dataTable var="ranking" rowIndexVar="row" value="#{overviewController.rankings}" sortBy="#{rankin.score}"
 				sortOrder="descending">
 				<p:column headerText="#{msg['global.number']}" style="width: 10%">
