@@ -44,17 +44,25 @@ public class RoundsController implements Serializable {
 
 	private List<Round> rounds = new ArrayList<>();
 
+	private List<Round> filteredRounds = new ArrayList<>();
+
+	private boolean showAll;
+
 	public void initFields() {
 		EntityManager em = LocalEntityManagerFactory.createEntityManager();
 		TypedQuery<Player> query1 = em.createNamedQuery("Player.findAll", Player.class);
 		players = query1.getResultList();
 		TypedQuery<Game> query2 = em.createNamedQuery("Game.findAll", Game.class);
-		setGames(query2.getResultList());
+		games = query2.getResultList();
 		TypedQuery<Round> query3 = em.createNamedQuery("Round.findAll", Round.class);
-		setRounds(query3.getResultList());
+		rounds = query3.getResultList();
+
+		int year = LocalDate.now().getYear();
+		filteredRounds = rounds.stream().filter(r -> (r.getDate().getYear() == year)).collect(Collectors.toList());
 
 		game = null;
 		date = null;
+		setShowAll(false);
 		ranks = new ArrayList<>();
 		for (Player player : players) {
 			Rank rank = new Rank();
@@ -68,16 +76,8 @@ public class RoundsController implements Serializable {
 		return ranks;
 	}
 
-	public void setRanks(List<Rank> ranks) {
-		this.ranks = ranks;
-	}
-
 	public List<Game> getGames() {
 		return games;
-	}
-
-	public void setGames(List<Game> games) {
-		this.games = games;
 	}
 
 	public Game getGame() {
@@ -89,11 +89,7 @@ public class RoundsController implements Serializable {
 	}
 
 	public List<Round> getRounds() {
-		return rounds;
-	}
-
-	public void setRounds(List<Round> rounds) {
-		this.rounds = rounds;
+		return showAll ? rounds : filteredRounds;
 	}
 
 	public String getPlayersForRank(Round round, int rankNumber) {
@@ -122,6 +118,14 @@ public class RoundsController implements Serializable {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public boolean isShowAll() {
+		return showAll;
+	}
+
+	public void setShowAll(boolean showAll) {
+		this.showAll = showAll;
 	}
 
 	public String formatDate(LocalDate date) {

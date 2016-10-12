@@ -61,8 +61,18 @@
 					</h:panelGrid>
 				</h:form>
 			</p:panel>
-			<p:dataTable var="round" value="#{roundsController.rounds}" rows="10" paginator="true" sortBy="#{round.date}"
-				sortOrder="descending"
+
+			<h:form>
+				<h:panelGrid columns="2" cellpadding="5" styleClass="centered">
+					<h:outputText value="#{msg['rounds.showAll']}" />
+					<p:inputSwitch value="#{roundsController.showAll}" onLabel="#{msg['global.on']}" offLabel="#{msg['global.off']}">
+						<p:ajax update="roundsTable" />
+					</p:inputSwitch>
+				</h:panelGrid>
+			</h:form>
+
+			<p:dataTable id="roundsTable" var="round" value="#{roundsController.rounds}" rows="10" paginator="true"
+				sortBy="#{round.date}" sortOrder="descending"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				currentPageReportTemplate="{totalRecords} #{msg['global.count']}" paginatorPosition="bottom"
 				rowsPerPageTemplate="5,10,20,50">
