@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @NamedQueries({ @NamedQuery(name = "Player.findAll", query = "SELECT p FROM Player p ORDER BY p.name"),
 		@NamedQuery(name = "Player.findByName", query = "SELECT p FROM Player p WHERE p.name = :name") })
@@ -13,6 +15,7 @@ public class Player extends Base {
 	private String name;
 
 	@Column
+	@JsonIgnore
 	private String password;
 
 	public String getName() {

@@ -7,11 +7,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @NamedQuery(name = "Rank.findAll", query = "SELECT r FROM Rank r")
 public class Rank extends Base {
 	@ManyToOne
 	@JoinColumn(name = "round_id")
+	@JsonIgnore
 	private Round round;
 
 	@OneToOne

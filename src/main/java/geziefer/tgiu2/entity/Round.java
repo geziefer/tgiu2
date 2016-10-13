@@ -12,11 +12,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import geziefer.tgiu2.LocalDateAdapter;
 
 @Entity
 @NamedQuery(name = "Round.findAll", query = "SELECT r FROM Round r ORDER BY r.date DESC")
 public class Round extends Base {
 	@Column
+	@XmlJavaTypeAdapter(LocalDateAdapter.class)
 	private LocalDate date;
 
 	@OneToOne
