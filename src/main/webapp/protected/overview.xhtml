@@ -39,7 +39,7 @@
 		<br />
 
 		<p:panel header="#{msg['overview.overall']}">
-			<p:dataTable var="ranking" rowIndexVar="row" value="#{overviewController.rankings}" sortBy="#{rankin.score}"
+			<p:dataTable var="ranking" rowIndexVar="row" value="#{overviewController.rankings}" sortBy="#{ranking.score}"
 				sortOrder="descending">
 				<p:column headerText="#{msg['global.number']}" style="width: 10%">
 					<h:outputText value="#{row + 1}" />
