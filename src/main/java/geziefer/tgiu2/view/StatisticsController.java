@@ -56,9 +56,7 @@ public class StatisticsController implements Serializable {
 		TypedQuery<Player> query2 = em.createNamedQuery("Player.findAll", Player.class);
 		players = query2.getResultList();
 
-		year = msg.getString("statistics.selection.all");
 		years = new ArrayList<>();
-		years.add(msg.getString("statistics.selection.all"));
 		Optional<LocalDate> minDate = ranks.stream().map(r -> r.getRound().getDate()).min(LocalDate::compareTo);
 		Optional<LocalDate> maxDate = ranks.stream().map(r -> r.getRound().getDate()).max(LocalDate::compareTo);
 		if (minDate.isPresent() && maxDate.isPresent()) {
@@ -66,6 +64,8 @@ public class StatisticsController implements Serializable {
 				years.add("" + i);
 			}
 		}
+		years.add(msg.getString("statistics.selection.all"));
+		year = years.get(0);
 
 		changeYear();
 	}
@@ -84,22 +84,6 @@ public class StatisticsController implements Serializable {
 		}
 	}
 
-	public HorizontalBarChartModel getRounds() {
-		HorizontalBarChartModel model = new HorizontalBarChartModel();
-		model.setTitle(msg.getString("statistics.chart.rounds.title"));
-		model.setDatatipFormat("%d");
-		ChartSeries series = new ChartSeries();
-		for (int i = players.size() - 1; i >= 0; i--) {
-			Player player = players.get(i);
-			Long count = filteredRanks.stream().filter(r -> r.getPlayer().getName().equals(player.getName())).count();
-			series.set(player.getName(), count);
-		}
-		series.set(msg.getString("statistics.chart.rounds.total"), roundCount);
-		model.addSeries(series);
-
-		return model;
-	}
-
 	public Long getRoundCount() {
 		return roundCount;
 	}
@@ -114,6 +98,22 @@ public class StatisticsController implements Serializable {
 
 	public void setYear(String year) {
 		this.year = year;
+	}
+
+	public HorizontalBarChartModel getRounds() {
+		HorizontalBarChartModel model = new HorizontalBarChartModel();
+		model.setTitle(msg.getString("statistics.chart.rounds.title"));
+		model.setDatatipFormat("%d");
+		ChartSeries series = new ChartSeries();
+		for (int i = players.size() - 1; i >= 0; i--) {
+			Player player = players.get(i);
+			Long count = filteredRanks.stream().filter(r -> r.getPlayer().getName().equals(player.getName())).count();
+			series.set(player.getName(), count);
+		}
+		series.set(msg.getString("statistics.chart.rounds.total"), roundCount);
+		model.addSeries(series);
+
+		return model;
 	}
 
 	public PieChartModel getFirstRanks() {
