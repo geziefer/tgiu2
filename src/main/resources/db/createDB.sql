@@ -13,8 +13,7 @@ create table Game(
 	name varchar(50) not null,
 	value varchar(10) not null,
 	primary key (id)
-	
-)
+);
 
 alter table Game
 add unique (name);

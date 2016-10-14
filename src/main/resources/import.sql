@@ -6,3 +6,23 @@ insert into Player (id, name, password) values (-5, 'Ersatz', '0f22f24ea0942f5a0
 insert into Player (id, name, password) values (-6, 'Kai', '3a2e072910f8879a6689cfb328c794990a17c243');
 insert into Player (id, name, password) values (-7, 'Michael', 'f8c38b2167c0ab6d7c720e47c2139428d77d8b6a');
 insert into Player (id, name, password) values (-8, 'Thorsten', '31c699eacdc45f1a41d2007092acc3c7efdc9f4b');
+
+insert into Game (id, name, value) values (-1, 'Siedler', 'LARGE');
+insert into Game (id, name, value) values (-2, 'Maracash', 'MEDIUM');
+insert into Game (id, name, value) values (-3, 'Al Cabohne', 'SMALL');
+
+insert into Round (id, date, game_id) values (-1, '2015-10-10', -1);
+insert into Round (id, date, game_id) values (-2, '2016-01-22', -2);
+insert into Round (id, date, game_id) values (-3, '2016-10-12', -3);
+
+insert into Rank (id, round_id, player_id, rank) values (-1, -1, -1, 1);
+insert into Rank (id, round_id, player_id, rank) values (-2, -1, -2, 2);
+insert into Rank (id, round_id, player_id, rank) values (-3, -1, -3, 3);
+insert into Rank (id, round_id, player_id, rank) values (-4, -1, -4, 4);
+insert into Rank (id, round_id, player_id, rank) values (-5, -2, -1, 4);
+insert into Rank (id, round_id, player_id, rank) values (-6, -2, -2, 3);
+insert into Rank (id, round_id, player_id, rank) values (-7, -2, -3, 2);
+insert into Rank (id, round_id, player_id, rank) values (-8, -2, -4, 1);
+insert into Rank (id, round_id, player_id, rank) values (-9, -3, -1, 2);
+insert into Rank (id, round_id, player_id, rank) values (-10, -3, -2, 1);
+insert into Rank (id, round_id, player_id, rank) values (-11, -3, -3, 2);
