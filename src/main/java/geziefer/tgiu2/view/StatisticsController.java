@@ -16,6 +16,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.primefaces.model.chart.ChartSeries;
@@ -23,7 +24,6 @@ import org.primefaces.model.chart.HorizontalBarChartModel;
 import org.primefaces.model.chart.LegendPlacement;
 import org.primefaces.model.chart.PieChartModel;
 
-import geziefer.tgiu2.LocalEntityManagerFactory;
 import geziefer.tgiu2.entity.GameValue;
 import geziefer.tgiu2.entity.Player;
 import geziefer.tgiu2.entity.Rank;
@@ -33,6 +33,9 @@ import geziefer.tgiu2.entity.Rank;
 public class StatisticsController implements Serializable {
 	private static final long serialVersionUID = -270705952015361605L;
 
+	@PersistenceContext
+	EntityManager em;
+	
 	@Inject
 	private transient PropertyResourceBundle msg;
 
@@ -49,7 +52,6 @@ public class StatisticsController implements Serializable {
 	private List<String> years = new ArrayList<>();
 
 	public void initFields() {
-		EntityManager em = LocalEntityManagerFactory.createEntityManager();
 		TypedQuery<Rank> query1 = em.createNamedQuery("Rank.findAll", Rank.class);
 		ranks = query1.getResultList();
 

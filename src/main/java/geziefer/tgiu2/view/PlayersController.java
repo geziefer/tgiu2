@@ -12,18 +12,24 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
+import javax.transaction.Transactional.TxType;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import geziefer.tgiu2.LocalEntityManagerFactory;
 import geziefer.tgiu2.entity.Player;
 
 @Named
 @SessionScoped
+@Transactional(value=TxType.REQUIRED)
 public class PlayersController implements Serializable {
 	private static final long serialVersionUID = 2694864640991849406L;
 
+	@PersistenceContext
+	EntityManager em;
+	
 	@Inject
 	private transient PropertyResourceBundle msg;
 
@@ -35,7 +41,6 @@ public class PlayersController implements Serializable {
 
 	@PostConstruct
 	public void populateList() {
-		EntityManager em = LocalEntityManagerFactory.createEntityManager();
 		TypedQuery<Player> query = em.createNamedQuery("Player.findAll", Player.class);
 		players = query.getResultList();
 	}
@@ -66,7 +71,6 @@ public class PlayersController implements Serializable {
 	}
 
 	public String createPlayer() {
-		EntityManager em = LocalEntityManagerFactory.createEntityManager();
 		TypedQuery<Player> query = em.createNamedQuery("Player.findByName", Player.class);
 		query.setParameter("name", name);
 		List<Player> players = query.getResultList();
@@ -74,9 +78,7 @@ public class PlayersController implements Serializable {
 			Player newPlayer = new Player();
 			newPlayer.setName(name);
 			newPlayer.setPassword(DigestUtils.sha1Hex(password));
-			em.getTransaction().begin();
 			em.persist(newPlayer);
-			em.getTransaction().commit();
 			initFields();
 			populateList();
 			FacesContext.getCurrentInstance().addMessage(null,

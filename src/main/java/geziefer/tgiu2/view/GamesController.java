@@ -12,17 +12,23 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
+import javax.transaction.Transactional.TxType;
 
-import geziefer.tgiu2.LocalEntityManagerFactory;
 import geziefer.tgiu2.entity.Game;
 import geziefer.tgiu2.entity.GameValue;
 
 @Named
 @SessionScoped
+@Transactional(value=TxType.REQUIRED)
 public class GamesController implements Serializable {
 	private static final long serialVersionUID = -5095638556476107999L;
 
+	@PersistenceContext
+	EntityManager em;
+	
 	@Inject
 	private transient PropertyResourceBundle msg;
 
@@ -34,7 +40,6 @@ public class GamesController implements Serializable {
 
 	@PostConstruct
 	public void populateList() {
-		EntityManager em = LocalEntityManagerFactory.createEntityManager();
 		TypedQuery<Game> query = em.createNamedQuery("Game.findAll", Game.class);
 		games = query.getResultList();
 	}
@@ -65,7 +70,6 @@ public class GamesController implements Serializable {
 	}
 
 	public String createGame() {
-		EntityManager em = LocalEntityManagerFactory.createEntityManager();
 		TypedQuery<Game> query = em.createNamedQuery("Game.findByName", Game.class);
 		query.setParameter("name", name);
 		List<Game> games = query.getResultList();
@@ -73,9 +77,7 @@ public class GamesController implements Serializable {
 			Game newGame = new Game();
 			newGame.setName(name);
 			newGame.setValue(value);
-			em.getTransaction().begin();
 			em.persist(newGame);
-			em.getTransaction().commit();
 			initFields();
 			populateList();
 

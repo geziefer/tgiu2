@@ -12,12 +12,12 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import geziefer.tgiu2.LocalEntityManagerFactory;
 import geziefer.tgiu2.entity.Player;
 
 @Named
@@ -27,6 +27,9 @@ public class LoginController implements Serializable {
 	private static final long serialVersionUID = 3973801993975443027L;
 
 	private static Logger log = Logger.getLogger(LoginController.class.getName());
+
+	@PersistenceContext
+	EntityManager em;
 
 	@Inject
 	private transient PropertyResourceBundle msg;
@@ -58,7 +61,6 @@ public class LoginController implements Serializable {
 
 	public String login() {
 		boolean ok = false;
-		EntityManager em = LocalEntityManagerFactory.createEntityManager();
 		TypedQuery<Player> query = em.createNamedQuery("Player.findByName", Player.class);
 		query.setParameter("name", username);
 		List<Player> players = query.getResultList();
