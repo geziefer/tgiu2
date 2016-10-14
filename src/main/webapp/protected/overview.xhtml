@@ -1,70 +1,79 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
-	xmlns:c="http://java.sun.com/jsp/jstl/core" template="../template/ui.xhtml">
-	<f:metadata>
-		<f:viewAction action="#{overviewController.initFields()}" />
-	</f:metadata>
-	<ui:define name="body">
-		<p:panel header="#{msg['overview.current']} #{overviewController.year}">
-			<p:dataTable var="filteredRanking" rowIndexVar="row" value="#{overviewController.filteredRankings}"
-				sortBy="#{filteredRanking.score}" sortOrder="descending">
-				<p:column headerText="#{msg['global.number']}" style="width: 10%">
-					<h:outputText value="#{row + 1}" />
-				</p:column>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<ui:composition template="../template/ui.xhtml">
+		<f:metadata>
+			<f:viewAction action="#{overviewController.initFields()}" />
+		</f:metadata>
+		<ui:define name="body">
+			<p:panel
+				header="#{msg['overview.current']} #{overviewController.year}">
+				<p:dataTable var="filteredRanking" rowIndexVar="row"
+					value="#{overviewController.filteredRankings}"
+					sortBy="#{filteredRanking.score}" sortOrder="descending">
+					<p:column headerText="#{msg['global.number']}" style="width: 10%">
+						<h:outputText value="#{row + 1}" />
+					</p:column>
 
-				<p:column headerText="#{msg['overview.name']}" style="width: 25%">
-					<h:outputText value="#{filteredRanking.name}" />
-				</p:column>
+					<p:column headerText="#{msg['overview.name']}" style="width: 25%">
+						<h:outputText value="#{filteredRanking.name}" />
+					</p:column>
 
-				<p:column headerText="#{msg['overview.rounds']}" style="width: 15%">
-					<h:outputText value="#{filteredRanking.rounds}" />
-				</p:column>
+					<p:column headerText="#{msg['overview.rounds']}" style="width: 15%">
+						<h:outputText value="#{filteredRanking.rounds}" />
+					</p:column>
 
-				<p:column headerText="#{msg['overview.sum']}" style="width: 25%">
-					<h:outputText value="#{filteredRanking.sum}">
-						<f:convertNumber minFractionDigits="3" />
-					</h:outputText>
-				</p:column>
+					<p:column headerText="#{msg['overview.sum']}" style="width: 25%">
+						<h:outputText value="#{filteredRanking.sum}">
+							<f:convertNumber minFractionDigits="3" />
+						</h:outputText>
+					</p:column>
 
-				<p:column headerText="#{msg['overview.score']}" style="width: 25%">
-					<h:outputText value="#{filteredRanking.score}">
-						<f:convertNumber minFractionDigits="3" />
-					</h:outputText>
-				</p:column>
-			</p:dataTable>
-		</p:panel>
+					<p:column headerText="#{msg['overview.score']}" style="width: 25%">
+						<h:outputText value="#{filteredRanking.score}">
+							<f:convertNumber minFractionDigits="3" />
+						</h:outputText>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
 
-		<br />
+			<br />
 
-		<p:panel header="#{msg['overview.overall']}">
-			<p:dataTable var="ranking" rowIndexVar="row" value="#{overviewController.rankings}" sortBy="#{ranking.score}"
-				sortOrder="descending">
-				<p:column headerText="#{msg['global.number']}" style="width: 10%">
-					<h:outputText value="#{row + 1}" />
-				</p:column>
+			<p:panel header="#{msg['overview.overall']}">
+				<p:dataTable var="ranking" rowIndexVar="row"
+					value="#{overviewController.rankings}" sortBy="#{ranking.score}"
+					sortOrder="descending">
+					<p:column headerText="#{msg['global.number']}" style="width: 10%">
+						<h:outputText value="#{row + 1}" />
+					</p:column>
 
-				<p:column headerText="#{msg['overview.name']}" style="width: 25%">
-					<h:outputText value="#{ranking.name}" />
-				</p:column>
+					<p:column headerText="#{msg['overview.name']}" style="width: 25%">
+						<h:outputText value="#{ranking.name}" />
+					</p:column>
 
-				<p:column headerText="#{msg['overview.rounds']}" style="width: 15%">
-					<h:outputText value="#{ranking.rounds}" />
-				</p:column>
+					<p:column headerText="#{msg['overview.rounds']}" style="width: 15%">
+						<h:outputText value="#{ranking.rounds}" />
+					</p:column>
 
-				<p:column headerText="#{msg['overview.sum']}" style="width: 25%">
-					<h:outputText value="#{ranking.sum}">
-						<f:convertNumber minFractionDigits="3" />
-					</h:outputText>
-				</p:column>
+					<p:column headerText="#{msg['overview.sum']}" style="width: 25%">
+						<h:outputText value="#{ranking.sum}">
+							<f:convertNumber minFractionDigits="3" />
+						</h:outputText>
+					</p:column>
 
-				<p:column headerText="#{msg['overview.score']}" style="width: 25%">
-					<h:outputText value="#{ranking.score}">
-						<f:convertNumber minFractionDigits="3" />
-					</h:outputText>
-				</p:column>
-			</p:dataTable>
-		</p:panel>
-	</ui:define>
-</ui:composition>
+					<p:column headerText="#{msg['overview.score']}" style="width: 25%">
+						<h:outputText value="#{ranking.score}">
+							<f:convertNumber minFractionDigits="3" />
+						</h:outputText>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
