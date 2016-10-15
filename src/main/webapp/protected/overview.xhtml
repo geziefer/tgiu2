@@ -14,6 +14,12 @@
 						<f:selectItems value="#{overviewController.years}" />
 						<p:ajax update="overviewHeader" listener="#{overviewController.changeYear()}" />
 					</p:selectOneMenu>
+					<h:commandLink onclick="PF('doodleDialog').show(); return false;">
+						<h:graphicImage name="images/doodle.png" style="height: 30px" />
+					</h:commandLink>
+					<h:commandLink onclick="PF('infoDialog').show(); return false;">
+						<h:graphicImage name="images/help.png" style="height: 30px" />
+					</h:commandLink>
 
 					<p:dataTable var="filteredRanking" rowIndexVar="row" value="#{overviewController.filteredRankings}"
 						sortBy="#{filteredRanking.score}" sortOrder="descending">
@@ -74,6 +80,23 @@
 					</p:column>
 				</p:dataTable>
 			</p:panel>
+
+			<p:dialog widgetVar="infoDialog" header="#{msg['overview.info.header']}" modal="true">
+				<h:outputText value="#{msg['overview.info.text']}" escape="false" />
+			</p:dialog>
+
+			<p:dialog widgetVar="doodleDialog" header="#{msg['overview.doodle.header']}" modal="true">
+				<h:form>
+					<p:panelGrid id="doodlePanel" columns="1" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
+						<h:outputLink value="#{applicationConfig.doodleURL}" target="_blank">
+							<h:outputText value="#{msg['overview.doodle.current']}"></h:outputText>
+						</h:outputLink>
+						<br />
+						<p:inputText value="#{applicationConfig.doodleURL}" onclick="this.select()" />
+						<p:commandButton value="#{msg['global.save']}" update="doodlePanel" />
+					</p:panelGrid>
+				</h:form>
+			</p:dialog>
 		</ui:define>
 	</ui:composition>
 </h:body>
