@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -75,8 +76,16 @@ public class OverviewController implements Serializable {
 			ranking.setSum(rounds.stream().filter(r -> (r.getDate().getYear() == year))
 					.mapToDouble(r -> r.getPlayerPoints(player.getName())).sum());
 			ranking.setScore(ranking.getRounds() == 0 ? 0 : ranking.getSum() / ranking.getRounds());
+			ranking.setEligible(ranking.getRounds() >= 10);
 			filteredRankings.add(ranking);
 		}
+		List<Ranking> eligibleRanks = filteredRankings.stream().filter(r -> r.isEligible())
+				.sorted((r1, r2) -> r2.getScore().compareTo(r1.getScore())).collect(Collectors.toList());
+		List<Ranking> ineligibleRanks = filteredRankings.stream().filter(r -> !r.isEligible())
+				.sorted((r1, r2) -> r2.getScore().compareTo(r1.getScore())).collect(Collectors.toList());
+		filteredRankings = new ArrayList<>();
+		filteredRankings.addAll(eligibleRanks);
+		filteredRankings.addAll(ineligibleRanks);
 	}
 
 	public List<Integer> getYears() {

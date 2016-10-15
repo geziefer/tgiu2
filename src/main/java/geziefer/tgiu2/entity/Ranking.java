@@ -10,6 +10,8 @@ public class Ranking {
 
 	private Double score;
 
+	private Boolean eligible;
+
 	public String getName() {
 		return name;
 	}
@@ -40,6 +42,14 @@ public class Ranking {
 
 	public void setScore(Double score) {
 		this.score = score;
+	}
+
+	public Boolean isEligible() {
+		return eligible;
+	}
+
+	public void setEligible(Boolean eligible) {
+		this.eligible = eligible;
 	}
 
 }
