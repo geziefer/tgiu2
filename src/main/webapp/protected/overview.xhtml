@@ -92,8 +92,8 @@
 			<p:dialog widgetVar="doodleDialog" header="#{msg['overview.doodle.header']}" modal="true">
 				<h:form>
 					<p:panelGrid id="doodlePanel" columns="1" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
-						<h:outputLink value="#{applicationConfig.doodleURL}" target="_blank">
-							<h:outputText value="#{msg['overview.doodle.current']}"></h:outputText>
+						<h:outputLink value="#{applicationConfig.doodleURL}" target="_blank" styleClass="doodleLink">
+							<h:outputText value="#{msg['overview.doodle.current']}" escape="false"></h:outputText>
 						</h:outputLink>
 						<br />
 						<p:inputText value="#{applicationConfig.doodleURL}" onclick="this.select()" />
