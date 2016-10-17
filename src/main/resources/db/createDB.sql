@@ -1,3 +1,9 @@
+create table Config(
+	name varchar(50) not null,
+	value varchar(100),
+	primary key (name)
+);
+
 create table Player(
 	id integer not null auto_increment,
 	name varchar(20) not null,

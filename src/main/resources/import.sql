@@ -1,3 +1,5 @@
+insert into Config (name, value) values ('doodleURL', 'http://doodle.com');
+
 insert into Player (id, name, password) values (-1, 'Alex', '64542dbabb81dfd446e0cf4f319567c72ee57c7b');
 insert into Player (id, name, password) values (-2, 'Bernd', '3ddb99b6e1f6bd86ec2e2d619846a9cdd31018ed');
 insert into Player (id, name, password) values (-3, 'Birger', '40ceddc5ff3a931047a82e2e498be51491481ddc');

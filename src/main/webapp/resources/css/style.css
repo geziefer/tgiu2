@@ -22,12 +22,12 @@
 }
 
 .ui-slider {
-	margin-left: 10px;
-	margin-right: 60px;	
+	margin-left: 30px;
+	margin-right: 40px;
 }
 
 .ui-datatable-empty-message {
-    display: none;
+	display: none;
 }
 
 .noBorder tr, .noBorder td {
@@ -36,4 +36,9 @@
 
 .transparentBackground tr, .transparentBackground td {
 	background: transparent;
+}
+
+.doodleLink {
+	color: #0064dc !important;
+	text-decoration: none;
 }

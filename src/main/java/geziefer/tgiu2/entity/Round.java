@@ -60,6 +60,6 @@ public class Round extends Base {
 
 	public Double getPlayerPoints(String name) {
 		Optional<Rank> rank = ranks.stream().filter(r -> r.getPlayer().getName().equals(name)).findFirst();
-		return rank.isPresent() ? rank.get().calculateValue() * game.getValue().value : 0.0;
+		return rank.isPresent() ? rank.get().calculateValue() * game.getValue().value * ranks.size() : 0.0;
 	}
 }
