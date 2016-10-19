@@ -4,30 +4,16 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui"
 	xmlns:pm="http://primefaces.org/mobile">
 <f:view renderKitId="PRIMEFACES_MOBILE" />
-<h:head>
+<h:head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </h:head>
 <h:body>
 	<pm:page id="main">
+           <pm:header title="Main Page"></pm:header>
+           <pm:content></pm:content>
 	</pm:page>
-</h:body>
-<h:body>
-	<p:panel header="#{msg['menu.login']}">
-		<h:form>
-			<p:panelGrid id="loginGrid" columns="3" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
-				<div />
-				<p:inputText id="username" value="#{loginController.username}" placeholder="#{msg['login.username']}"
-					required="true" requiredMessage="#{msg['login.username.required']}" />
-				<p:message for="username" />
-
-				<div />
-				<p:password id="password" value="#{loginController.password}" placeholder="#{msg['login.password']}" required="true"
-					requiredMessage="#{msg['login.password.required']}" />
-				<p:message for="password" />
-
-				<div />
-				<p:commandButton action="#{loginController.login}" value="#{msg['login.button']}" update="loginGrid" />
-			</p:panelGrid>
-		</h:form>
-	</p:panel>
+	<pm:page id="second">
+           <pm:header title="Second Page"></pm:header>
+           <pm:content></pm:content>
+	</pm:page>
 </h:body>
 </html>
