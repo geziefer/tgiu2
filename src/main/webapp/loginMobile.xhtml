@@ -3,17 +3,36 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui"
 	xmlns:pm="http://primefaces.org/mobile">
-<f:view renderKitId="PRIMEFACES_MOBILE" />
-<h:head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-</h:head>
 <h:body>
-	<pm:page id="main">
-           <pm:header title="Main Page"></pm:header>
-           <pm:content></pm:content>
-	</pm:page>
-	<pm:page id="second">
-           <pm:header title="Second Page"></pm:header>
-           <pm:content></pm:content>
-	</pm:page>
+	<ui:composition template="template/templateMobile.xhtml">
+		<ui:define name="body">
+				<pm:header>
+					<h:graphicImage name="images/logo.png" style="max-width: 100%" />
+				</pm:header>
+				<pm:header title="#{msg['menu.login']}" />
+				<pm:content>
+					<div align="center">
+						<p:messages id="messages" autoUpdate="true" showDetail="false" globalOnly="true" />
+
+						<h:form>
+							<p:panelGrid id="loginGrid" columns="3" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
+								<div />
+								<p:inputText id="username" value="#{loginController.username}" placeholder="#{msg['login.username']}"
+									required="true" requiredMessage="#{msg['login.username.required']}" />
+								<p:message for="username" />
+
+								<div />
+								<p:password id="password" value="#{loginController.password}" placeholder="#{msg['login.password']}"
+									required="true" requiredMessage="#{msg['login.password.required']}" />
+								<p:message for="password" />
+
+								<div />
+								<p:commandButton action="#{loginController.login}" value="#{msg['login.button']}" update="loginGrid" />
+							</p:panelGrid>
+						</h:form>
+					</div>
+				</pm:content>
+		</ui:define>
+	</ui:composition>
 </h:body>
 </html>

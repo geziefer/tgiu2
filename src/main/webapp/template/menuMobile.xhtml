@@ -1,0 +1,22 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
+	<pm:header>
+		<h:form>
+			<p:commandButton id="btn-menu" type="button" icon="ui-icon-bars" />
+			<h:outputText value=" #{title}" style="vertical-align: sub" />
+			<h:graphicImage name="images/logo.png" style="padding-top: 10px;max-width: 50%;float: right" />
+
+			<p:overlayPanel for="btn-menu" at="right" showEffect="overlay" showCloseIcon="true" style="margin-top:46px">
+				<p:menu rendered="#{loginController.loggedIn}">
+					<p:menuitem value="#{msg['menu.overview']}" outcome="/mobile/overview" />
+					<p:menuitem value="#{msg['menu.rounds']}" outcome="/mobile/rounds" />
+					<p:menuitem value="#{msg['menu.games']}" outcome="/mobile/games" />
+					<p:menuitem value="#{msg['menu.players']}" outcome="/mobile/players" />
+					<p:menuitem value="#{msg['menu.statistics']}" outcome="/mobile/statistics" />
+					<p:menuitem value="#{msg['menu.logout']}" action="#{loginController.logout()}" />
+				</p:menu>
+			</p:overlayPanel>
+		</h:form>
+	</pm:header>
+</ui:composition>

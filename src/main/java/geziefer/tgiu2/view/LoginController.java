@@ -92,7 +92,7 @@ public class LoginController implements Serializable {
 			if (mobile) {
 				return "/loginMobile";
 			} else {
-				return "loginDesktop";
+				return "/loginDesktop";
 			}
 		}
 	}
@@ -100,7 +100,11 @@ public class LoginController implements Serializable {
 	public String logout() {
 		((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).invalidate();
 		loggedIn = false;
-		return "/login?faces-redirect=true";
+		if (mobile) {
+			return "/loginMobile?faces-redirect=true";
+		} else {
+			return "/loginDesktop?faces-redirect=true";
+		}
 	}
 
 	public void checkLoginAndRedirect(ComponentSystemEvent cse) {
