@@ -13,10 +13,12 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+import au.com.flyingkite.mobiledetect.UAgentInfo;
 import geziefer.tgiu2.LocalEntityManagerFactory;
 import geziefer.tgiu2.entity.Player;
 
@@ -33,6 +35,8 @@ public class LoginController implements Serializable {
 
 	private String username = "";
 	private String password = "";
+
+	private boolean mobile = false;
 
 	private boolean loggedIn = false;
 
@@ -56,6 +60,10 @@ public class LoginController implements Serializable {
 		return loggedIn;
 	}
 
+	public boolean isMobile() {
+		return mobile;
+	}
+
 	public String login() {
 		boolean ok = false;
 		EntityManager em = LocalEntityManagerFactory.createEntityManager();
@@ -72,12 +80,20 @@ public class LoginController implements Serializable {
 		if (ok) {
 			log.info("Login successful for user " + username);
 			loggedIn = true;
-			return "/protected/overview?faces-redirect=true";
+			if (mobile) {
+				return "/mobile/overview?faces-redirect=true";
+			} else {
+				return "/desktop/overview?faces-redirect=true";
+			}
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_WARN, msg.getString("login.warn.credentials"), ""));
 			log.warning("Login with wrong credentials from user " + username);
-			return "/login";
+			if (mobile) {
+				return "/loginMobile";
+			} else {
+				return "loginDesktop";
+			}
 		}
 	}
 
@@ -88,10 +104,33 @@ public class LoginController implements Serializable {
 	}
 
 	public void checkLoginAndRedirect(ComponentSystemEvent cse) {
+		String userAgent = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
+				.getHeader("user-agent");
+		UAgentInfo agentInfo = new UAgentInfo(userAgent, null);
+		mobile = agentInfo.detectMobileQuick();
+
 		FacesContext fx = FacesContext.getCurrentInstance();
 		String viewId = fx.getViewRoot().getViewId();
 		if (!loggedIn && !viewId.startsWith("/login")) {
-			fx.getApplication().getNavigationHandler().handleNavigation(fx, null, "/login?faces-redirect=true");
+			redirectLogin();
 		}
 	}
+
+	public void checkDeviceAndRedirect(ComponentSystemEvent cse) {
+		String userAgent = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
+				.getHeader("user-agent");
+		UAgentInfo agentInfo = new UAgentInfo(userAgent, null);
+		mobile = agentInfo.detectMobileQuick();
+		redirectLogin();
+	}
+
+	private void redirectLogin() {
+		FacesContext fx = FacesContext.getCurrentInstance();
+		if (mobile) {
+			fx.getApplication().getNavigationHandler().handleNavigation(fx, null, "/loginMobile?faces-redirect=true");
+		} else {
+			fx.getApplication().getNavigationHandler().handleNavigation(fx, null, "/loginDesktop?faces-redirect=true");
+		}
+	}
+
 }

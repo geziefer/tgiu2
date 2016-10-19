@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+	<ui:composition template="../template/ui.xhtml">
+		<f:metadata>
+			<f:viewAction action="#{playersController.initFields()}" />
+		</f:metadata>
+		<ui:define name="body">
+			<p:panel id="playerHeader" header="#{msg['menu.players']}">
+				<p:panel header="" toggleable="true" style="border:none"
+					widgetVar="playerPanel">
+					<h:form>
+						<p:panelGrid columns="3" styleClass="ui-panelgrid-blank ui-fluid"
+							layout="grid">
+							<div />
+							<p:inputText id="name" value="#{playersController.name}"
+								placeholder="#{msg['players.name']}" required="true"
+								requiredMessage="#{msg['players.name.required']}" />
+							<p:message for="name" />
+
+							<div />
+							<p:password id="password" value="#{playersController.password}"
+								placeholder="#{msg['players.password']}" required="true"
+								autocomplete="new-password"
+								requiredMessage="#{msg['players.password.required']}" />
+							<p:message for="password" />
+
+							<div />
+							<p:commandButton action="#{playersController.createPlayer()}"
+								value="#{msg['global.save']}" update="playerHeader" />
+						</p:panelGrid>
+					</h:form>
+				</p:panel>
+
+				<p:dataTable id="playerTable" var="player" rowIndexVar="row"
+					value="#{playersController.players}" rows="10" paginator="true"
+					sortBy="#{player.name}"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					currentPageReportTemplate="{totalRecords} #{msg['global.count']}"
+					paginatorPosition="bottom" rowsPerPageTemplate="5,10,20,50">
+					<p:column headerText="#{msg['global.number']}" style="width: 20%">
+						<h:outputText value="#{row + 1}" />
+					</p:column>
+
+					<p:column headerText="#{msg['players.name']}"
+						sortBy="#{player.name}" style="width: 80%">
+						<h:outputText value="#{player.name}" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
