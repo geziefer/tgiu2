@@ -12,10 +12,13 @@ insert into Player (id, name, password) values (-8, 'Thorsten', '31c699eacdc45f1
 insert into Game (id, name, value) values (-1, 'Siedler', 'LARGE');
 insert into Game (id, name, value) values (-2, 'Maracash', 'MEDIUM');
 insert into Game (id, name, value) values (-3, 'Al Cabohne', 'SMALL');
+insert into Game (id, name, value) values (-4, 'Orléons', 'LARGE');
 
 insert into Round (id, date, game_id) values (-1, '2015-10-10', -1);
-insert into Round (id, date, game_id) values (-2, '2016-01-22', -2);
-insert into Round (id, date, game_id) values (-3, '2016-10-12', -3);
+insert into Round (id, date, game_id) values (-2, '2015-12-12', -2);
+insert into Round (id, date, game_id) values (-3, '2016-01-22', -3);
+insert into Round (id, date, game_id) values (-4, '2016-03-10', -4);
+insert into Round (id, date, game_id) values (-5, '2016-07-04', -2);
 
 insert into Rank (id, round_id, player_id, rank) values (-1, -1, -1, 1);
 insert into Rank (id, round_id, player_id, rank) values (-2, -1, -2, 2);
@@ -28,3 +31,12 @@ insert into Rank (id, round_id, player_id, rank) values (-8, -2, -4, 1);
 insert into Rank (id, round_id, player_id, rank) values (-9, -3, -1, 2);
 insert into Rank (id, round_id, player_id, rank) values (-10, -3, -2, 1);
 insert into Rank (id, round_id, player_id, rank) values (-11, -3, -3, 2);
+insert into Rank (id, round_id, player_id, rank) values (-12, -4, -1, 1);
+insert into Rank (id, round_id, player_id, rank) values (-13, -4, -3, 1);
+insert into Rank (id, round_id, player_id, rank) values (-14, -4, -5, 3);
+insert into Rank (id, round_id, player_id, rank) values (-15, -4, -2, 4);
+insert into Rank (id, round_id, player_id, rank) values (-16, -5, -6, 1);
+insert into Rank (id, round_id, player_id, rank) values (-17, -5, -2, 1);
+insert into Rank (id, round_id, player_id, rank) values (-18, -5, -5, 3);
+insert into Rank (id, round_id, player_id, rank) values (-19, -5, -7, 3);
+insert into Rank (id, round_id, player_id, rank) values (-20, -5, -8, 5);

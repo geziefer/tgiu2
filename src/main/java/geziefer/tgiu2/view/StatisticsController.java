@@ -36,6 +36,9 @@ public class StatisticsController implements Serializable {
 	@Inject
 	private transient PropertyResourceBundle msg;
 
+	@Inject
+	private LoginController loginController;
+
 	private List<Rank> ranks = new ArrayList<>();
 
 	private List<Rank> filteredRanks = new ArrayList<>();
@@ -134,7 +137,7 @@ public class StatisticsController implements Serializable {
 	public PieChartModel getSecondRanks() {
 		PieChartModel model = new PieChartModel();
 		model.setTitle(msg.getString("statistics.chart.secondranks.title"));
-		model.setLegendPosition("e");
+		model.setLegendPosition(loginController.isMobile() ? "w" : "e");
 		model.setLegendPlacement(LegendPlacement.OUTSIDEGRID);
 		model.setShowDataLabels(true);
 		for (Player player : players) {
@@ -164,7 +167,7 @@ public class StatisticsController implements Serializable {
 	public PieChartModel getDNFRanks() {
 		PieChartModel model = new PieChartModel();
 		model.setTitle(msg.getString("statistics.chart.dnfranks.title"));
-		model.setLegendPosition("e");
+		model.setLegendPosition(loginController.isMobile() ? "w" : "e");
 		model.setLegendPlacement(LegendPlacement.OUTSIDEGRID);
 		model.setShowDataLabels(true);
 		for (Player player : players) {
@@ -195,7 +198,7 @@ public class StatisticsController implements Serializable {
 	public PieChartModel getBestMedium() {
 		PieChartModel model = new PieChartModel();
 		model.setTitle(msg.getString("statistics.chart.bestmedium.title"));
-		model.setLegendPosition("e");
+		model.setLegendPosition(loginController.isMobile() ? "w" : "e");
 		model.setLegendPlacement(LegendPlacement.OUTSIDEGRID);
 		model.setShowDataLabels(true);
 		for (Player player : players) {
