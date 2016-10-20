@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.primefaces.context.RequestContext;
 
 import au.com.flyingkite.mobiledetect.UAgentInfo;
 import geziefer.tgiu2.LocalEntityManagerFactory;
@@ -34,7 +35,10 @@ public class LoginController implements Serializable {
 	private transient PropertyResourceBundle msg;
 
 	private String username = "";
+
 	private String password = "";
+
+	private String newPassword = "";
 
 	private boolean mobile = false;
 
@@ -54,6 +58,14 @@ public class LoginController implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getNewPassword() {
+		return newPassword;
+	}
+
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
 	}
 
 	public boolean isLoggedIn() {
@@ -99,6 +111,7 @@ public class LoginController implements Serializable {
 
 	public String logout() {
 		((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).invalidate();
+		log.info("Logout successful for user " + username);
 		loggedIn = false;
 		if (mobile) {
 			return "/loginMobile?faces-redirect=true";
@@ -120,6 +133,25 @@ public class LoginController implements Serializable {
 	public void checkDeviceAndRedirect(ComponentSystemEvent cse) {
 		checkMobile();
 		redirectLogin();
+	}
+
+	public String changePassword() {
+		EntityManager em = LocalEntityManagerFactory.createEntityManager();
+		TypedQuery<Player> query = em.createNamedQuery("Player.findByName", Player.class);
+		query.setParameter("name", username);
+		List<Player> players = query.getResultList();
+		if (!players.isEmpty()) {
+			Player player = players.get(0);
+			player.setPassword(DigestUtils.sha1Hex(newPassword));
+			em.getTransaction().begin();
+			em.merge(player);
+			em.getTransaction().commit();
+			RequestContext.getCurrentInstance().execute("PF('passwordDialog').hide()");
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, msg.getString("login.password.success"), ""));
+		}
+
+		return "";
 	}
 
 	private void checkMobile() {

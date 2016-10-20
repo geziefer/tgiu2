@@ -9,7 +9,6 @@
 			<var>msg</var>
 		</resource-bundle>
 		<navigation-handler>
-			org.primefaces.mobile.application.MobileNavigationHandler
-		</navigation-handler>
+			org.primefaces.mobile.application.MobileNavigationHandler</navigation-handler>
 	</application>
 </faces-config>

@@ -17,6 +17,9 @@
 					<h:commandLink onclick="PF('doodleDialog').show(); return false;">
 						<h:graphicImage name="images/doodle.png" style="height: 30px" />
 					</h:commandLink>
+					<h:commandLink onclick="PF('passwordDialog').show(); return false;">
+						<h:graphicImage name="images/password.png" style="height: 30px" />
+					</h:commandLink>
 					<h:commandLink onclick="PF('infoDialog').show(); return false;">
 						<h:graphicImage name="images/help.png" style="height: 30px" />
 					</h:commandLink>
@@ -90,6 +93,18 @@
 				<br />
 				<br />
 				<h:outputText value="#{msg['overview.info.formula']}" escape="false" />
+			</p:dialog>
+
+			<p:dialog widgetVar="passwordDialog" header="#{msg['overview.password.header']}" modal="true">
+				<h:form>
+					<p:panelGrid id="passwordPanel" columns="1" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
+						<p:password id="password" value="#{loginController.newPassword}" placeholder="#{msg['login.password']}"
+							required="true" requiredMessage="#{msg['login.password.required']}" />
+						<p:message for="password" />
+
+						<p:commandButton value="#{msg['global.save']}" action="#{loginController.changePassword()}" update="passwordPanel" />
+					</p:panelGrid>
+				</h:form>
 			</p:dialog>
 
 			<p:dialog widgetVar="doodleDialog" header="#{msg['overview.doodle.header']}" modal="true">
