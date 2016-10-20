@@ -13,32 +13,29 @@
 				<ui:param name="title" value="#{msg['menu.players']}" />
 			</ui:include>
 			<pm:content>
-				<p:panel id="playerHeader" header="#{msg['menu.players']}">
-					<p:panel header="" toggleable="true" style="border:none" widgetVar="playerPanel">
-						<h:form>
-							<p:panelGrid columns="3" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
-								<div />
-								<p:inputText id="name" value="#{playersController.name}" placeholder="#{msg['players.name']}" required="true"
-									requiredMessage="#{msg['players.name.required']}" />
-								<p:message for="name" />
+				<p:panel id="playerNew" header="#{msg['players.new']}" toggleable="true" style="border:none" widgetVar="playerPanel">
+					<p:messages id="messages" autoUpdate="true" showDetail="false" globalOnly="true" />
+					<h:form>
+						<p:panelGrid>
+							<p:inputText id="name" value="#{playersController.name}" placeholder="#{msg['players.name']}" required="true"
+								requiredMessage="#{msg['players.name.required']}" />
+							<p:message for="name" />
 
-								<div />
-								<p:password id="password" value="#{playersController.password}" placeholder="#{msg['players.password']}"
-									required="true" autocomplete="new-password" requiredMessage="#{msg['players.password.required']}" />
-								<p:message for="password" />
+							<p:password id="password" value="#{playersController.password}" placeholder="#{msg['players.password']}"
+								required="true" autocomplete="new-password" requiredMessage="#{msg['players.password.required']}" />
+							<p:message for="password" />
 
-								<div />
-								<p:commandButton action="#{playersController.createPlayer()}" value="#{msg['global.save']}"
-									update="playerHeader" />
-							</p:panelGrid>
-						</h:form>
-					</p:panel>
+							<p:commandButton action="#{playersController.createPlayer()}" value="#{msg['global.save']}"
+								update="playerNew,playerTable" />
+						</p:panelGrid>
+					</h:form>
+				</p:panel>
 
-					<p:dataTable id="playerTable" var="player" rowIndexVar="row" value="#{playersController.players}" rows="10"
-						paginator="true" sortBy="#{player.name}"
-						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-						currentPageReportTemplate="{totalRecords} #{msg['global.count']}" paginatorPosition="bottom"
-						rowsPerPageTemplate="5,10,20,50">
+				<br />
+
+				<p:panel id="playerTable" header="#{msg['menu.games']}">
+					<p:dataTable var="player" rowIndexVar="row" value="#{playersController.players}" rows="10" paginator="true"
+						sortBy="#{player.name}" paginatorPosition="bottom">
 						<p:column headerText="#{msg['global.number']}" style="width: 20%">
 							<h:outputText value="#{row + 1}" />
 						</p:column>

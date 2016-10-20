@@ -14,35 +14,32 @@
 			</ui:include>
 			<pm:content>
 				<o:importConstants type="geziefer.tgiu2.entity.GameValue" />
-				<p:panel id="gamesHeader" header="#{msg['menu.games']}">
-					<p:panel header="" toggleable="true" style="border:none" widgetVar="gamePanel">
-						<h:form>
-							<p:panelGrid columns="3" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
-								<div />
-								<p:inputText id="name" value="#{gamesController.name}" placeholder="#{msg['games.name']}" required="true"
-									requiredMessage="#{msg['games.name.required']}" />
-								<p:message for="name" />
+				<p:messages id="messages" autoUpdate="true" showDetail="false" globalOnly="true" />
+				<p:panel id="gamesNew" header="#{msg['games.new']}" toggleable="true" style="border:none" widgetVar="gamePanel">
+					<h:form>
+						<p:panelGrid>
+							<p:inputText id="name" value="#{gamesController.name}" placeholder="#{msg['games.name']}" required="true"
+								requiredMessage="#{msg['games.name.required']}" />
+							<p:message for="name" />
 
-								<div />
-								<p:selectOneMenu id="value" required="true" requiredMessage="#{msg['games.value.required']}"
-									value="#{gamesController.value}">
-									<f:selectItem itemLabel="#{msg['games.value.select']}" noSelectionOption="true" />
-									<f:selectItems value="#{GameValue}" var="value" itemValue="#{value}" itemLabel="#{value.toString()}" />
-								</p:selectOneMenu>
-								<p:message for="value" />
+							<p:selectOneMenu id="value" required="true" requiredMessage="#{msg['games.value.required']}"
+								value="#{gamesController.value}">
+								<f:selectItem itemLabel="#{msg['games.value.select']}" noSelectionOption="true" />
+								<f:selectItems value="#{GameValue}" var="value" itemValue="#{value}" itemLabel="#{value.toString()}" />
+							</p:selectOneMenu>
+							<p:message for="value" />
 
-								<div />
-								<p:commandButton action="#{gamesController.createGame()}" value="#{msg['global.save']}" update="gamesHeader"
-									ajax="true" />
-							</p:panelGrid>
-						</h:form>
-					</p:panel>
+							<p:commandButton action="#{gamesController.createGame()}" value="#{msg['global.save']}"
+								update="gamesNew,gamesTable" />
+						</p:panelGrid>
+					</h:form>
+				</p:panel>
 
+				<br />
+
+				<p:panel id="gamesTable" header="#{msg['menu.games']}">
 					<p:dataTable var="game" rowIndexVar="row" value="#{gamesController.games}" rows="10" paginator="true"
-						sortBy="#{game.name}"
-						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-						currentPageReportTemplate="{totalRecords} #{msg['global.count']}" paginatorPosition="bottom"
-						rowsPerPageTemplate="5,10,20,50">
+						sortBy="#{game.name}" paginatorPosition="bottom">
 						<p:column headerText="#{msg['global.number']}" style="width: 20%">
 							<h:outputText value="#{row + 1}" />
 						</p:column>

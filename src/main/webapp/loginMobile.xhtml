@@ -6,32 +6,26 @@
 <h:body>
 	<ui:composition template="template/templateMobile.xhtml">
 		<ui:define name="body">
-				<pm:header>
-					<h:graphicImage name="images/logo.png" style="max-width: 100%" />
-				</pm:header>
-				<pm:header title="#{msg['menu.login']}" />
-				<pm:content>
-					<div align="center">
-						<p:messages id="messages" autoUpdate="true" showDetail="false" globalOnly="true" />
+			<pm:header>
+				<h:graphicImage name="images/logo.png" style="max-width: 100%" />
+			</pm:header>
+			<pm:header title="#{msg['menu.login']}" />
+			<pm:content>
+				<p:messages id="messages" autoUpdate="true" showDetail="false" globalOnly="true" />
+				<h:form>
+					<p:panelGrid id="loginGrid">
+						<p:inputText id="username" value="#{loginController.username}" placeholder="#{msg['login.username']}"
+							required="true" requiredMessage="#{msg['login.username.required']}" />
+						<p:message for="username" />
 
-						<h:form>
-							<p:panelGrid id="loginGrid" columns="3" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
-								<div />
-								<p:inputText id="username" value="#{loginController.username}" placeholder="#{msg['login.username']}"
-									required="true" requiredMessage="#{msg['login.username.required']}" />
-								<p:message for="username" />
+						<p:password id="password" value="#{loginController.password}" placeholder="#{msg['login.password']}"
+							required="true" requiredMessage="#{msg['login.password.required']}" />
+						<p:message for="password" />
 
-								<div />
-								<p:password id="password" value="#{loginController.password}" placeholder="#{msg['login.password']}"
-									required="true" requiredMessage="#{msg['login.password.required']}" />
-								<p:message for="password" />
-
-								<div />
-								<p:commandButton action="#{loginController.login}" value="#{msg['login.button']}" update="loginGrid" />
-							</p:panelGrid>
-						</h:form>
-					</div>
-				</pm:content>
+						<p:commandButton action="#{loginController.login}" value="#{msg['login.button']}" update="loginGrid" />
+					</p:panelGrid>
+				</h:form>
+			</pm:content>
 		</ui:define>
 	</ui:composition>
 </h:body>
