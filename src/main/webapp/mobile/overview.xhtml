@@ -13,76 +13,73 @@
 				<ui:param name="title" value="#{msg['menu.overview']}" />
 			</ui:include>
 			<pm:content>
-				<p:panel id="overviewHeader" header="#{msg['overview.current']}">
-					<h:form>
-						<p:selectOneMenu value="#{overviewController.year}">
-							<f:selectItems value="#{overviewController.years}" />
-							<p:ajax update="overviewHeader" listener="#{overviewController.changeYear()}" />
-						</p:selectOneMenu>
-						<h:commandLink onclick="PF('doodleDialog').show(); return false;">
-							<h:graphicImage name="images/doodle.png" style="height: 30px" />
-						</h:commandLink>
-						<h:commandLink onclick="PF('infoDialog').show(); return false;">
-							<h:graphicImage name="images/help.png" style="height: 30px" />
-						</h:commandLink>
+				<h:form>
+					<p:panelGrid columns="2">
+						<p:column>
+							<h:commandLink onclick="PF('doodleDialog').show(); return false;">
+								<h:graphicImage name="images/doodle.png" styleClass="popupImage" />
+							</h:commandLink>
+							<h:commandLink onclick="PF('infoDialog').show(); return false;">
+								<h:graphicImage name="images/help.png" styleClass="popupImage" />
+							</h:commandLink>
+						</p:column>
+						<p:column>
+							<p:selectOneMenu value="#{overviewController.year}">
+								<f:selectItems value="#{overviewController.years}" />
+								<p:ajax update="overviewTable" listener="#{overviewController.changeYear()}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:panelGrid>
 
-						<p:dataTable var="filteredRanking" rowIndexVar="row" value="#{overviewController.filteredRankings}">
-							<p:column headerText="#{msg['global.number']}" style="width: 10%">
-								<h:outputText value="#{row + 1}" />
-							</p:column>
-
-							<p:column headerText="#{msg['overview.name']}" style="width: 20%">
+					<p:panel header="#{msg['overview.current']}">
+						<p:dataTable id="overviewTable" var="filteredRanking" value="#{overviewController.filteredRankings}">
+							<p:column headerText="#{msg['overview.name.short']}" style="width: 30%">
 								<h:outputText value="#{filteredRanking.name}" />
 							</p:column>
 
-							<p:column headerText="#{msg['overview.rounds']}" style="width: 15%">
+							<p:column headerText="#{msg['overview.rounds.short']}" style="width: 10%">
 								<h:outputText value="#{filteredRanking.rounds}" />
 							</p:column>
 
-							<p:column headerText="#{msg['overview.sum']}" style="width: 20%">
+							<p:column headerText="#{msg['overview.sum.short']}" style="width: 30%">
 								<h:outputText value="#{filteredRanking.sum}">
 									<f:convertNumber minFractionDigits="3" />
 								</h:outputText>
 							</p:column>
 
-							<p:column headerText="#{msg['overview.score']}" style="width: 20%">
+							<p:column headerText="#{msg['overview.score.short']}" style="width: 25%">
 								<h:outputText value="#{filteredRanking.score}">
 									<f:convertNumber minFractionDigits="3" />
 								</h:outputText>
 							</p:column>
 
-							<p:column headerText="#{msg['overview.eligible']}" style="width: 15%">
+							<p:column headerText="#{msg['overview.eligible.short']}" style="width: 10%">
 								<h:graphicImage name="images/ok.png" rendered="#{filteredRanking.isEligible().booleanValue()}" />
 								<h:graphicImage name="images/nok.png" rendered="#{!filteredRanking.isEligible().booleanValue()}" />
 							</p:column>
 						</p:dataTable>
-					</h:form>
-				</p:panel>
+					</p:panel>
+				</h:form>
 
 				<br />
 
 				<p:panel header="#{msg['overview.overall']}">
-					<p:dataTable var="ranking" rowIndexVar="row" value="#{overviewController.rankings}" sortBy="#{ranking.score}"
-						sortOrder="descending">
-						<p:column headerText="#{msg['global.number']}" style="width: 10%">
-							<h:outputText value="#{row + 1}" />
-						</p:column>
-
-						<p:column headerText="#{msg['overview.name']}" style="width: 25%">
+					<p:dataTable var="ranking" value="#{overviewController.rankings}" sortBy="#{ranking.score}" sortOrder="descending">
+						<p:column headerText="#{msg['overview.name.short']}" style="width: 30%">
 							<h:outputText value="#{ranking.name}" />
 						</p:column>
 
-						<p:column headerText="#{msg['overview.rounds']}" style="width: 15%">
+						<p:column headerText="#{msg['overview.rounds.short']}" style="width: 15%">
 							<h:outputText value="#{ranking.rounds}" />
 						</p:column>
 
-						<p:column headerText="#{msg['overview.sum']}" style="width: 25%">
+						<p:column headerText="#{msg['overview.sum.short']}" style="width: 25%">
 							<h:outputText value="#{ranking.sum}">
 								<f:convertNumber minFractionDigits="3" />
 							</h:outputText>
 						</p:column>
 
-						<p:column headerText="#{msg['overview.score']}" style="width: 25%">
+						<p:column headerText="#{msg['overview.score.short']}" style="width: 25%">
 							<h:outputText value="#{ranking.score}">
 								<f:convertNumber minFractionDigits="3" />
 							</h:outputText>

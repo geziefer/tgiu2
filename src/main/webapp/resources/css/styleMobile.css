@@ -1,8 +1,22 @@
 @CHARSET "ISO-8859-1";
 
 .tgiuLogo {
-	padding-top: 10px; max-width : 50%;
+	padding-top: 10px;
+	max-width: 50%;
 	max-height: 36px;
 	float: right;
 	max-width: 50%;
+}
+
+.popupImage {
+	height: 30px;
+	margin-top: 10px;
+}
+
+.ui-content {
+	padding: 5px;
+}
+
+.ui-panel-m-content {
+	padding: 5px;
 }
