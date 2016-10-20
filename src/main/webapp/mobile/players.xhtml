@@ -34,16 +34,23 @@
 				<br />
 
 				<p:panel id="playerTable" header="#{msg['menu.games']}">
-					<p:dataTable var="player" rowIndexVar="row" value="#{playersController.players}" rows="10" paginator="true"
-						sortBy="#{player.name}" paginatorPosition="bottom">
-						<p:column headerText="#{msg['global.number']}" style="width: 20%">
-							<h:outputText value="#{row + 1}" />
-						</p:column>
+					<h:form>
+						<p:dataTable var="player" rowIndexVar="row" value="#{playersController.players}" rows="10" paginator="true"
+							sortBy="#{player.name}" paginatorPosition="bottom">
+							<p:column headerText="#{msg['global.number']}" style="width: 20%">
+								<h:outputText value="#{row + 1}" />
+							</p:column>
 
-						<p:column headerText="#{msg['players.name']}" sortBy="#{player.name}" style="width: 80%">
-							<h:outputText value="#{player.name}" />
-						</p:column>
-					</p:dataTable>
+							<p:column headerText="#{msg['players.name']}" sortBy="#{player.name}" style="width: 50%">
+								<h:outputText value="#{player.name}" />
+							</p:column>
+
+							<p:column headerText="#{msg['players.action']}" style="width: 30%">
+								<p:commandButton action="#{playersController.resetPassword(row)}" value="#{msg['players.reset.button.short']}"
+									update="playerNew" />
+							</p:column>
+						</p:dataTable>
+					</h:form>
 				</p:panel>
 			</pm:content>
 		</ui:define>

@@ -13,11 +13,15 @@
 				<ui:param name="title" value="#{msg['menu.overview']}" />
 			</ui:include>
 			<pm:content>
+				<p:messages id="messages" autoUpdate="true" showDetail="false" globalOnly="true" />
 				<h:form>
 					<p:panelGrid columns="2">
 						<p:column>
 							<h:commandLink onclick="PF('doodleDialog').show(); return false;">
 								<h:graphicImage name="images/doodle.png" styleClass="popupImage" />
+							</h:commandLink>
+							<h:commandLink onclick="PF('passwordDialog').show(); return false;">
+								<h:graphicImage name="images/password.png" styleClass="popupImage" />
 							</h:commandLink>
 							<h:commandLink onclick="PF('infoDialog').show(); return false;">
 								<h:graphicImage name="images/help.png" styleClass="popupImage" />
@@ -91,9 +95,22 @@
 					<h:outputText value="#{msg['overview.info.text']}" escape="false" />
 				</p:dialog>
 
+				<p:dialog widgetVar="passwordDialog" header="#{msg['overview.password.header']}" modal="true">
+					<h:form>
+						<p:panelGrid id="passwordPanel" columns="1">
+							<p:password id="password" value="#{loginController.newPassword}" placeholder="#{msg['login.password']}"
+								required="true" requiredMessage="#{msg['login.password.required']}" />
+							<p:message for="password" />
+
+							<p:commandButton value="#{msg['global.save']}" action="#{loginController.changePassword()}"
+								update="passwordPanel" />
+						</p:panelGrid>
+					</h:form>
+				</p:dialog>
+
 				<p:dialog widgetVar="doodleDialog" header="#{msg['overview.doodle.header']}" modal="true">
 					<h:form>
-						<p:panelGrid id="doodlePanel" columns="1" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
+						<p:panelGrid id="doodlePanel" columns="1">
 							<h:outputLink value="#{applicationConfig.doodleURL}" target="_blank" styleClass="doodleLink">
 								<h:outputText value="#{msg['overview.doodle.current']}" escape="false"></h:outputText>
 							</h:outputLink>
