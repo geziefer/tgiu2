@@ -1,8 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:p="http://primefaces.org/ui" xmlns:pm="http://primefaces.org/mobile">
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
 <h:body>
 	<ui:composition template="../template/templateMobile.xhtml">
 		<f:metadata>
@@ -14,22 +14,21 @@
 			</ui:include>
 			<pm:content>
 				<h:outputScript library="js" name="locales.js" />
-				<p:panel id="roundsNew" header="#{msg['rounds.new']}" toggleable="true" style="border:none"
-					widgetVar="roundPanel">
+				<p:panel id="roundsNew" header="#{msg['rounds.new']}" toggleable="true" style="border:none" widgetVar="roundPanel">
 					<p:messages id="messages" autoUpdate="true" showDetail="false" globalOnly="true" />
 					<h:form>
 						<p:panelGrid>
 							<p:calendar id="cal" value="#{roundsController.date}" locale="de" required="true"
 								requiredMessage="#{msg['rounds.date.required']}" navigator="true"
+								styleClass="#{facesContext.validationFailed ? 'ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset' : ''}"
 								placeholder="#{msg['rounds.date']}" pattern="dd.MM.yyyy" />
 							<p:message for="cal" />
 
 							<p:selectOneMenu id="game" value="#{roundsController.game}" effect="fade" filter="true"
-								filterMatchMode="startsWith" required="true"
-								requiredMessage="#{msg['rounds.game.required']}" converter="omnifaces.SelectItemsConverter">
+								filterMatchMode="startsWith" required="true" requiredMessage="#{msg['rounds.game.required']}"
+								converter="omnifaces.SelectItemsConverter">
 								<f:selectItem itemLabel="#{msg['rounds.game.select']}" noSelectionOption="true" />
-								<f:selectItems value="#{roundsController.games}" var="game" itemLabel="#{game.name}"
-									itemValue="#{game}" />
+								<f:selectItems value="#{roundsController.games}" var="game" itemLabel="#{game.name}" itemValue="#{game}" />
 								<p:column>
 									<h:outputText value="#{game.name}" />
 								</p:column>
@@ -39,29 +38,17 @@
 							</p:selectOneMenu>
 							<p:message for="game" />
 
-							<p:commandButton action="#{roundsController.createRound()}" value="#{msg['global.save']}"
-								update="roundsNew,roundsTable" />
-
 							<p:dataTable var="rank" value="#{roundsController.ranks}">
 								<p:column headerText="#{msg['rounds.name']}" style="width: 20%">
 									<h:outputText value="#{rank.player.name}" />
 								</p:column>
-								<p:column style="width: 80%">
-									<f:facet name="header">
-										<p:panelGrid columns="7" styleClass="noBorder transparentBackground">
-											<h:outputText value="#{msg['rounds.rank.NA']}" />
-											<h:outputText value="#{msg['rounds.rank.1']}" />
-											<h:outputText value="#{msg['rounds.rank.2']}" />
-											<h:outputText value="#{msg['rounds.rank.3']}" />
-											<h:outputText value="#{msg['rounds.rank.4']}" />
-											<h:outputText value="#{msg['rounds.rank.5']}" />
-											<h:outputText value="#{msg['rounds.rank.6']}" />
-										</p:panelGrid>
-									</f:facet>
-									<h:inputHidden id="rankNumber" value="#{rank.rank}" />
-									<p:slider for="rankNumber" minValue="0" maxValue="6" />
+								<p:column headerText="#{msg['rounds.rank']}" style="width: 80%">
+									<pm:inputSlider value="#{rank.rank}" minValue="0" maxValue="6" />
 								</p:column>
 							</p:dataTable>
+
+							<p:commandButton action="#{roundsController.createRound()}" value="#{msg['global.save']}"
+								update="roundsNew,roundsTable" />
 						</p:panelGrid>
 					</h:form>
 				</p:panel>
@@ -69,38 +56,25 @@
 				<h:form>
 					<h:panelGrid columns="2" cellpadding="5" styleClass="centered">
 						<h:outputText value="#{msg['rounds.showAll']}" />
-						<p:inputSwitch value="#{roundsController.showAll}" onLabel="#{msg['global.on']}"
-							offLabel="#{msg['global.off']}">
+						<p:inputSwitch value="#{roundsController.showAll}" onLabel="#{msg['global.on']}" offLabel="#{msg['global.off']}">
 							<p:ajax update="roundsTable" />
 						</p:inputSwitch>
 					</h:panelGrid>
 				</h:form>
 
 				<p:panel id="roundsTable" header="#{msg['menu.rounds']}">
-					<p:dataTable var="round" value="#{roundsController.rounds}" rows="10" paginator="true"
-						sortBy="#{round.date}" sortOrder="descending" paginatorPosition="bottom">
-						<p:column headerText="#{msg['rounds.date']}" sortBy="#{round.date}" style="width: 15%">
-							<h:outputText value="#{roundsController.formatDate(round.date)}" />
+					<p:dataTable var="round" value="#{roundsController.rounds}" rows="10" paginator="true" sortBy="#{round.date}"
+						sortOrder="descending" paginatorPosition="bottom">
+						<p:column headerText="#{msg['rounds.date']}" sortBy="#{round.date}" style="width: 27%">
+							<h:outputText value="#{roundsController.formatDate(round.date, true)}" />
 						</p:column>
 
-						<p:column headerText="#{msg['games.name']}" sortBy="#{round.game.name}" style="width: 20%">
+						<p:column headerText="#{msg['rounds.game']}" sortBy="#{round.game.name}" style="width: 28%">
 							<h:outputText value="#{round.game.name}" />
 						</p:column>
 
-						<p:column headerText="#{msg['rounds.rank.1st']}" style="width: 15%">
-							<h:outputText value="#{roundsController.getPlayersForRank(round, 1)}" />
-						</p:column>
-
-						<p:column headerText="#{msg['rounds.rank.2nd']}" style="width: 15%">
-							<h:outputText value="#{roundsController.getPlayersForRank(round, 2)}" />
-						</p:column>
-
-						<p:column headerText="#{msg['rounds.rank.3rd']}" style="width: 15%">
-							<h:outputText value="#{roundsController.getPlayersForRank(round, 3)}" />
-						</p:column>
-
-						<p:column headerText="#{msg['rounds.rank.dnf']}" style="width: 20%">
-							<h:outputText value="#{roundsController.getPlayersForRank(round, 4)}" />
+						<p:column headerText="#{msg['rounds.rank.all']}" style="width: 45%">
+							<h:outputText value="#{roundsController.getPlayersForAllRanks(round)}" escape="false" />
 						</p:column>
 					</p:dataTable>
 				</p:panel>
