@@ -5,7 +5,7 @@
 		<h:form>
 			<p:commandButton id="btn-menu" type="button" icon="ui-icon-bars" />
 			<h:outputText value=" #{title}" style="vertical-align: sub" />
-			<h:graphicImage name="images/logo.png" style="padding-top: 10px;max-width: 50%;float: right" />
+			<h:graphicImage name="images/logo.png" styleClass="tgiuLogo" />
 
 			<p:overlayPanel for="btn-menu" at="right" showEffect="overlay" showCloseIcon="true" style="margin-top:46px">
 				<p:menu rendered="#{loginController.loggedIn}">

@@ -108,10 +108,7 @@ public class LoginController implements Serializable {
 	}
 
 	public void checkLoginAndRedirect(ComponentSystemEvent cse) {
-		String userAgent = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
-				.getHeader("user-agent");
-		UAgentInfo agentInfo = new UAgentInfo(userAgent, null);
-		mobile = agentInfo.detectMobileQuick();
+		checkMobile();
 
 		FacesContext fx = FacesContext.getCurrentInstance();
 		String viewId = fx.getViewRoot().getViewId();
@@ -121,11 +118,15 @@ public class LoginController implements Serializable {
 	}
 
 	public void checkDeviceAndRedirect(ComponentSystemEvent cse) {
+		checkMobile();
+		redirectLogin();
+	}
+
+	private void checkMobile() {
 		String userAgent = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest())
 				.getHeader("user-agent");
 		UAgentInfo agentInfo = new UAgentInfo(userAgent, null);
-		mobile = agentInfo.detectMobileQuick();
-		redirectLogin();
+		mobile = agentInfo.detectMobileQuick() || agentInfo.detectTierTablet();
 	}
 
 	private void redirectLogin() {
