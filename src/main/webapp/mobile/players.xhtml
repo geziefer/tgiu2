@@ -37,17 +37,16 @@
 					<h:form>
 						<p:dataTable var="player" rowIndexVar="row" value="#{playersController.players}" rows="10" paginator="true"
 							sortBy="#{player.name}" paginatorPosition="bottom">
-							<p:column headerText="#{msg['global.number']}" style="width: 20%">
+							<p:column headerText="#{msg['global.number']}" style="width: 15%">
 								<h:outputText value="#{row + 1}" />
 							</p:column>
 
-							<p:column headerText="#{msg['players.name']}" sortBy="#{player.name}" style="width: 50%">
+							<p:column headerText="#{msg['players.name']}" sortBy="#{player.name}" style="width: 55%">
 								<h:outputText value="#{player.name}" />
 							</p:column>
 
-							<p:column headerText="#{msg['players.action']}" style="width: 30%">
-								<p:commandButton action="#{playersController.resetPassword(row)}" value="#{msg['players.reset.button.short']}"
-									update="playerNew" />
+							<p:column headerText="#{msg['players.reset.short']}" style="width: 30%">
+								<p:commandButton action="#{playersController.resetPassword(row)}" icon="ui-icon-back" update="playerNew" />
 							</p:column>
 						</p:dataTable>
 					</h:form>
