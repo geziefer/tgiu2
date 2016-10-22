@@ -64,43 +64,47 @@
 				</p:panel>
 
 				<h:form>
-					<h:panelGrid columns="2" cellpadding="5" styleClass="centered">
+					<h:panelGrid columns="3" cellpadding="5" styleClass="centered">
 						<h:outputText value="#{msg['rounds.showAll']}" />
 						<p:inputSwitch value="#{roundsController.showAll}" onLabel="#{msg['global.on']}" offLabel="#{msg['global.off']}">
 							<p:ajax update="roundsTable" />
 						</p:inputSwitch>
+						<h:commandLink>
+							<p:graphicImage name="images/excel.png" width="24" />
+							<p:dataExporter type="xls" target="roundsTable" fileName="Spielrunden" />
+						</h:commandLink>
 					</h:panelGrid>
+
+					<p:dataTable id="roundsTable" var="round" value="#{roundsController.rounds}" rows="10" paginator="true"
+						sortBy="#{round.date}" sortOrder="descending"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						currentPageReportTemplate="{totalRecords} #{msg['global.count']}" paginatorPosition="bottom"
+						rowsPerPageTemplate="5,10,20,50">
+						<p:column headerText="#{msg['rounds.date']}" sortBy="#{round.date}" style="width: 15%">
+							<h:outputText value="#{roundsController.formatDate(round.date, false)}" />
+						</p:column>
+
+						<p:column headerText="#{msg['rounds.game']}" sortBy="#{round.game.name}" style="width: 20%">
+							<h:outputText value="#{round.game.name}" />
+						</p:column>
+
+						<p:column headerText="#{msg['rounds.rank.1st']}" style="width: 15%">
+							<h:outputText value="#{roundsController.getPlayersForRank(round, 1)}" />
+						</p:column>
+
+						<p:column headerText="#{msg['rounds.rank.2nd']}" style="width: 15%">
+							<h:outputText value="#{roundsController.getPlayersForRank(round, 2)}" />
+						</p:column>
+
+						<p:column headerText="#{msg['rounds.rank.3rd']}" style="width: 15%">
+							<h:outputText value="#{roundsController.getPlayersForRank(round, 3)}" />
+						</p:column>
+
+						<p:column headerText="#{msg['rounds.rank.dnf']}" style="width: 20%">
+							<h:outputText value="#{roundsController.getPlayersForRank(round, 4)}" />
+						</p:column>
+					</p:dataTable>
 				</h:form>
-
-				<p:dataTable id="roundsTable" var="round" value="#{roundsController.rounds}" rows="10" paginator="true"
-					sortBy="#{round.date}" sortOrder="descending"
-					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-					currentPageReportTemplate="{totalRecords} #{msg['global.count']}" paginatorPosition="bottom"
-					rowsPerPageTemplate="5,10,20,50">
-					<p:column headerText="#{msg['rounds.date']}" sortBy="#{round.date}" style="width: 15%">
-						<h:outputText value="#{roundsController.formatDate(round.date, false)}" />
-					</p:column>
-
-					<p:column headerText="#{msg['rounds.name']}" sortBy="#{round.game.name}" style="width: 20%">
-						<h:outputText value="#{round.game.name}" />
-					</p:column>
-
-					<p:column headerText="#{msg['rounds.rank.1st']}" style="width: 15%">
-						<h:outputText value="#{roundsController.getPlayersForRank(round, 1)}" />
-					</p:column>
-
-					<p:column headerText="#{msg['rounds.rank.2nd']}" style="width: 15%">
-						<h:outputText value="#{roundsController.getPlayersForRank(round, 2)}" />
-					</p:column>
-
-					<p:column headerText="#{msg['rounds.rank.3rd']}" style="width: 15%">
-						<h:outputText value="#{roundsController.getPlayersForRank(round, 3)}" />
-					</p:column>
-
-					<p:column headerText="#{msg['rounds.rank.dnf']}" style="width: 20%">
-						<h:outputText value="#{roundsController.getPlayersForRank(round, 4)}" />
-					</p:column>
-				</p:dataTable>
 			</p:panel>
 		</ui:define>
 	</ui:composition>
