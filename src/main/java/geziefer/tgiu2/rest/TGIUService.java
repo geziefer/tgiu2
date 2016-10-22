@@ -30,7 +30,7 @@ public class TGIUService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Game> getGames() {
 		EntityManager em = LocalEntityManagerFactory.createEntityManager();
-		TypedQuery<Game> query = em.createNamedQuery("Game.findAll", Game.class);
+		TypedQuery<Game> query = em.createNamedQuery("Game.findAllEagerly", Game.class);
 		return query.getResultList();
 	}
 

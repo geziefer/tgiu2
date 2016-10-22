@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.PropertyResourceBundle;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -46,14 +45,10 @@ public class GamesController implements Serializable {
 
 	private String formattedComments;
 
-	@PostConstruct
-	public void populateList() {
-		EntityManager em = LocalEntityManagerFactory.createEntityManager();
-		TypedQuery<Game> query = em.createNamedQuery("Game.findAll", Game.class);
-		games = query.getResultList();
-	}
-
 	public void initFields() {
+		EntityManager em = LocalEntityManagerFactory.createEntityManager();
+		TypedQuery<Game> query = em.createNamedQuery("Game.findAllEagerly", Game.class);
+		games = query.getResultList();
 		name = "";
 		value = null;
 	}
@@ -111,7 +106,6 @@ public class GamesController implements Serializable {
 			em.persist(newGame);
 			em.getTransaction().commit();
 			initFields();
-			populateList();
 
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, msg.getString("games.info.success"), ""));
@@ -136,6 +130,7 @@ public class GamesController implements Serializable {
 				.filter(g -> g.getPlayer().getName().equals(player.getName())).findFirst();
 		comment = commentPlayer.orElse(new Comment(game, player, ""));
 		commentText = comment.getComment();
+		RequestContext.getCurrentInstance().execute("PF('commentDialog').show()");
 	}
 
 	public String storeComment() {
@@ -144,6 +139,7 @@ public class GamesController implements Serializable {
 		em.getTransaction().begin();
 		em.merge(comment);
 		em.getTransaction().commit();
+		initFields();
 		RequestContext.getCurrentInstance().execute("PF('commentDialog').hide()");
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, msg.getString("games.comment.success"), ""));

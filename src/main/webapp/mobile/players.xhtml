@@ -37,11 +37,7 @@
 					<h:form>
 						<p:dataTable var="player" rowIndexVar="row" value="#{playersController.players}" rows="10" paginator="true"
 							sortBy="#{player.name}" paginatorPosition="bottom">
-							<p:column headerText="#{msg['global.number']}" style="width: 15%">
-								<h:outputText value="#{row + 1}" />
-							</p:column>
-
-							<p:column headerText="#{msg['players.name']}" sortBy="#{player.name}" style="width: 55%">
+							<p:column headerText="#{msg['players.name']}" sortBy="#{player.name}" style="width: 70%">
 								<h:outputText value="#{player.name}" />
 							</p:column>
 

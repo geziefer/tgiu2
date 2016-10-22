@@ -53,22 +53,24 @@
 						</p:column>
 
 						<p:column headerText="#{msg['games.comment']}" style="width: 20%">
-							<p:commandButton action="#{gamesController.selectComment(row)}" icon="fa fa-fw fa-edit" update="gamesHeader"
-								oncomplete="PF('commentDialog').show()" />
+							<p:commandButton actionListener="#{gamesController.selectComment(row)}" icon="fa fa-fw fa-edit"
+								update="gamesHeader" />
 						</p:column>
 					</p:dataTable>
 				</h:form>
-			</p:panel>
 
-			<p:dialog widgetVar="commentDialog" header="#{msg['games.comment']}" modal="true">
-				<h:form>
-					<p:panelGrid id="commentPanel" columns="1" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
-						<h:outputText value="#{gamesController.formattedComments}" escape="false" />
-						<p:inputText value="#{gamesController.commentText}" onclick="this.select()" />
-						<p:commandButton value="#{msg['global.save']}" action="#{gamesController.storeComment()}" />
-					</p:panelGrid>
-				</h:form>
-			</p:dialog>
+				<p:dialog widgetVar="commentDialog" header="#{msg['games.comment']}" modal="true">
+					<h:form>
+						<p:outputPanel autoUpdate="true">
+							<p:panelGrid id="commentPanel" columns="1" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
+								<h:outputText value="#{gamesController.formattedComments}" escape="false" />
+								<p:inputText value="#{gamesController.commentText}" onclick="this.select()" />
+								<p:commandButton value="#{msg['global.save']}" action="#{gamesController.storeComment()}" />
+							</p:panelGrid>
+						</p:outputPanel>
+					</h:form>
+				</p:dialog>
+			</p:panel>
 		</ui:define>
 	</ui:composition>
 </h:body>
