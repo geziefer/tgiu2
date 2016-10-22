@@ -14,6 +14,8 @@ insert into Game (id, name, value) values (-2, 'Maracash', 'MEDIUM');
 insert into Game (id, name, value) values (-3, 'Al Cabohne', 'SMALL');
 insert into Game (id, name, value) values (-4, 'Orléons', 'LARGE');
 
+insert into Comment (id, game_id, player_id, comment) values (-1, -1, -1, 'Am besten mit Städte & Ritter Erweiterung');
+
 insert into Round (id, date, game_id) values (-1, '2015-10-10', -1);
 insert into Round (id, date, game_id) values (-2, '2015-12-12', -2);
 insert into Round (id, date, game_id) values (-3, '2016-01-22', -3);

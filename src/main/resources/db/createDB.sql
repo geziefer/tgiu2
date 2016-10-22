@@ -24,6 +24,16 @@ create table Game(
 alter table Game
 add unique (name);
 
+create table Comment(
+	id integer not null auto_increment,
+	game_id integer not null,
+	player_id integer not null,
+	comment varchar(250),
+	primary key (id),
+	foreign key (game_id) references Game (id),
+	foreign key (player_id) references Player (id)
+);
+
 create table Round(
 	id integer not null auto_increment,
 	date date not null,

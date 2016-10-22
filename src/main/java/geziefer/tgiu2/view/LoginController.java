@@ -40,6 +40,8 @@ public class LoginController implements Serializable {
 
 	private String newPassword = "";
 
+	private Player player = null;
+
 	private boolean mobile = false;
 
 	private boolean loggedIn = false;
@@ -68,6 +70,14 @@ public class LoginController implements Serializable {
 		this.newPassword = newPassword;
 	}
 
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
 	public boolean isLoggedIn() {
 		return loggedIn;
 	}
@@ -86,6 +96,7 @@ public class LoginController implements Serializable {
 			Player player = players.get(0);
 			if (player.getPassword().equals(DigestUtils.sha1Hex(password))) {
 				ok = true;
+				this.player = player;
 			}
 		}
 
