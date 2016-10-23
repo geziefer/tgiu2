@@ -22,6 +22,7 @@ import org.primefaces.context.RequestContext;
 import au.com.flyingkite.mobiledetect.UAgentInfo;
 import geziefer.tgiu2.LocalEntityManagerFactory;
 import geziefer.tgiu2.entity.Player;
+import geziefer.tgiu2.entity.Role;
 
 @Named
 @SessionScoped
@@ -131,6 +132,10 @@ public class LoginController implements Serializable {
 		}
 	}
 
+	public boolean hasRole(Role role) {
+		return player == null ? false : player.hasRole(role);
+	}
+	
 	public void checkLoginAndRedirect(ComponentSystemEvent cse) {
 		checkMobile();
 

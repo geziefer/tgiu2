@@ -115,8 +115,10 @@
 								<h:outputText value="#{msg['overview.doodle.current']}" escape="false"></h:outputText>
 							</h:outputLink>
 							<br />
-							<p:inputText value="#{applicationConfig.doodleURL}" onclick="this.select()" />
-							<p:commandButton value="#{msg['global.save']}" update="doodlePanel" />
+							<p:inputText value="#{applicationConfig.doodleURL}" onclick="this.select()"
+								readonly="#{loginController.hasRole('USER')}" />
+							<p:commandButton value="#{msg['global.save']}" rendered="#{loginController.hasRole('ADMIN')}"
+								update="doodlePanel" />
 						</p:panelGrid>
 					</h:form>
 				</p:dialog>

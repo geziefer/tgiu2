@@ -8,6 +8,7 @@ create table Player(
 	id integer not null auto_increment,
 	name varchar(20) not null,
 	password varchar(42) not null,
+	role varchar(10) not null,
 	primary key (id)
 );
 

@@ -13,7 +13,8 @@
 				<ui:param name="title" value="#{msg['menu.players']}" />
 			</ui:include>
 			<pm:content>
-				<p:panel id="playerNew" header="#{msg['players.new']}" toggleable="true" style="border:none" widgetVar="playerPanel">
+				<p:panel id="playerNew" header="#{msg['players.new']}" toggleable="true" style="border:none" widgetVar="playerPanel"
+					rendered="#{loginController.hasRole('ADMIN')}">
 					<p:messages id="messages" autoUpdate="true" showDetail="false" globalOnly="true" />
 					<h:form>
 						<p:panelGrid>
@@ -41,7 +42,8 @@
 								<h:outputText value="#{player.name}" />
 							</p:column>
 
-							<p:column headerText="#{msg['players.reset.short']}" style="width: 30%">
+							<p:column headerText="#{msg['players.reset.short']}" style="width: 30%"
+								rendered="#{loginController.hasRole('ADMIN')}">
 								<p:commandButton action="#{playersController.resetPassword(row)}" icon="ui-icon-back" update="playerNew" />
 							</p:column>
 						</p:dataTable>

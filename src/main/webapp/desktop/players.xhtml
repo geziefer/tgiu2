@@ -9,7 +9,8 @@
 		</f:metadata>
 		<ui:define name="body">
 			<p:panel id="playerHeader" header="#{msg['menu.players']}">
-				<p:panel header="" toggleable="true" style="border:none" widgetVar="playerPanel">
+				<p:panel header="" toggleable="true" style="border:none" widgetVar="playerPanel"
+					rendered="#{loginController.hasRole('ADMIN')}">
 					<h:form>
 						<p:panelGrid columns="3" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
 							<div />
@@ -42,7 +43,7 @@
 							<h:outputText value="#{player.name}" />
 						</p:column>
 
-						<p:column headerText="#{msg['players.reset']}" style="width: 20%">
+						<p:column headerText="#{msg['players.reset']}" style="width: 20%" rendered="#{loginController.hasRole('ADMIN')}">
 							<p:commandButton action="#{playersController.resetPassword(row)}" icon="fa fa-fw fa-unlock" update="playerHeader" />
 						</p:column>
 					</p:dataTable>
