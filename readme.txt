@@ -18,10 +18,9 @@ optional: if maven should be able to deploy to Tomcat, edit tomcat's conf/tomcat
 
 # Config MySQL
 optional: if MySQL should be used instead of In-Memory-DB:
-	create schema "tgiu"
-	create user "tgiu" with password "tgiu" with all rights on schema "tgiu"
-	run src/main/resources/db/createDB.sql within MySQL
-	run src/main/resources/import.sql within MySQL
+	run src/main/resources/db/createUser.sql as root in MySQL
+	run src/main/resources/db/createDB.sql as tgiu in MySQL
+	run src/main/resources/import.sql as tgiu in MySQL
 
 # Project
 optional: if Eclipse should be used:

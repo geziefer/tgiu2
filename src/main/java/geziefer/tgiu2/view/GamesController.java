@@ -102,6 +102,7 @@ public class GamesController implements Serializable {
 			Game newGame = new Game();
 			newGame.setName(name);
 			newGame.setValue(value);
+			newGame.setComments(new ArrayList<>());
 			em.getTransaction().begin();
 			em.persist(newGame);
 			em.getTransaction().commit();
