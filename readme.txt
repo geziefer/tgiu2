@@ -6,22 +6,22 @@ https://github.com/geziefer/tgiu2.git
 Git
 Maven 3
 JDK 1.8
-WildFly 10.0.0.Final
-PostgresQL 9.3
+WildFly 10
+PostgresQL 9
 Eclipse Neon Java EE edition
 
 # Config Wildfly
 copy modules and configuration folder from wildfly to WildFly installation
 
-# Config PostgresQL
-create schema "tgiu"
-create user "tgiu" with password "tgiu" as owner of schema "tgiu"
-run src/main/resources/db/createDB.sql within PostgresQL
-run src/main/resources/import.sql within PostgresQL
+# Config PostgreSQL
+create user "tgiu" with login permission
+create schema "tgiu" and grant all to user "tgiu"
+run src/main/resources/db/createDB.sql within PostgreSQL
+run src/main/resources/import.sql within PostgreSQL
 
 # Project
 add JDK 1.8 as installed JRE
-add WildFly as Server
+add WildFly as Server (may require JBoss AS tools from marketplace)
 import existing Maven project
 	
 # Build on command line
