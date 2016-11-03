@@ -15,7 +15,7 @@ copy modules and configuration folder from wildfly to WildFly installation
 
 # Config PostgreSQL
 create user "tgiu" with login permission
-create schema "tgiu" and grant all to user "tgiu"
+create database "tgiu" with owner "tgiu" and all permissions
 run src/main/resources/db/createDB.sql within PostgreSQL
 run src/main/resources/import.sql within PostgreSQL
 
