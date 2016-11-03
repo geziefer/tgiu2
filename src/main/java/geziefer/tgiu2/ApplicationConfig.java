@@ -3,6 +3,7 @@ package geziefer.tgiu2;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.omnifaces.cdi.Startup;
 
@@ -13,9 +14,11 @@ import geziefer.tgiu2.entity.Config;
 public class ApplicationConfig {
 	private String doodleURL;
 
+	@PersistenceContext
+	EntityManager em;
+	
 	@PostConstruct
 	public void populateConfig() {
-		EntityManager em = LocalEntityManagerFactory.createEntityManager();
 		Config config = em.find(Config.class, "doodleURL");
 		if (config == null) {
 			setDoodleURL("http://doodle.com");
@@ -29,7 +32,6 @@ public class ApplicationConfig {
 	}
 
 	public void setDoodleURL(String doodleURL) {
-		EntityManager em = LocalEntityManagerFactory.createEntityManager();
 		Config config = new Config();
 		config.setName("doodleURL");
 		config.setValue(doodleURL);
