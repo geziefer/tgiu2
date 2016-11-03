@@ -136,11 +136,8 @@ public class GamesController implements Serializable {
 	}
 
 	public String storeComment() {
-		EntityManager em = LocalEntityManagerFactory.createEntityManager();
 		comment.setComment(commentText);
-		em.getTransaction().begin();
 		em.merge(comment);
-		em.getTransaction().commit();
 		initFields();
 		RequestContext.getCurrentInstance().execute("PF('commentDialog').hide()");
 		FacesContext.getCurrentInstance().addMessage(null,

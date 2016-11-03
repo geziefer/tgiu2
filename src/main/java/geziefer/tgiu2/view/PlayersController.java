@@ -94,16 +94,13 @@ public class PlayersController implements Serializable {
 
 	public String resetPassword(Integer row) {
 		String name = players.get(row).getName();
-		EntityManager em = LocalEntityManagerFactory.createEntityManager();
 		TypedQuery<Player> query = em.createNamedQuery("Player.findByName", Player.class);
 		query.setParameter("name", name);
 		List<Player> players = query.getResultList();
 		if (!players.isEmpty()) {
 			Player player = players.get(0);
 			player.setPassword(DigestUtils.sha1Hex(name));
-			em.getTransaction().begin();
 			em.merge(player);
-			em.getTransaction().commit();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
 					MessageFormat.format(msg.getString("players.reset.success"), name), ""));
 		}

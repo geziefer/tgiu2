@@ -30,6 +30,12 @@ public class OverviewController implements Serializable {
 	@PersistenceContext
 	EntityManager em;
 	
+	@Inject
+	private transient PropertyResourceBundle msg;
+
+	@Inject
+	private LoginController loginController;
+
 	private List<Ranking> rankings = new ArrayList<>();
 
 	private List<Ranking> filteredRankings = new ArrayList<>();

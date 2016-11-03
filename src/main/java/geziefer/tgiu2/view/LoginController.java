@@ -154,16 +154,13 @@ public class LoginController implements Serializable {
 	}
 
 	public String changePassword() {
-		EntityManager em = LocalEntityManagerFactory.createEntityManager();
 		TypedQuery<Player> query = em.createNamedQuery("Player.findByName", Player.class);
 		query.setParameter("name", username);
 		List<Player> players = query.getResultList();
 		if (!players.isEmpty()) {
 			Player player = players.get(0);
 			player.setPassword(DigestUtils.sha1Hex(newPassword));
-			em.getTransaction().begin();
 			em.merge(player);
-			em.getTransaction().commit();
 			RequestContext.getCurrentInstance().execute("PF('passwordDialog').hide()");
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, msg.getString("login.password.success"), ""));
