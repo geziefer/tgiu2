@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile" xmlns:o="http://omnifaces.org/ui">
+<h:body>
+	<ui:composition template="../template/templateMobile.xhtml">
+		<f:metadata>
+			<f:viewAction action="#{gamesController.initFields()}" />
+		</f:metadata>
+		<ui:define name="body">
+			<ui:include src="../template/menuMobile.xhtml">
+				<ui:param name="title" value="#{msg['menu.games']}" />
+			</ui:include>
+			<pm:content>
+				<o:importConstants type="geziefer.tgiu2.entity.GameValue" />
+				<p:panel id="gamesNew" header="#{msg['games.new']}" toggleable="true" style="border:none" widgetVar="gamePanel">
+					<p:messages id="messages" autoUpdate="true" showDetail="false" globalOnly="true" />
+					<h:form>
+						<p:panelGrid>
+							<p:inputText id="name" value="#{gamesController.name}" placeholder="#{msg['games.name']}" required="true"
+								requiredMessage="#{msg['games.name.required']}" />
+							<p:message for="name" />
+
+							<p:selectOneMenu id="value" required="true" requiredMessage="#{msg['games.value.required']}"
+								value="#{gamesController.value}">
+								<f:selectItem itemLabel="#{msg['games.value.select']}" noSelectionOption="true" />
+								<f:selectItems value="#{GameValue}" var="value" itemValue="#{value}" itemLabel="#{value.toString()}" />
+							</p:selectOneMenu>
+							<p:message for="value" />
+
+							<p:commandButton action="#{gamesController.createGame()}" value="#{msg['global.save']}"
+								update="gamesNew,gamesTable" />
+						</p:panelGrid>
+					</h:form>
+				</p:panel>
+
+				<br />
+
+				<p:panel id="gamesTable" header="#{msg['menu.games']}">
+					<h:form>
+						<p:dataTable var="game" rowIndexVar="row" value="#{gamesController.games}" rows="10" paginator="true"
+							sortBy="#{game.name}" paginatorPosition="bottom">
+							<p:column headerText="#{msg['games.name']}" sortBy="#{game.name}" style="width: 50%">
+								<h:outputText value="#{game.name}" />
+							</p:column>
+
+							<p:column headerText="#{msg['games.value']}" sortBy="#{game.value}" style="width: 25%">
+								<h:outputText value="#{game.value.toString()}" />
+							</p:column>
+
+							<p:column headerText="#{msg['games.comment']}" style="width: 25%">
+								<p:commandButton actionListener="#{gamesController.selectComment(row)}" icon="ui-icon-edit" update="gamesNew" />
+							</p:column>
+						</p:dataTable>
+					</h:form>
+				</p:panel>
+
+				<p:dialog widgetVar="commentDialog" header="#{msg['games.comment']}" modal="true">
+					<h:form>
+						<p:outputPanel autoUpdate="true">
+							<p:panelGrid id="commentPanel" columns="1">
+								<h:outputText value="#{gamesController.formattedComments}" escape="false" />
+								<p:inputText value="#{gamesController.commentText}" onclick="this.select()" />
+								<p:commandButton value="#{msg['global.save']}" action="#{gamesController.storeComment()}" />
+							</p:panelGrid>
+						</p:outputPanel>
+					</h:form>
+				</p:dialog>
+			</pm:content>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

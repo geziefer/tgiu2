@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
+<h:body>
+	<ui:composition template="../template/templateMobile.xhtml">
+		<f:metadata>
+			<f:viewAction action="#{overviewController.initFields()}" />
+		</f:metadata>
+		<ui:define name="body">
+			<ui:include src="../template/menuMobile.xhtml">
+				<ui:param name="title" value="#{msg['menu.overview']}" />
+			</ui:include>
+			<pm:content>
+				<p:messages id="messages" autoUpdate="true" showDetail="false" globalOnly="true" />
+				<h:form>
+					<p:panelGrid columns="2">
+						<p:column>
+							<h:commandLink onclick="PF('doodleDialog').show(); return false;">
+								<h:graphicImage name="images/doodle.png" styleClass="popupImage" />
+							</h:commandLink>
+							<h:commandLink onclick="PF('passwordDialog').show(); return false;">
+								<h:graphicImage name="images/password.png" styleClass="popupImage" />
+							</h:commandLink>
+							<h:commandLink onclick="PF('infoDialog').show(); return false;">
+								<h:graphicImage name="images/help.png" styleClass="popupImage" />
+							</h:commandLink>
+						</p:column>
+						<p:column>
+							<p:selectOneMenu value="#{overviewController.year}">
+								<f:selectItems value="#{overviewController.years}" />
+								<p:ajax update="overviewTable" listener="#{overviewController.changeYear()}" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:panelGrid>
+
+					<p:panel header="#{msg['overview.current']}">
+						<p:dataTable id="overviewTable" var="filteredRanking" value="#{overviewController.filteredRankings}">
+							<p:column headerText="#{msg['overview.name.short']}" style="width: 30%">
+								<h:outputText value="#{filteredRanking.name}" />
+							</p:column>
+
+							<p:column headerText="#{msg['overview.rounds.short']}" style="width: 10%">
+								<h:outputText value="#{filteredRanking.rounds}" />
+							</p:column>
+
+							<p:column headerText="#{msg['overview.sum.short']}" style="width: 30%">
+								<h:outputText value="#{filteredRanking.sum}">
+									<f:convertNumber minFractionDigits="3" />
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="#{msg['overview.score.short']}" style="width: 25%">
+								<h:outputText value="#{filteredRanking.score}">
+									<f:convertNumber minFractionDigits="3" />
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="#{msg['overview.eligible.short']}" style="width: 10%">
+								<h:graphicImage name="images/ok.png" rendered="#{filteredRanking.isEligible().booleanValue()}" />
+								<h:graphicImage name="images/nok.png" rendered="#{!filteredRanking.isEligible().booleanValue()}" />
+							</p:column>
+						</p:dataTable>
+					</p:panel>
+				</h:form>
+
+				<br />
+
+				<p:panel header="#{msg['overview.overall']}">
+					<p:dataTable var="ranking" value="#{overviewController.rankings}" sortBy="#{ranking.score}" sortOrder="descending">
+						<p:column headerText="#{msg['overview.name.short']}" style="width: 30%">
+							<h:outputText value="#{ranking.name}" />
+						</p:column>
+
+						<p:column headerText="#{msg['overview.rounds.short']}" style="width: 15%">
+							<h:outputText value="#{ranking.rounds}" />
+						</p:column>
+
+						<p:column headerText="#{msg['overview.sum.short']}" style="width: 25%">
+							<h:outputText value="#{ranking.sum}">
+								<f:convertNumber minFractionDigits="3" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="#{msg['overview.score.short']}" style="width: 25%">
+							<h:outputText value="#{ranking.score}">
+								<f:convertNumber minFractionDigits="3" />
+							</h:outputText>
+						</p:column>
+					</p:dataTable>
+				</p:panel>
+
+				<p:dialog widgetVar="infoDialog" header="#{msg['overview.info.header']}" modal="true">
+					<h:outputText value="#{msg['overview.info.text']}" escape="false" />
+				</p:dialog>
+
+				<p:dialog widgetVar="passwordDialog" header="#{msg['overview.password.header']}" modal="true">
+					<h:form>
+						<p:panelGrid id="passwordPanel" columns="1">
+							<p:password id="password" value="#{loginController.newPassword}" placeholder="#{msg['login.password']}"
+								required="true" requiredMessage="#{msg['login.password.required']}" />
+							<p:message for="password" />
+
+							<p:commandButton value="#{msg['global.save']}" action="#{loginController.changePassword()}"
+								update="passwordPanel" />
+						</p:panelGrid>
+					</h:form>
+				</p:dialog>
+
+				<p:dialog widgetVar="doodleDialog" header="#{msg['overview.doodle.header']}" modal="true">
+					<h:form>
+						<p:panelGrid id="doodlePanel" columns="1">
+							<h:outputLink value="#{applicationConfig.doodleURL}" target="_blank" styleClass="doodleLink">
+								<h:outputText value="#{msg['overview.doodle.current']}" escape="false"></h:outputText>
+							</h:outputLink>
+							<br />
+							<p:inputText value="#{applicationConfig.doodleURL}" onclick="this.select()"
+								readonly="#{loginController.hasRole('USER')}" />
+							<p:commandButton value="#{msg['global.save']}" rendered="#{loginController.hasRole('ADMIN')}"
+								update="doodlePanel" />
+						</p:panelGrid>
+					</h:form>
+				</p:dialog>
+			</pm:content>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

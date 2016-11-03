@@ -117,6 +117,13 @@ public class RoundsController implements Serializable {
 		return result.toString();
 	}
 
+	public String getPlayersForAllRanks(Round round) {
+		String lineBreak = "<br/>";
+		return new StringBuilder().append(getPlayersForRank(round, 1)).append(lineBreak)
+				.append(getPlayersForRank(round, 2)).append(lineBreak).append(getPlayersForRank(round, 3))
+				.append(lineBreak).append(getPlayersForRank(round, 4)).toString();
+	}
+
 	public Date getDate() {
 		return date;
 	}
@@ -133,8 +140,8 @@ public class RoundsController implements Serializable {
 		this.showAll = showAll;
 	}
 
-	public String formatDate(LocalDate date) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+	public String formatDate(LocalDate date, boolean shortYear) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(shortYear ? "dd.MM.yy" : "dd.MM.yyyy");
 		return date.format(formatter);
 	}
 

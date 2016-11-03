@@ -31,7 +31,7 @@ public class TGIUService {
 	@Path("/games")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Game> getGames() {
-		TypedQuery<Game> query = em.createNamedQuery("Game.findAll", Game.class);
+		TypedQuery<Game> query = em.createNamedQuery("Game.findAllEagerly", Game.class);
 		return query.getResultList();
 	}
 

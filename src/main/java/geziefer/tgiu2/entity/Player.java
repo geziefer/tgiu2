@@ -2,6 +2,8 @@ package geziefer.tgiu2.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
@@ -18,6 +20,10 @@ public class Player extends Base {
 	@JsonIgnore
 	private String password;
 
+	@Column
+	@Enumerated(EnumType.STRING)
+	private Role role;
+	
 	public String getName() {
 		return name;
 	}
@@ -32,6 +38,18 @@ public class Player extends Base {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+	
+	public boolean hasRole(Role role) {
+		return this.role.equals(role);
 	}
 
 }

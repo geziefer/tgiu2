@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
+<h:body>
+	<ui:composition template="template/templateMobile.xhtml">
+		<ui:define name="body">
+			<pm:header>
+				<h:graphicImage name="images/logo.png" style="max-width: 100%" />
+			</pm:header>
+			<pm:header title="#{msg['menu.login']}" />
+			<pm:content>
+				<p:messages id="messages" autoUpdate="true" showDetail="false" globalOnly="true" />
+				<h:form>
+					<p:panelGrid id="loginGrid">
+						<p:inputText id="username" value="#{loginController.username}" placeholder="#{msg['login.username']}"
+							required="true" requiredMessage="#{msg['login.username.required']}" />
+						<p:message for="username" />
+
+						<p:password id="password" value="#{loginController.password}" placeholder="#{msg['login.password']}"
+							required="true" requiredMessage="#{msg['login.password.required']}" />
+						<p:message for="password" />
+
+						<p:commandButton action="#{loginController.login}" value="#{msg['login.button']}" update="loginGrid" />
+					</p:panelGrid>
+				</h:form>
+			</pm:content>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
