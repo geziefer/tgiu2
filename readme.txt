@@ -14,10 +14,9 @@ Eclipse Neon Java EE edition
 copy modules and configuration folder from wildfly to WildFly installation
 
 # Config PostgreSQL
-create user "tgiu" with login permission
-create database "tgiu" with owner "tgiu" and all permissions
-run src/main/resources/db/createDB.sql within PostgreSQL
-run src/main/resources/import.sql within PostgreSQL
+run src/main/resources/db/createUser.sql as postgres user
+run src/main/resources/db/createDB.sql as tgiu user
+run src/main/resources/import.sql as tgiu user
 
 # Project
 add JDK 1.8 as installed JRE
