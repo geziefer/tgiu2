@@ -7,7 +7,7 @@ Git
 Maven 3
 JDK 1.8
 WildFly 10
-PostgresQL 9
+PostgresQL 9.5 (with pgAdmin 1.X)
 Eclipse Neon Java EE edition
 
 # Config Wildfly
