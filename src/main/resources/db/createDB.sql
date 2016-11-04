@@ -8,7 +8,7 @@ create table Player(
 	id integer not null auto_increment,
 	name varchar(20) not null,
 	password varchar(42) not null,
-	role varchar(10) not null,
+	role varchar(10) not null default 'USER',
 	primary key (id)
 );
 
@@ -39,6 +39,7 @@ create table Round(
 	id integer not null auto_increment,
 	date date not null,
 	game_id integer not null,
+	deleted boolean not null default true,
 	primary key (id),
 	foreign key (game_id) references Game (id)
 );

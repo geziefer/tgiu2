@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import geziefer.tgiu2.LocalDateAdapter;
 
 @Entity
-@NamedQuery(name = "Round.findAll", query = "SELECT r FROM Round r ORDER BY r.date DESC")
+@NamedQuery(name = "Round.findAll", query = "SELECT r FROM Round r WHERE r.deleted = false ORDER BY r.date DESC")
 public class Round extends Base {
 	@Column
 	@XmlJavaTypeAdapter(LocalDateAdapter.class)
@@ -29,6 +29,9 @@ public class Round extends Base {
 
 	@OneToMany(mappedBy = "round", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Rank> ranks;
+	
+	@Column
+	private boolean deleted;
 
 	public LocalDate getDate() {
 		return date;
@@ -52,6 +55,14 @@ public class Round extends Base {
 
 	public void setRanks(List<Rank> ranks) {
 		this.ranks = ranks;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	public boolean checkPlayer(String name) {

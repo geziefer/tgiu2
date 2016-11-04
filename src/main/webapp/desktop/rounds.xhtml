@@ -75,8 +75,8 @@
 						</h:commandLink>
 					</h:panelGrid>
 
-					<p:dataTable id="roundsTable" var="round" value="#{roundsController.rounds}" rows="10" paginator="true"
-						sortBy="#{round.date}" sortOrder="descending"
+					<p:dataTable id="roundsTable" var="round" rowIndexVar="row" value="#{roundsController.rounds}" rows="10"
+						paginator="true" sortBy="#{round.date}" sortOrder="descending"
 						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 						currentPageReportTemplate="{totalRecords} #{msg['global.count']}" paginatorPosition="bottom"
 						rowsPerPageTemplate="5,10,20,50">
@@ -84,7 +84,7 @@
 							<h:outputText value="#{roundsController.formatDate(round.date, false)}" />
 						</p:column>
 
-						<p:column headerText="#{msg['rounds.game']}" sortBy="#{round.game.name}" style="width: 20%">
+						<p:column headerText="#{msg['rounds.game']}" sortBy="#{round.game.name}" style="width: 15%">
 							<h:outputText value="#{round.game.name}" />
 						</p:column>
 
@@ -100,8 +100,12 @@
 							<h:outputText value="#{roundsController.getPlayersForRank(round, 3)}" />
 						</p:column>
 
-						<p:column headerText="#{msg['rounds.rank.dnf']}" style="width: 20%">
+						<p:column headerText="#{msg['rounds.rank.dnf']}" style="width: 15%">
 							<h:outputText value="#{roundsController.getPlayersForRank(round, 4)}" />
+						</p:column>
+
+						<p:column headerText="#{msg['rounds.delete']}" style="width: 10%" rendered="#{loginController.hasRole('ADMIN')}">
+							<p:commandButton action="#{roundsController.deleteRound(row)}" icon="fa fa-fw fa-trash-o" update="roundsHeader" />
 						</p:column>
 					</p:dataTable>
 				</h:form>

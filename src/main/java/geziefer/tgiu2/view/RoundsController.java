@@ -165,6 +165,21 @@ public class RoundsController implements Serializable {
 		return "";
 	}
 
+	public String deleteRound(Integer row) {
+		Round round = rounds.get(row);
+		round.setDeleted(true);
+		EntityManager em = LocalEntityManagerFactory.createEntityManager();
+		em.getTransaction().begin();
+		em.merge(round);
+		em.getTransaction().commit();
+		initFields();
+		
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO, msg.getString("rounds.delete.success"), ""));
+
+		return "";
+	}
+
 	// tested by RankTest
 	List<Rank> checkAndAdaptRanks(List<Rank> ranks) {
 		List<Rank> newRanks = ranks.stream().filter(r -> r.getRank() > 0)
