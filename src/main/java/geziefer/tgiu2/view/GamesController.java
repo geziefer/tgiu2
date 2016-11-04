@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.CellEditEvent;
 
 import geziefer.tgiu2.LocalEntityManagerFactory;
 import geziefer.tgiu2.entity.Comment;
@@ -116,6 +117,25 @@ public class GamesController implements Serializable {
 		}
 
 		return "";
+	}
+
+	public void editName(CellEditEvent event) {
+		String oldValue = (String) event.getOldValue();
+		String newValue = (String) event.getNewValue();
+		Game game = games.stream().filter(g -> g.getName().equals(newValue)).findFirst().get();
+		
+		EntityManager em = LocalEntityManagerFactory.createEntityManager();
+		try {
+			em.getTransaction().begin();
+			em.merge(game);
+			em.getTransaction().commit();
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_INFO, msg.getString("games.info.success"), ""));
+		} catch (Exception e) {
+			game.setName(oldValue);
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, msg.getString("games.error.uniqueness"), ""));
+		}
 	}
 
 	public void selectComment(Integer row) {

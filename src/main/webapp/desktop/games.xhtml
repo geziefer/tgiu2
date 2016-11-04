@@ -35,17 +35,27 @@
 				</p:panel>
 
 				<h:form>
-					<p:dataTable var="game" rowIndexVar="row" value="#{gamesController.games}" rows="10" paginator="true"
-						sortBy="#{game.name}"
+					<p:dataTable id="gamesTable" var="game" rowIndexVar="row" value="#{gamesController.games}" rows="10"
+						paginator="true" sortBy="#{game.name}" editable="true" editMode="cell"
 						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 						currentPageReportTemplate="{totalRecords} #{msg['global.count']}" paginatorPosition="bottom"
 						rowsPerPageTemplate="5,10,20,50">
+						<p:ajax event="cellEdit" listener="#{gamesController.editName}" update="gamesTable" />
+
 						<p:column headerText="#{msg['global.number']}" style="width: 15%">
 							<h:outputText value="#{row + 1}" />
 						</p:column>
 
 						<p:column headerText="#{msg['games.name']}" sortBy="#{game.name}" style="width: 45%">
-							<h:outputText value="#{game.name}" />
+							<p:cellEditor rendered="#{loginController.hasRole('ADMIN')}">
+								<f:facet name="output">
+									<h:outputText value="#{game.name}" />
+								</f:facet>
+								<f:facet name="input">
+									<p:inputText value="#{game.name}" />
+								</f:facet>
+							</p:cellEditor>
+							<h:outputText value="#{game.name}" rendered="#{loginController.hasRole('USER')}" />
 						</p:column>
 
 						<p:column headerText="#{msg['games.value']}" sortBy="#{game.value}" style="width: 20%">
