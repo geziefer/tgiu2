@@ -104,7 +104,8 @@
 							<h:outputText value="#{roundsController.getPlayersForRank(round, 4)}" />
 						</p:column>
 
-						<p:column headerText="#{msg['rounds.delete']}" style="width: 10%" rendered="#{loginController.hasRole('ADMIN')}">
+						<p:column headerText="#{msg['rounds.delete']}" style="width: 10%" exportable="false"
+							rendered="#{loginController.hasRole('ADMIN')}">
 							<p:commandButton action="#{roundsController.deleteRound(row)}" icon="fa fa-fw fa-trash-o" update="roundsHeader" />
 						</p:column>
 					</p:dataTable>
