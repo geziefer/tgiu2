@@ -19,6 +19,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import geziefer.tgiu2.LocalEntityManagerFactory;
 import geziefer.tgiu2.entity.Player;
+import geziefer.tgiu2.entity.Role;
 
 @Named
 @SessionScoped
@@ -75,6 +76,7 @@ public class PlayersController implements Serializable {
 			Player newPlayer = new Player();
 			newPlayer.setName(name);
 			newPlayer.setPassword(DigestUtils.sha1Hex(password));
+			newPlayer.setRole(Role.USER);
 			em.getTransaction().begin();
 			em.persist(newPlayer);
 			em.getTransaction().commit();
