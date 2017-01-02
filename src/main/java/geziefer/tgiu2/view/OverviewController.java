@@ -60,6 +60,9 @@ public class OverviewController implements Serializable {
 			for (int i = maxDate.get().getYear(); i >= minDate.get().getYear(); i--) {
 				years.add(i);
 			}
+			if (!years.contains(year)) {
+				years.add(year);
+			}
 		} else {
 			years.add(year);
 		}
