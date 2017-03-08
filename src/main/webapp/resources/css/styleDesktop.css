@@ -6,11 +6,11 @@
 }
 
 .ui-panel {
-	padding: 0 !important;
+	padding: 0;
 }
 
-.ui-panel-content {
-	padding: 20px !important;
+.ui-panel .ui-panel-content {
+	padding: 20px;
 }
 
 .ui-dock-container-bottom {
@@ -22,23 +22,44 @@
 }
 
 .ui-slider {
-	margin-left: 30px;
-	margin-right: 40px;
+	margin-left: auto;
+	margin-right: auto;
+	width: calc(100% - 100% / 7);
 }
 
 .ui-datatable-empty-message {
 	display: none;
 }
 
-.noBorder tr, .noBorder td {
-	border: 0 !important;
+.ui-panelgrid.noBorder tr, .ui-panelgrid.noBorder td {
+	border-width: 0;
 }
 
 .transparentBackground tr, .transparentBackground td {
 	background: transparent;
 }
 
-.doodleLink {
-	color: #0064dc !important;
+a.doodleLink {
+	color: #0064dc;
 	text-decoration: none;
+}
+
+.myGrid {
+	width: 66%;
+	float: right;
+}
+
+.clear {
+	clear: both;
+}
+
+.ui-dock-bottom.ui-widget {
+	top: 50%;
+	left: -48%;
+	transform: rotate(90deg);
+	position: fixed;
+}
+
+.ui-dock-container-bottom a img {
+	transform: rotate(-90deg);
 }
