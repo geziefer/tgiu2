@@ -122,6 +122,32 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.1.0</version>
+				<configuration>
+					<webResources>
+						<resource>
+							<filtering>true</filtering>
+							<directory>src/main/webapp</directory>
+							<includes>
+								<include>**/web.xml</include>
+							</includes>
+						</resource>
+						<resource>
+							<filtering>true</filtering>
+							<directory>src/main/resources/META-INF</directory>
+							<includes>
+								<include>**/persistence.xml</include>
+							</includes>
+							<targetPath>WEB-INF/classes/META-INF</targetPath>
+						</resource>
+					</webResources>
+					<warSourceDirectory>src/main/webapp</warSourceDirectory>
+					<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.2</version>
@@ -135,23 +161,11 @@
 				</configuration>
 			</plugin>
 		</plugins>
-		<resources>
-			<resource>
-				<directory>src/main/resources/META-INF</directory>
-				<filtering>true</filtering>
-			</resource>
-			<resource>
-				<directory>src/main/webapp/META-INF</directory>
-				<filtering>true</filtering>
-			</resource>
-			<resource>
-				<directory>src/main/webapp/WEB-INF</directory>
-				<filtering>true</filtering>
-			</resource>
-			<resource>
-				<directory>src/main/resources</directory>
-			</resource>
-		</resources>
+		<!--<resources> <resource> <directory>src/main/resources/META-INF</directory> 
+			<filtering>true</filtering> </resource> <resource> <directory>src/main/webapp/META-INF</directory> 
+			<filtering>true</filtering> </resource> <resource> <directory>src/main/resources</directory> 
+			<filtering>true</filtering> </resource> <resource> <directory>src/main/webapp/WEB-INF</directory> 
+			<filtering>true</filtering> </resource> </resources> -->
 	</build>
 
 	<profiles>

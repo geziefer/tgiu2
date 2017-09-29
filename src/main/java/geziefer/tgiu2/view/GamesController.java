@@ -45,6 +45,8 @@ public class GamesController implements Serializable {
 	private String commentText;
 
 	private String formattedComments;
+	
+	private boolean searchString;
 
 	public void initFields() {
 		EntityManager em = LocalEntityManagerFactory.createEntityManager();
@@ -94,6 +96,14 @@ public class GamesController implements Serializable {
 		return formattedComments;
 	}
 
+	public boolean isSearchString() {
+		return searchString;
+	}
+
+	public void setSearchString(boolean searchString) {
+		this.searchString = searchString;
+	}
+
 	public String createGame() {
 		EntityManager em = LocalEntityManagerFactory.createEntityManager();
 		TypedQuery<Game> query = em.createNamedQuery("Game.findByName", Game.class);
@@ -119,11 +129,26 @@ public class GamesController implements Serializable {
 		return "";
 	}
 
+	public void findGame() {
+		EntityManager em = LocalEntityManagerFactory.createEntityManager();
+		TypedQuery<Game> query;
+		if (name.equals("")) {
+			query = em.createNamedQuery("Game.findAllEagerly", Game.class);
+		} else {
+			query = em.createNamedQuery("Game.findByChar", Game.class);
+			query.setParameter("name", name + "%");			
+			if(searchString) {
+				query.setParameter("name", "%" + name + "%");			
+			}
+		}
+		games = query.getResultList();
+	}
+
 	public void editName(CellEditEvent event) {
 		String oldValue = (String) event.getOldValue();
 		String newValue = (String) event.getNewValue();
 		Game game = games.stream().filter(g -> g.getName().equals(newValue)).findFirst().get();
-		
+
 		EntityManager em = LocalEntityManagerFactory.createEntityManager();
 		try {
 			em.getTransaction().begin();

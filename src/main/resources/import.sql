@@ -1,18 +1,44 @@
 insert into Config (name, value) values ('doodleURL', 'http://doodle.com');
 
-insert into Player (id, name, password, role) values (-1, 'Alex', '64542dbabb81dfd446e0cf4f319567c72ee57c7b', 'ADMIN');
-insert into Player (id, name, password, role) values (-2, 'Bernd', '3ddb99b6e1f6bd86ec2e2d619846a9cdd31018ed', 'USER');
-insert into Player (id, name, password, role) values (-3, 'Birger', '40ceddc5ff3a931047a82e2e498be51491481ddc', 'USER');
-insert into Player (id, name, password, role) values (-4, 'Christine', '7c6dbed8e14ba50cb06dbcdbd1ea197425a627de', 'USER');
-insert into Player (id, name, password, role) values (-5, 'Ersatz', '0f22f24ea0942f5a0e55e342cb79cdbe3d5a1dde', 'USER');
-insert into Player (id, name, password, role) values (-6, 'Kai', '3a2e072910f8879a6689cfb328c794990a17c243', 'USER');
-insert into Player (id, name, password, role) values (-7, 'Michael', 'f8c38b2167c0ab6d7c720e47c2139428d77d8b6a', 'USER');
-insert into Player (id, name, password, role) values (-8, 'Thorsten', '31c699eacdc45f1a41d2007092acc3c7efdc9f4b','ADMIN');
+insert into Player (id, name, password, role) values (-1, 'anton', '14deb5e5e417133e888bf47bb6a3555c9bb7d81c', 'ADMIN');
+insert into Player (id, name, password, role) values (-2, 'berta', '9185a8dda46e136016ef92d18680f5c2bcecbcbd', 'USER');
+insert into Player (id, name, password, role) values (-3, 'christian', '2314b2e3a4a1f7db165be2aafbf1efd78f28cc97', 'USER');
+insert into Player (id, name, password, role) values (-4, 'dieter', 'b617834f89be0c2a85d223f602f0a5edf9446141', 'USER');
+insert into Player (id, name, password, role) values (-5, 'erik', 'c195b508e6f0c57aeafdb5e96947e2b79e6a4b40', 'USER');
+insert into Player (id, name, password, role) values (-6, 'freddy', '5c8a7a129de8b649e9a0cbfbb7e9cec37a6efcb6', 'USER');
+insert into Player (id, name, password, role) values (-7, 'gerd', '087ae13aa9024dd32f97adba60e0a79fd8442519', 'USER');
+insert into Player (id, name, password, role) values (-8, 'hannes', '331be22c6b63ca3e0a03d408c2d906b1b02cd5f2', 'USER');
+
 
 insert into Game (id, name, value) values (-1, 'Siedler', 'LARGE');
 insert into Game (id, name, value) values (-2, 'Maracash', 'MEDIUM');
 insert into Game (id, name, value) values (-3, 'Al Cabohne', 'SMALL');
 insert into Game (id, name, value) values (-4, 'Orléons', 'LARGE');
+insert into Game (id, name, value) values (-6, '6 Nimm', 'SMALL');
+insert into Game (id, name, value) values (-7, 'Meyern', 'MEDIUM');
+insert into Game (id, name, value) values (-8, 'Kuhhandel', 'SMALL');
+insert into Game (id, name, value) values (-9, 'Schummerl Max', 'LARGE');
+insert into Game (id, name, value) values (-10, 'Jule', 'LARGE');
+insert into Game (id, name, value) values (-11, 'Civilization', 'MEDIUM');
+insert into Game (id, name, value) values (-12, 'Doppelkopf', 'SMALL');
+insert into Game (id, name, value) values (-13, 'Skat', 'LARGE');
+insert into Game (id, name, value) values (-14, 'Air Hockey', 'LARGE');
+insert into Game (id, name, value) values (-15, 'Tischtennis', 'MEDIUM');
+insert into Game (id, name, value) values (-16, 'Fußball', 'SMALL');
+insert into Game (id, name, value) values (-17, 'Eishockey', 'LARGE');
+insert into Game (id, name, value) values (-18, 'Rugby', 'LARGE');
+insert into Game (id, name, value) values (-19, 'Mau Mau', 'MEDIUM');
+insert into Game (id, name, value) values (-20, '32 Heb auf', 'SMALL');
+insert into Game (id, name, value) values (-21, 'Uno', 'LARGE');
+insert into Game (id, name, value) values (-22, 'Kanaster', 'LARGE');
+insert into Game (id, name, value) values (-23, 'Romme', 'MEDIUM');
+insert into Game (id, name, value) values (-24, 'The Witcher', 'SMALL');
+insert into Game (id, name, value) values (-25, 'The Game', 'LARGE');
+insert into Game (id, name, value) values (-26, 'Anno', 'LARGE');
+insert into Game (id, name, value) values (-27, 'Factorio', 'MEDIUM');
+insert into Game (id, name, value) values (-28, 'Scotland Yard', 'SMALL');
+insert into Game (id, name, value) values (-29, 'Ein weiteres Spiel', 'LARGE');
+insert into Game (id, name, value) values (-30, 'Quartett', 'LARGE');
 
 insert into Comment (id, game_id, player_id, comment) values (-1, -1, -1, 'Am besten mit Städte & Ritter Erweiterung');
 

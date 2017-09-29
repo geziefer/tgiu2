@@ -135,7 +135,7 @@ public class LoginController implements Serializable {
 	public boolean hasRole(Role role) {
 		return player == null ? false : player.hasRole(role);
 	}
-	
+
 	public void checkLoginAndRedirect(ComponentSystemEvent cse) {
 		checkMobile();
 

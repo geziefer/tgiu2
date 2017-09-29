@@ -11,7 +11,7 @@
 		<ui:define name="body">
 			<o:importConstants type="geziefer.tgiu2.entity.GameValue" />
 			<p:panel id="gamesHeader" header="#{msg['menu.games']}">
-				<p:panel header="" toggleable="true" style="border:none" widgetVar="gamePanel">
+				<p:panel header="#{msg['games.new']}" toggleable="true" collapsed="true" style="border:none" widgetVar="gamePanel">
 					<h:form>
 						<p:panelGrid columns="3" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
 							<div />
@@ -33,6 +33,18 @@
 						</p:panelGrid>
 					</h:form>
 				</p:panel>
+				
+				<p:panel id="gamesSearch" header="#{msg['games.search']}"	toggleable="true" style="border:none" wiggetVar="gamePanel">
+					<h:form>
+						<p:panelGrid columns="2" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
+							<h:outputLabel value="#{msg['games.search.option']}" />
+							<p:selectBooleanCheckbox value="#{gamesController.searchString}" />
+							<p:inputText id="game" value="#{gamesController.name}" placeholder="#{msg['games.name']}" />
+							<p:commandButton action="#{gamesController.findGame()}" value="#{msg['global.search']}" update="gamesHeader"/>
+						</p:panelGrid>
+					</h:form>
+				</p:panel>
+				
 
 				<h:form>
 					<p:dataTable id="gamesTable" var="game" rowIndexVar="row" value="#{gamesController.games}" rows="10"
@@ -85,3 +97,4 @@
 	</ui:composition>
 </h:body>
 </html>
+

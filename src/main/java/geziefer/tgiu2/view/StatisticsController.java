@@ -24,6 +24,7 @@ import org.primefaces.model.chart.LegendPlacement;
 import org.primefaces.model.chart.PieChartModel;
 
 import geziefer.tgiu2.LocalEntityManagerFactory;
+import geziefer.tgiu2.entity.Game;
 import geziefer.tgiu2.entity.GameValue;
 import geziefer.tgiu2.entity.Player;
 import geziefer.tgiu2.entity.Rank;
@@ -51,6 +52,10 @@ public class StatisticsController implements Serializable {
 
 	private List<String> years = new ArrayList<>();
 
+	private String game;
+
+	private List<String> games;
+
 	public void initFields() {
 		EntityManager em = LocalEntityManagerFactory.createEntityManager();
 		TypedQuery<Rank> query1 = em.createNamedQuery("Rank.findAll", Rank.class);
@@ -71,6 +76,12 @@ public class StatisticsController implements Serializable {
 		year = years.get(0);
 
 		changeYear();
+
+		games = new ArrayList<>();
+		TypedQuery<Game> query = em.createNamedQuery("Game.findAllEagerly", Game.class);
+		games.add(msg.getString("statistics.selection.allGames"));
+		query.getResultList().forEach(g -> games.add(g.toString()));
+		game = games.get(0);
 	}
 
 	public void changeYear() {
@@ -85,6 +96,10 @@ public class StatisticsController implements Serializable {
 					.collect(Collectors.toList());
 			roundCount = filteredRanks.stream().filter(distinctByKey(r -> r.getRound().getId())).count();
 		}
+	}
+	
+	public void changeGame() {
+		
 	}
 
 	public Long getRoundCount() {
@@ -101,6 +116,18 @@ public class StatisticsController implements Serializable {
 
 	public void setYear(String year) {
 		this.year = year;
+	}
+
+	public String getGame() {
+		return game;
+	}
+
+	public void setGame(String game) {
+		this.game = game;
+	}
+
+	public List<String> getGames() {
+		return games;
 	}
 
 	public HorizontalBarChartModel getRounds() {

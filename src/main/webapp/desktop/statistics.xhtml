@@ -14,6 +14,11 @@
 						<f:selectItems value="#{statisticsController.years}" />
 						<p:ajax update="statisticsHeader" listener="#{statisticsController.changeYear()}" />
 					</p:selectOneMenu>
+					
+					<p:selectOneMenu value="#{statisticsController.game}">
+						<f:selectItems value="#{statisticsController.games}" />
+						<p:ajax update="statisticsHeader" listener="#{statisticsController.changeGame()}" />
+					</p:selectOneMenu>
 
 					<p:panelGrid columns="1" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
 						<p:chart type="bar" model="#{statisticsController.rounds}" responsive="true" style="height:350px" />
