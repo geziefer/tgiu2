@@ -38,7 +38,9 @@
 					<h:form>
 						<p:panelGrid columns="2" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
 							<h:outputLabel value="#{msg['games.search.option']}" />
-							<p:selectBooleanCheckbox value="#{gamesController.searchString}" />
+							<p:selectBooleanCheckbox value="#{gamesController.searchString}">
+								<p:ajax update="gamesHeader" listener="#{gamesController.findGame()}" />
+							</p:selectBooleanCheckbox>
 							<p:inputText id="game" value="#{gamesController.name}" placeholder="#{msg['games.name']}" />
 							<p:commandButton action="#{gamesController.findGame()}" value="#{msg['global.search']}" update="gamesHeader"/>
 						</p:panelGrid>

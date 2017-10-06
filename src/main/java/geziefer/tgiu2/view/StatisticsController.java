@@ -75,13 +75,13 @@ public class StatisticsController implements Serializable {
 		years.add(msg.getString("statistics.selection.all"));
 		year = years.get(0);
 
-		changeYear();
-
 		games = new ArrayList<>();
-		TypedQuery<Game> query = em.createNamedQuery("Game.findAllEagerly", Game.class);
+		TypedQuery<Game> query = em.createNamedQuery(Game.FIND_ALL_EAGER, Game.class);
 		games.add(msg.getString("statistics.selection.allGames"));
 		query.getResultList().forEach(g -> games.add(g.toString()));
 		game = games.get(0);
+
+		changeYear();
 	}
 
 	public void changeYear() {
@@ -96,10 +96,15 @@ public class StatisticsController implements Serializable {
 					.collect(Collectors.toList());
 			roundCount = filteredRanks.stream().filter(distinctByKey(r -> r.getRound().getId())).count();
 		}
+		changeGame();
 	}
-	
+
 	public void changeGame() {
-		
+		if (!game.equals(msg.getString("statistics.selection.allGames"))) {
+			filteredRanks = ranks.stream().filter(r -> r.getRound().getGame().getName().equals(game))
+					.collect(Collectors.toList());
+			roundCount = filteredRanks.stream().filter(distinctByKey(r -> r.getRound().getId())).count();
+		}
 	}
 
 	public Long getRoundCount() {

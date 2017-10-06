@@ -18,6 +18,11 @@
 						<f:selectItems value="#{statisticsController.years}" />
 						<p:ajax update="statisticsCharts" listener="#{statisticsController.changeYear()}" />
 					</p:selectOneMenu>
+					
+					<p:selectOneMenu value="#{statisticsController.game}">
+						<f:selectItems value="#{statisticsController.games}" />
+						<p:ajax update="statisticsCharts" listener="#{statisticsController.changeGame()}" />
+					</p:selectOneMenu>
 
 					<p:panelGrid id="statisticsCharts">
 						<p:chart type="bar" model="#{statisticsController.rounds}" />
