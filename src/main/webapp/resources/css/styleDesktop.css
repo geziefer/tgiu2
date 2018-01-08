@@ -52,14 +52,3 @@ a.doodleLink {
 .clear {
 	clear: both;
 }
-
-.ui-dock-bottom.ui-widget {
-	top: 50%;
-	left: -48%;
-	transform: rotate(90deg);
-	position: fixed;
-}
-
-.ui-dock-container-bottom a img {
-	transform: rotate(-90deg);
-}

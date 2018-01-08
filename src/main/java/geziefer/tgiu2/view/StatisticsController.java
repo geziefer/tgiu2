@@ -24,6 +24,7 @@ import org.primefaces.model.chart.HorizontalBarChartModel;
 import org.primefaces.model.chart.LegendPlacement;
 import org.primefaces.model.chart.PieChartModel;
 
+import geziefer.tgiu2.MyMessageBundle;
 import geziefer.tgiu2.entity.GameValue;
 import geziefer.tgiu2.entity.Player;
 import geziefer.tgiu2.entity.Rank;
@@ -35,8 +36,9 @@ public class StatisticsController implements Serializable {
 
 	@PersistenceContext
 	EntityManager em;
-	
+
 	@Inject
+	@MyMessageBundle
 	private transient PropertyResourceBundle msg;
 
 	@Inject

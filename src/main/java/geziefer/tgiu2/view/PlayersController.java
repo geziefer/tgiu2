@@ -20,6 +20,7 @@ import javax.transaction.Transactional.TxType;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+import geziefer.tgiu2.MyMessageBundle;
 import geziefer.tgiu2.entity.Player;
 import geziefer.tgiu2.entity.Role;
 
@@ -33,6 +34,7 @@ public class PlayersController implements Serializable {
 	EntityManager em;
 	
 	@Inject
+	@MyMessageBundle
 	private transient PropertyResourceBundle msg;
 
 	private List<Player> players = new ArrayList<>();

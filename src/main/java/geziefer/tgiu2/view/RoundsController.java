@@ -21,6 +21,7 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import javax.transaction.Transactional.TxType;
 
+import geziefer.tgiu2.MyMessageBundle;
 import geziefer.tgiu2.entity.Game;
 import geziefer.tgiu2.entity.Player;
 import geziefer.tgiu2.entity.Rank;
@@ -36,6 +37,7 @@ public class RoundsController implements Serializable {
 	EntityManager em;
 	
 	@Inject
+	@MyMessageBundle
 	private transient PropertyResourceBundle msg;
 
 	private List<Player> players = new ArrayList<>();

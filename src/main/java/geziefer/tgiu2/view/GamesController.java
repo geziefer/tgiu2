@@ -19,6 +19,7 @@ import javax.transaction.Transactional.TxType;
 
 import org.primefaces.context.RequestContext;
 
+import geziefer.tgiu2.MyMessageBundle;
 import geziefer.tgiu2.entity.Comment;
 import geziefer.tgiu2.entity.Game;
 import geziefer.tgiu2.entity.GameValue;
@@ -34,6 +35,7 @@ public class GamesController implements Serializable {
 	EntityManager em;
 	
 	@Inject
+	@MyMessageBundle
 	private transient PropertyResourceBundle msg;
 
 	@Inject

@@ -18,6 +18,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import geziefer.tgiu2.MyMessageBundle;
 import geziefer.tgiu2.entity.Player;
 import geziefer.tgiu2.entity.Ranking;
 import geziefer.tgiu2.entity.Round;
@@ -31,6 +32,7 @@ public class OverviewController implements Serializable {
 	EntityManager em;
 	
 	@Inject
+	@MyMessageBundle
 	private transient PropertyResourceBundle msg;
 
 	@Inject

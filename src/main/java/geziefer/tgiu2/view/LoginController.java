@@ -21,6 +21,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.primefaces.context.RequestContext;
 
 import au.com.flyingkite.mobiledetect.UAgentInfo;
+import geziefer.tgiu2.MyMessageBundle;
 import geziefer.tgiu2.entity.Player;
 import geziefer.tgiu2.entity.Role;
 
@@ -36,6 +37,7 @@ public class LoginController implements Serializable {
 	EntityManager em;
 
 	@Inject
+	@MyMessageBundle
 	private transient PropertyResourceBundle msg;
 
 	private String username = "";
