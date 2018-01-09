@@ -44,12 +44,13 @@ create table Round(
 	foreign key (game_id) references Game (id)
 );
 
-create table Rank(
+create table `Rank`(
 	id integer not null auto_increment,
 	round_id integer not null,
 	player_id integer not null,
 	rank integer not null,
 	primary key (id),
-	foreign key (round_id) references Round (id),
+	foreign key (round_id) references `Round` (id),
 	foreign key (player_id) references Player (id)
 );
+
