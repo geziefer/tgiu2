@@ -12,20 +12,18 @@
 				<p:panel header="" toggleable="true" style="border:none" widgetVar="playerPanel"
 					rendered="#{loginController.hasRole('ADMIN')}">
 					<h:form>
-						<p:panelGrid columns="3" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
-							<div />
+						<p:panelGrid columns="2" styleClass="ui-panelgrid-blank ui-fluid myGrid" layout="grid">
 							<p:inputText id="name" value="#{playersController.name}" placeholder="#{msg['players.name']}" required="true"
 								requiredMessage="#{msg['players.name.required']}" />
 							<p:message for="name" />
 
-							<div />
 							<p:password id="password" value="#{playersController.password}" placeholder="#{msg['players.password']}"
 								required="true" autocomplete="new-password" requiredMessage="#{msg['players.password.required']}" />
 							<p:message for="password" />
 
-							<div />
 							<p:commandButton action="#{playersController.createPlayer()}" value="#{msg['global.save']}" update="playerHeader" />
 						</p:panelGrid>
+						<div class="clear"/>
 					</h:form>
 				</p:panel>
 

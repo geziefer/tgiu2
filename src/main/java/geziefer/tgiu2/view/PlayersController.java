@@ -13,20 +13,28 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
+import javax.transaction.Transactional.TxType;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import geziefer.tgiu2.LocalEntityManagerFactory;
+import geziefer.tgiu2.MyMessageBundle;
 import geziefer.tgiu2.entity.Player;
 import geziefer.tgiu2.entity.Role;
 
 @Named
 @SessionScoped
+@Transactional(value=TxType.REQUIRED)
 public class PlayersController implements Serializable {
 	private static final long serialVersionUID = 2694864640991849406L;
 
+	@PersistenceContext
+	EntityManager em;
+	
 	@Inject
+	@MyMessageBundle
 	private transient PropertyResourceBundle msg;
 
 	private List<Player> players = new ArrayList<>();
@@ -37,7 +45,6 @@ public class PlayersController implements Serializable {
 
 	@PostConstruct
 	public void populateList() {
-		EntityManager em = LocalEntityManagerFactory.createEntityManager();
 		TypedQuery<Player> query = em.createNamedQuery("Player.findAll", Player.class);
 		players = query.getResultList();
 	}
@@ -68,7 +75,6 @@ public class PlayersController implements Serializable {
 	}
 
 	public String createPlayer() {
-		EntityManager em = LocalEntityManagerFactory.createEntityManager();
 		TypedQuery<Player> query = em.createNamedQuery("Player.findByName", Player.class);
 		query.setParameter("name", name);
 		List<Player> players = query.getResultList();
@@ -77,9 +83,7 @@ public class PlayersController implements Serializable {
 			newPlayer.setName(name);
 			newPlayer.setPassword(DigestUtils.sha1Hex(password));
 			newPlayer.setRole(Role.USER);
-			em.getTransaction().begin();
 			em.persist(newPlayer);
-			em.getTransaction().commit();
 			initFields();
 			populateList();
 			FacesContext.getCurrentInstance().addMessage(null,
@@ -93,15 +97,18 @@ public class PlayersController implements Serializable {
 	}
 
 	public String resetPassword(Integer row) {
-		Player player = players.get(row);
-		EntityManager em = LocalEntityManagerFactory.createEntityManager();
-		player.setPassword(DigestUtils.sha1Hex(player.getName()));
-		em.getTransaction().begin();
-		em.merge(player);
-		em.getTransaction().commit();
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
-				MessageFormat.format(msg.getString("players.reset.success"), player.getName()), ""));
-
+		String name = players.get(row).getName();
+		TypedQuery<Player> query = em.createNamedQuery("Player.findByName", Player.class);
+		query.setParameter("name", name);
+		List<Player> players = query.getResultList();
+		if (!players.isEmpty()) {
+			Player player = players.get(0);
+			player.setPassword(DigestUtils.sha1Hex(name));
+			em.merge(player);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
+					MessageFormat.format(msg.getString("players.reset.success"), name), ""));
+		}
+		
 		return "";
 	}
 

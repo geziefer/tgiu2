@@ -16,9 +16,12 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
+import javax.transaction.Transactional.TxType;
 
-import geziefer.tgiu2.LocalEntityManagerFactory;
+import geziefer.tgiu2.MyMessageBundle;
 import geziefer.tgiu2.entity.Game;
 import geziefer.tgiu2.entity.Player;
 import geziefer.tgiu2.entity.Rank;
@@ -26,10 +29,15 @@ import geziefer.tgiu2.entity.Round;
 
 @Named
 @SessionScoped
+@Transactional(value=TxType.REQUIRED)
 public class RoundsController implements Serializable {
 	private static final long serialVersionUID = -4061642452157056938L;
 
+	@PersistenceContext
+	EntityManager em;
+	
 	@Inject
+	@MyMessageBundle
 	private transient PropertyResourceBundle msg;
 
 	private List<Player> players = new ArrayList<>();
@@ -49,7 +57,6 @@ public class RoundsController implements Serializable {
 	private boolean showAll;
 
 	public void initFields() {
-		EntityManager em = LocalEntityManagerFactory.createEntityManager();
 		TypedQuery<Player> query1 = em.createNamedQuery("Player.findAll", Player.class);
 		players = query1.getResultList();
 		TypedQuery<Game> query2 = em.createNamedQuery("Game.findAll", Game.class);
@@ -152,10 +159,7 @@ public class RoundsController implements Serializable {
 			newRanks.stream().forEach(r -> r.setRound(newRound));
 			newRound.setRanks(newRanks);
 
-			EntityManager em = LocalEntityManagerFactory.createEntityManager();
-			em.getTransaction().begin();
 			em.persist(newRound);
-			em.getTransaction().commit();
 			initFields();
 
 			FacesContext.getCurrentInstance().addMessage(null,
@@ -168,7 +172,6 @@ public class RoundsController implements Serializable {
 	public String deleteRound(Integer row) {
 		Round round = rounds.get(row);
 		round.setDeleted(true);
-		EntityManager em = LocalEntityManagerFactory.createEntityManager();
 		em.getTransaction().begin();
 		em.merge(round);
 		em.getTransaction().commit();

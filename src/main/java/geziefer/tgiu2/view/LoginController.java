@@ -12,6 +12,7 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,7 +21,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.primefaces.context.RequestContext;
 
 import au.com.flyingkite.mobiledetect.UAgentInfo;
-import geziefer.tgiu2.LocalEntityManagerFactory;
+import geziefer.tgiu2.MyMessageBundle;
 import geziefer.tgiu2.entity.Player;
 import geziefer.tgiu2.entity.Role;
 
@@ -32,7 +33,11 @@ public class LoginController implements Serializable {
 
 	private static Logger log = Logger.getLogger(LoginController.class.getName());
 
+	@PersistenceContext
+	EntityManager em;
+
 	@Inject
+	@MyMessageBundle
 	private transient PropertyResourceBundle msg;
 
 	private String username = "";
@@ -89,7 +94,6 @@ public class LoginController implements Serializable {
 
 	public String login() {
 		boolean ok = false;
-		EntityManager em = LocalEntityManagerFactory.createEntityManager();
 		TypedQuery<Player> query = em.createNamedQuery("Player.findByName", Player.class);
 		query.setParameter("name", username);
 		List<Player> players = query.getResultList();
@@ -152,16 +156,13 @@ public class LoginController implements Serializable {
 	}
 
 	public String changePassword() {
-		EntityManager em = LocalEntityManagerFactory.createEntityManager();
 		TypedQuery<Player> query = em.createNamedQuery("Player.findByName", Player.class);
 		query.setParameter("name", username);
 		List<Player> players = query.getResultList();
 		if (!players.isEmpty()) {
 			Player player = players.get(0);
 			player.setPassword(DigestUtils.sha1Hex(newPassword));
-			em.getTransaction().begin();
 			em.merge(player);
-			em.getTransaction().commit();
 			RequestContext.getCurrentInstance().execute("PF('passwordDialog').hide()");
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, msg.getString("login.password.success"), ""));

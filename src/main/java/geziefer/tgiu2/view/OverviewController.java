@@ -15,9 +15,10 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import geziefer.tgiu2.LocalEntityManagerFactory;
+import geziefer.tgiu2.MyMessageBundle;
 import geziefer.tgiu2.entity.Player;
 import geziefer.tgiu2.entity.Ranking;
 import geziefer.tgiu2.entity.Round;
@@ -27,7 +28,11 @@ import geziefer.tgiu2.entity.Round;
 public class OverviewController implements Serializable {
 	private static final long serialVersionUID = 6382467439487851769L;
 
+	@PersistenceContext
+	EntityManager em;
+	
 	@Inject
+	@MyMessageBundle
 	private transient PropertyResourceBundle msg;
 
 	@Inject
@@ -46,7 +51,6 @@ public class OverviewController implements Serializable {
 	private List<Integer> years = new ArrayList<>();
 
 	public void initFields() {
-		EntityManager em = LocalEntityManagerFactory.createEntityManager();
 		TypedQuery<Round> query1 = em.createNamedQuery("Round.findAll", Round.class);
 		rounds = query1.getResultList();
 		TypedQuery<Player> query2 = em.createNamedQuery("Player.findAll", Player.class);

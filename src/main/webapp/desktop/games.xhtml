@@ -13,13 +13,11 @@
 			<p:panel id="gamesHeader" header="#{msg['menu.games']}">
 				<p:panel header="#{msg['games.new']}" toggleable="true" collapsed="true" style="border:none" widgetVar="gamePanel">
 					<h:form>
-						<p:panelGrid columns="3" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
-							<div />
+						<p:panelGrid columns="2" styleClass="ui-panelgrid-blank ui-fluid myGrid" layout="grid">
 							<p:inputText id="name" value="#{gamesController.name}" placeholder="#{msg['games.name']}" required="true"
 								requiredMessage="#{msg['games.name.required']}" />
 							<p:message for="name" />
 
-							<div />
 							<p:selectOneMenu id="value" required="true" requiredMessage="#{msg['games.value.required']}"
 								value="#{gamesController.value}">
 								<f:selectItem itemLabel="#{msg['games.value.select']}" noSelectionOption="true" />
@@ -27,10 +25,10 @@
 							</p:selectOneMenu>
 							<p:message for="value" />
 
-							<div />
 							<p:commandButton action="#{gamesController.createGame()}" value="#{msg['global.save']}" update="gamesHeader"
 								ajax="true" />
 						</p:panelGrid>
+						<div class="clear"/>
 					</h:form>
 				</p:panel>
 				

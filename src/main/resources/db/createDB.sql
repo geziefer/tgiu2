@@ -5,7 +5,7 @@ create table Config(
 );
 
 create table Player(
-	id integer not null auto_increment,
+	id SERIAL,
 	name varchar(20) not null,
 	password varchar(42) not null,
 	role varchar(10) not null default 'USER',
@@ -16,7 +16,7 @@ alter table Player
 add unique (name);
 
 create table Game(
-	id integer not null auto_increment,
+	id SERIAL,
 	name varchar(50) not null,
 	value varchar(10) not null,
 	primary key (id)
@@ -26,7 +26,7 @@ alter table Game
 add unique (name);
 
 create table Comment(
-	id integer not null auto_increment,
+	id SERIAL,
 	game_id integer not null,
 	player_id integer not null,
 	comment varchar(250),
@@ -36,7 +36,7 @@ create table Comment(
 );
 
 create table Round(
-	id integer not null auto_increment,
+	id SERIAL,
 	date date not null,
 	game_id integer not null,
 	deleted boolean not null default true,
@@ -44,8 +44,13 @@ create table Round(
 	foreign key (game_id) references Game (id)
 );
 
+<<<<<<< HEAD
 create table `Rank`(
 	id integer not null auto_increment,
+=======
+create table Rank(
+	id SERIAL,
+>>>>>>> wildfly
 	round_id integer not null,
 	player_id integer not null,
 	rank integer not null,

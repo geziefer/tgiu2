@@ -6,37 +6,32 @@ https://github.com/geziefer/tgiu2.git
 Git
 Maven 3
 JDK 1.8
-Tomcat 7
-optional: MySQL 5.3
-optional: Eclipse Neon Java EE edition
+WildFly 11
+MariaDB 10.2.x (with HeidiSQL)
+Eclipse Oxygen Java EE edition
 
-# Config Tomcat
-optional: if maven should be able to deploy to Tomcat, edit tomcat's conf/tomcat-users.xml:
-	<role rolename="manager-gui"/>
-	<role rolename="manager-script"/>
-	<user username="admin" password="admin" roles="manager-gui,manager-script" />
+# Config Wildfly
+copy modules and configuration folder from wildfly to WildFly installation
 
-# Config MySQL
-optional: if MySQL should be used instead of In-Memory-DB:
-	run src/main/resources/db/createUser.sql as root in MySQL
-	run src/main/resources/db/createDB.sql as tgiu in MySQL
-	run src/main/resources/import.sql as tgiu in MySQL
+# Config MariaDB
+run src/main/resources/db/createUser.sql as root in HeidiSQL
+run src/main/resources/db/createDB.sql as tgiu in HeidiSQL
+run src/main/resources/import.sql as tgiu in HeidiSQL
 
-# Project
-optional: if Eclipse should be used:
-	add JDK 1.8 as installed JRE
-	add Tomcat as Server
-	import existing Maven project
+# Config Eclipse
+add JDK 1.8 as installed JRE
+add WildFly as Server (may require JBoss AS tools from marketplace)
+import existing Maven project
 	
 # Build on command line
 mvn clean install
 
-# Deploy on command line
-mvn clean tomcat7:deploy
-
-# Profiles
-append "-P prod" (default) to mvn command to build with MySQL DB 
+# Maven Profiles
+append "-P prod" (default) to mvn command to build with MariaDB 
 append "-P dev" to mvn command to build with In-Memory-DB 
+
+# Deploy on command line
+copy to WildFly's standalone/deployments
 
 # Run WebApp
 localhost:8080/tgiu2/

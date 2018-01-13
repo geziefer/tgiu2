@@ -5,13 +5,14 @@
     http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 	version="2.0">
 
-	<persistence-unit name="tgiuPU" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="tgiuPU" transaction-type="JTA">
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		<non-jta-data-source>java:/comp/env/${db.datasource}</non-jta-data-source>
+		<jta-data-source>java:jboss/datasources/tgiu</jta-data-source>
 		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.show_sql" value="true" />
-			<property name="hibernate.hbm2ddl.auto" value="${db.hbm2ddl.auto}" />
+			<property name="hibernate.hbm2ddl.auto" value="validate" />
 			<property name="hibernate.id.new_generator_mappings" value="false" />
 		</properties>
 	</persistence-unit>
