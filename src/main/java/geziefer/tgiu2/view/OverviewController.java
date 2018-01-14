@@ -30,7 +30,7 @@ public class OverviewController implements Serializable {
 
 	@PersistenceContext
 	EntityManager em;
-	
+
 	@Inject
 	@MyMessageBundle
 	private transient PropertyResourceBundle msg;

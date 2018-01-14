@@ -18,7 +18,7 @@ import geziefer.tgiu2.entity.Round;
 public class TGIUService {
 	@PersistenceContext
 	EntityManager em;
-	
+
 	@GET
 	@Path("/players")
 	@Produces(MediaType.APPLICATION_JSON)

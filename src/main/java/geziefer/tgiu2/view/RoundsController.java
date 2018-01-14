@@ -29,13 +29,13 @@ import geziefer.tgiu2.entity.Round;
 
 @Named
 @SessionScoped
-@Transactional(value=TxType.REQUIRED)
+@Transactional(value = TxType.REQUIRED)
 public class RoundsController implements Serializable {
 	private static final long serialVersionUID = -4061642452157056938L;
 
 	@PersistenceContext
 	EntityManager em;
-	
+
 	@Inject
 	@MyMessageBundle
 	private transient PropertyResourceBundle msg;
@@ -172,11 +172,9 @@ public class RoundsController implements Serializable {
 	public String deleteRound(Integer row) {
 		Round round = rounds.get(row);
 		round.setDeleted(true);
-		em.getTransaction().begin();
 		em.merge(round);
-		em.getTransaction().commit();
 		initFields();
-		
+
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, msg.getString("rounds.delete.success"), ""));
 

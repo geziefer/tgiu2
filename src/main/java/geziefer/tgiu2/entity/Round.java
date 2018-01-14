@@ -29,7 +29,7 @@ public class Round extends Base {
 
 	@OneToMany(mappedBy = "round", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Rank> ranks;
-	
+
 	@Column
 	private boolean deleted;
 

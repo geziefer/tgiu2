@@ -18,9 +18,9 @@ import javax.persistence.OneToMany;
 		@NamedQuery(name = "Game.findByName", query = "SELECT g FROM Game g WHERE g.name = :name"),
 		@NamedQuery(name = "Game.findByChar", query = "SELECT g FROM Game g WHERE g.name LIKE :name ") })
 public class Game extends Base {
-	
+
 	public static final String FIND_ALL_EAGER = "Game.findAllEagerly";
-	
+
 	@Column(unique = true)
 	private String name;
 
@@ -57,7 +57,7 @@ public class Game extends Base {
 
 	@Override
 	public String toString() {
-		return name;		
+		return name;
 	}
-	
+
 }

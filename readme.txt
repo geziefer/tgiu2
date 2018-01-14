@@ -11,7 +11,7 @@ MariaDB 10.2.x (with HeidiSQL)
 Eclipse Oxygen Java EE edition
 
 # Config Wildfly
-copy modules and configuration folder from wildfly to WildFly installation
+copy standalone folder in folder wildfly to WildFly installation
 
 # Config MariaDB
 run src/main/resources/db/createUser.sql as root in HeidiSQL

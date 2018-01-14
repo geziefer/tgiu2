@@ -26,13 +26,13 @@ import geziefer.tgiu2.entity.Role;
 
 @Named
 @SessionScoped
-@Transactional(value=TxType.REQUIRED)
+@Transactional(value = TxType.REQUIRED)
 public class PlayersController implements Serializable {
 	private static final long serialVersionUID = 2694864640991849406L;
 
 	@PersistenceContext
 	EntityManager em;
-	
+
 	@Inject
 	@MyMessageBundle
 	private transient PropertyResourceBundle msg;
@@ -108,7 +108,7 @@ public class PlayersController implements Serializable {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
 					MessageFormat.format(msg.getString("players.reset.success"), name), ""));
 		}
-		
+
 		return "";
 	}
 

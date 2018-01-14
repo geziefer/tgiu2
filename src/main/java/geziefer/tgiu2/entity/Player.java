@@ -23,7 +23,7 @@ public class Player extends Base {
 	@Column
 	@Enumerated(EnumType.STRING)
 	private Role role;
-	
+
 	public String getName() {
 		return name;
 	}
@@ -47,7 +47,7 @@ public class Player extends Base {
 	public void setRole(Role role) {
 		this.role = role;
 	}
-	
+
 	public boolean hasRole(Role role) {
 		return this.role.equals(role);
 	}

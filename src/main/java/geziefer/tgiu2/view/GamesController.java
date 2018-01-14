@@ -28,13 +28,13 @@ import geziefer.tgiu2.entity.Player;
 
 @Named
 @SessionScoped
-@Transactional(value=TxType.REQUIRED)
+@Transactional(value = TxType.REQUIRED)
 public class GamesController implements Serializable {
 	private static final long serialVersionUID = -5095638556476107999L;
 
 	@PersistenceContext
 	EntityManager em;
-	
+
 	@Inject
 	@MyMessageBundle
 	private transient PropertyResourceBundle msg;
@@ -53,7 +53,7 @@ public class GamesController implements Serializable {
 	private String commentText;
 
 	private String formattedComments;
-	
+
 	private boolean searchString;
 
 	public void initFields() {
@@ -139,9 +139,9 @@ public class GamesController implements Serializable {
 			query = em.createNamedQuery("Game.findAllEagerly", Game.class);
 		} else {
 			query = em.createNamedQuery("Game.findByChar", Game.class);
-			query.setParameter("name", name + "%");			
-			if(searchString) {
-				query.setParameter("name", "%" + name + "%");			
+			query.setParameter("name", name + "%");
+			if (searchString) {
+				query.setParameter("name", "%" + name + "%");
 			}
 		}
 		games = query.getResultList();
@@ -153,9 +153,7 @@ public class GamesController implements Serializable {
 		Game game = games.stream().filter(g -> g.getName().equals(newValue)).findFirst().get();
 
 		try {
-			em.getTransaction().begin();
 			em.merge(game);
-			em.getTransaction().commit();
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, msg.getString("games.info.success"), ""));
 		} catch (Exception e) {
