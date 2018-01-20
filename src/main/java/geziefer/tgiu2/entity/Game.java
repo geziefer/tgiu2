@@ -14,13 +14,8 @@ import javax.persistence.OneToMany;
 
 @Entity
 @NamedQueries({ @NamedQuery(name = "Game.findAll", query = "SELECT g FROM Game g ORDER BY g.name"),
-		@NamedQuery(name = Game.FIND_ALL_EAGER, query = "SELECT DISTINCT g FROM Game g LEFT JOIN FETCH g.comments ORDER BY g.name"),
-		@NamedQuery(name = "Game.findByName", query = "SELECT g FROM Game g WHERE g.name = :name"),
-		@NamedQuery(name = "Game.findByChar", query = "SELECT g FROM Game g WHERE g.name LIKE :name ") })
+		@NamedQuery(name = "Game.findAllEagerly", query = "SELECT DISTINCT g FROM Game g LEFT JOIN FETCH g.comments ORDER BY g.name") })
 public class Game extends Base {
-
-	public static final String FIND_ALL_EAGER = "Game.findAllEagerly";
-
 	@Column(unique = true)
 	private String name;
 

@@ -54,7 +54,7 @@ public class GamesController implements Serializable {
 
 	private String formattedComments;
 
-	private boolean searchString;
+	private String searchGame;
 
 	public void initFields() {
 		TypedQuery<Game> query = em.createNamedQuery("Game.findAllEagerly", Game.class);
@@ -103,12 +103,12 @@ public class GamesController implements Serializable {
 		return formattedComments;
 	}
 
-	public boolean isSearchString() {
-		return searchString;
+	public String getSearchGame() {
+		return searchGame;
 	}
 
-	public void setSearchString(boolean searchString) {
-		this.searchString = searchString;
+	public void setSearchGame(String searchGame) {
+		this.searchGame = searchGame;
 	}
 
 	public String createGame() {
@@ -133,20 +133,7 @@ public class GamesController implements Serializable {
 		return "";
 	}
 
-	public void findGame() {
-		TypedQuery<Game> query;
-		if (name.equals("")) {
-			query = em.createNamedQuery("Game.findAllEagerly", Game.class);
-		} else {
-			query = em.createNamedQuery("Game.findByChar", Game.class);
-			query.setParameter("name", name + "%");
-			if (searchString) {
-				query.setParameter("name", "%" + name + "%");
-			}
-		}
-		games = query.getResultList();
-	}
-
+	
 	public void editName(CellEditEvent event) {
 		String oldValue = (String) event.getOldValue();
 		String newValue = (String) event.getNewValue();

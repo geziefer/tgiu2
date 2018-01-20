@@ -13,8 +13,8 @@
 				<ui:param name="title" value="#{msg['menu.players']}" />
 			</ui:include>
 			<pm:content>
-				<p:panel id="playerNew" header="#{msg['players.new']}" toggleable="true" style="border:none" widgetVar="playerPanel"
-					rendered="#{loginController.hasRole('ADMIN')}">
+				<p:panel id="playerNew" header="" toggleable="true" style="border:none" widgetVar="playerPanel"
+					rendered="#{loginController.hasRole('ADMIN')}" collapsed="true">
 					<p:messages id="messages" autoUpdate="true" showDetail="false" globalOnly="true" />
 					<h:form>
 						<p:panelGrid>

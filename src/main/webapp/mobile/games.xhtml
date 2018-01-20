@@ -14,7 +14,7 @@
 			</ui:include>
 			<pm:content>
 				<o:importConstants type="geziefer.tgiu2.entity.GameValue" />
-				<p:panel id="gamesNew" header="#{msg['games.new']}" toggleable="true" collapsed="true" style="border:none" widgetVar="gamePanel">
+				<p:panel id="gamesNew" header="" toggleable="true" collapsed="true" style="border:none" widgetVar="gamePanel">
 					<p:messages id="messages" autoUpdate="true" showDetail="false" globalOnly="true" />
 					<h:form>
 						<p:panelGrid>
@@ -35,19 +35,6 @@
 					</h:form>
 				</p:panel>
 				
-				<p:panel id="gamesSearch" header="#{msg['games.search']}"	toggleable="true" style="border:none" wiggetVar="gamePanel">
-					<h:form>
-						<p:panelGrid columns="2" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
-							<h:outputLabel value="#{msg['games.search.option']}" />
-							<p:selectBooleanCheckbox value="#{gamesController.searchString}">
-								<p:ajax update="gamesTable" listener="#{gamesController.findGame()}" />
-							</p:selectBooleanCheckbox>
-							<p:inputText id="game" value="#{gamesController.name}" placeholder="#{msg['games.name']}" />
-							<p:commandButton action="#{gamesController.findGame()}" value="#{msg['global.search']}" update="gamesTable"/>
-						</p:panelGrid>
-					</h:form>
-				</p:panel>
-
 				<br />
 
 				<p:panel id="gamesTable" header="#{msg['menu.games']}">

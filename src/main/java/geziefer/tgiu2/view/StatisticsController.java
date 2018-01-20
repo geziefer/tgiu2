@@ -80,7 +80,7 @@ public class StatisticsController implements Serializable {
 		year = years.get(0);
 
 		games = new ArrayList<>();
-		TypedQuery<Game> query = em.createNamedQuery(Game.FIND_ALL_EAGER, Game.class);
+		TypedQuery<Game> query = em.createNamedQuery("Game.findAll", Game.class);
 		games.add(msg.getString("statistics.selection.allGames"));
 		query.getResultList().forEach(g -> games.add(g.toString()));
 		game = games.get(0);

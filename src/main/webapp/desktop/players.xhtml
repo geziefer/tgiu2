@@ -10,7 +10,7 @@
 		<ui:define name="body">
 			<p:panel id="playerHeader" header="#{msg['menu.players']}">
 				<p:panel header="" toggleable="true" style="border:none" widgetVar="playerPanel"
-					rendered="#{loginController.hasRole('ADMIN')}">
+					rendered="#{loginController.hasRole('ADMIN')}" collapsed="true">
 					<h:form>
 						<p:panelGrid columns="2" styleClass="ui-panelgrid-blank ui-fluid myGrid" layout="grid">
 							<p:inputText id="name" value="#{playersController.name}" placeholder="#{msg['players.name']}" required="true"
