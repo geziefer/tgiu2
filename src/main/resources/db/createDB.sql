@@ -39,7 +39,7 @@ create table Round(
 	id integer not null auto_increment,
 	date date not null,
 	game_id integer not null,
-	deleted boolean not null default true,
+	deleted boolean not null default false,
 	primary key (id),
 	foreign key (game_id) references Game (id)
 );

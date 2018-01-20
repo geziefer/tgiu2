@@ -156,9 +156,9 @@ public class RoundsController implements Serializable {
 			Round newRound = new Round();
 			newRound.setDate(date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 			newRound.setGame(game);
+			newRound.setDeleted(false);
 			newRanks.stream().forEach(r -> r.setRound(newRound));
 			newRound.setRanks(newRanks);
-
 			em.persist(newRound);
 			initFields();
 

@@ -42,11 +42,11 @@ insert into Game (id, name, value) values (-30, 'Quartett', 'LARGE');
 
 insert into Comment (id, game_id, player_id, comment) values (-1, -1, -1, 'Am besten mit Städte & Ritter Erweiterung');
 
-insert into Round (id, date, game_id) values (-1, '2015-10-10', -1);
-insert into Round (id, date, game_id) values (-2, '2015-12-12', -2);
-insert into Round (id, date, game_id) values (-3, '2016-01-22', -3);
-insert into Round (id, date, game_id) values (-4, '2016-03-10', -4);
-insert into Round (id, date, game_id) values (-5, '2016-07-04', -2);
+insert into Round (id, date, game_id) values (-1, '2017-10-10', -1, 0);
+insert into Round (id, date, game_id) values (-2, '2017-12-12', -2, 0);
+insert into Round (id, date, game_id) values (-3, '2018-01-22', -3, 0);
+insert into Round (id, date, game_id) values (-4, '2018-03-10', -4, 0);
+insert into Round (id, date, game_id) values (-5, '2018-07-04', -2, 0);
 
 insert into Rank (id, round_id, player_id, rank) values (-1, -1, -1, 1);
 insert into Rank (id, round_id, player_id, rank) values (-2, -1, -2, 2);
