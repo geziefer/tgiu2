@@ -1,8 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui"
-	xmlns:o="http://omnifaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
 <h:body>
 	<ui:composition template="../template/templateDesktop.xhtml">
 		<f:metadata>
@@ -11,41 +13,50 @@
 		<ui:define name="body">
 			<o:importConstants type="geziefer.tgiu2.entity.GameValue" />
 			<p:panel id="gamesHeader" header="#{msg['menu.games']}">
-				<p:panel header="" toggleable="true" collapsed="true" style="border:none" widgetVar="gamePanel">
+				<p:panel header="" toggleable="true" collapsed="true"
+					style="border:none" widgetVar="gamePanel">
 					<h:form>
-						<p:panelGrid columns="2" styleClass="ui-panelgrid-blank ui-fluid myGrid" layout="grid">
-							<p:inputText id="name" value="#{gamesController.name}" placeholder="#{msg['games.name']}" required="true"
+						<p:panelGrid columns="2"
+							styleClass="ui-panelgrid-blank ui-fluid myGrid" layout="grid">
+							<p:inputText id="name" value="#{gamesController.name}"
+								placeholder="#{msg['games.name']}" required="true"
 								requiredMessage="#{msg['games.name.required']}" />
 							<p:message for="name" />
 
-							<p:selectOneMenu id="value" required="true" requiredMessage="#{msg['games.value.required']}"
+							<p:selectOneMenu id="value" required="true"
+								requiredMessage="#{msg['games.value.required']}"
 								value="#{gamesController.value}">
-								<f:selectItem itemLabel="#{msg['games.value.select']}" noSelectionOption="true" />
-								<f:selectItems value="#{GameValue}" var="value" itemValue="#{value}" itemLabel="#{value.toString()}" />
+								<f:selectItem itemLabel="#{msg['games.value.select']}"
+									noSelectionOption="true" />
+								<f:selectItems value="#{GameValue}" var="value"
+									itemValue="#{value}" itemLabel="#{value.toString()}" />
 							</p:selectOneMenu>
 							<p:message for="value" />
 
-							<p:commandButton action="#{gamesController.createGame()}" value="#{msg['global.save']}" update="gamesHeader"
-								ajax="true" />
+							<p:commandButton action="#{gamesController.createGame()}"
+								value="#{msg['global.save']}" update="gamesHeader" ajax="true" />
 						</p:panelGrid>
-						<div class="clear"/>
+						<div class="clear" />
 					</h:form>
 				</p:panel>
-				
+
 				<h:form>
-					<p:dataTable id="gamesTable" var="game" rowIndexVar="row" value="#{gamesController.games}" rows="10"
-						paginator="true" sortBy="#{game.name}" editable="true" editMode="cell" 
+					<p:dataTable id="gamesTable" var="game" rowIndexVar="row"
+						value="#{gamesController.games}" rows="10" paginator="true"
+						sortBy="#{game.name}" editable="true" editMode="cell"
 						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-						currentPageReportTemplate="{totalRecords} #{msg['global.count']}" paginatorPosition="bottom"
-						rowsPerPageTemplate="5,10,20,50">
-						<p:ajax event="cellEdit" listener="#{gamesController.editName}" update="gamesTable" />
+						currentPageReportTemplate="{totalRecords} #{msg['global.count']}"
+						paginatorPosition="bottom" rowsPerPageTemplate="5,10,20,50">
+						<p:ajax event="cellEdit" listener="#{gamesController.editName}"
+							update="gamesTable" />
 
 						<p:column headerText="#{msg['global.number']}" style="width: 15%">
 							<h:outputText value="#{row + 1}" />
 						</p:column>
 
-						<p:column headerText="#{msg['games.name']}" sortBy="#{game.name}" style="width: 45%" 
-							filterBy="#{game.name}" filterMatchMode="contains">
+						<p:column headerText="#{msg['games.name']}" sortBy="#{game.name}"
+							style="width: 45%" filterBy="#{game.name}"
+							filterMatchMode="contains">
 							<p:cellEditor rendered="#{loginController.hasRole('ADMIN')}">
 								<f:facet name="output">
 									<h:outputText value="#{game.name}" />
@@ -54,28 +65,36 @@
 									<p:inputText value="#{game.name}" />
 								</f:facet>
 							</p:cellEditor>
-							<h:outputText value="#{game.name}" rendered="#{loginController.hasRole('USER')}" />
+							<h:outputText value="#{game.name}"
+								rendered="#{loginController.hasRole('USER')}" />
 						</p:column>
 
-						<p:column headerText="#{msg['games.value']}" sortBy="#{game.value}" style="width: 20%"
+						<p:column headerText="#{msg['games.value']}"
+							sortBy="#{game.value}" style="width: 20%"
 							filterBy="#{game.value.toString()}" filterMatchMode="contains">
 							<h:outputText value="#{game.value.toString()}" />
 						</p:column>
 
 						<p:column headerText="#{msg['games.comment']}" style="width: 20%">
-							<p:commandButton actionListener="#{gamesController.selectComment(row)}" icon="fa fa-fw fa-edit"
-								update="gamesHeader" />
+							<p:commandButton
+								actionListener="#{gamesController.selectComment(row)}"
+								icon="fa fa-fw fa-edit" update="gamesHeader" />
 						</p:column>
 					</p:dataTable>
 				</h:form>
 
-				<p:dialog widgetVar="commentDialog" header="#{msg['games.comment']}" modal="true">
+				<p:dialog widgetVar="commentDialog" header="#{msg['games.comment']}"
+					modal="true">
 					<h:form>
 						<p:outputPanel autoUpdate="true">
-							<p:panelGrid id="commentPanel" columns="1" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
-								<h:outputText value="#{gamesController.formattedComments}" escape="false" />
-								<p:inputText value="#{gamesController.commentText}" onclick="this.select()" />
-								<p:commandButton value="#{msg['global.save']}" action="#{gamesController.storeComment()}" />
+							<p:panelGrid id="commentPanel" columns="1"
+								styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
+								<h:outputText value="#{gamesController.formattedComments}"
+									escape="false" />
+								<p:inputText value="#{gamesController.commentText}"
+									onclick="this.select()" />
+								<p:commandButton value="#{msg['global.save']}"
+									action="#{gamesController.storeComment()}" />
 							</p:panelGrid>
 						</p:outputPanel>
 					</h:form>

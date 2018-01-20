@@ -1,7 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 <h:body>
 	<ui:composition template="../template/templateDesktop.xhtml">
 		<f:metadata>
@@ -12,28 +15,40 @@
 				<h:form>
 					<p:selectOneMenu value="#{statisticsController.year}">
 						<f:selectItems value="#{statisticsController.years}" />
-						<p:ajax update="statisticsHeader" listener="#{statisticsController.changeYear()}" />
-					</p:selectOneMenu>
-					
-					<p:selectOneMenu value="#{statisticsController.game}">
-						<f:selectItems value="#{statisticsController.games}" />
-						<p:ajax update="statisticsHeader" listener="#{statisticsController.changeGame()}" />
+						<p:ajax update="statisticsHeader"
+							listener="#{statisticsController.changeYear()}" />
 					</p:selectOneMenu>
 
-					<p:panelGrid columns="1" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
-						<p:chart type="bar" model="#{statisticsController.rounds}" responsive="true" style="height:350px" />
+					<p:selectOneMenu value="#{statisticsController.game}">
+						<f:selectItems value="#{statisticsController.games}" />
+						<p:ajax update="statisticsHeader"
+							listener="#{statisticsController.changeGame()}" />
+					</p:selectOneMenu>
+
+					<p:panelGrid columns="1" styleClass="ui-panelgrid-blank ui-fluid"
+						layout="grid">
+						<p:chart type="bar" model="#{statisticsController.rounds}"
+							responsive="true" style="height:350px" />
 					</p:panelGrid>
 					<hr></hr>
-					<p:panelGrid columns="2" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
-						<p:chart type="pie" model="#{statisticsController.firstRanks}" responsive="true" style="height:250px" />
-						<p:chart type="pie" model="#{statisticsController.secondRanks}" responsive="true" style="height:250px" />
-						<p:chart type="pie" model="#{statisticsController.thirdRanks}" responsive="true" style="height:250px" />
-						<p:chart type="pie" model="#{statisticsController.DNFRanks}" responsive="true" style="height:250px" />
+					<p:panelGrid columns="2" styleClass="ui-panelgrid-blank ui-fluid"
+						layout="grid">
+						<p:chart type="pie" model="#{statisticsController.firstRanks}"
+							responsive="true" style="height:250px" />
+						<p:chart type="pie" model="#{statisticsController.secondRanks}"
+							responsive="true" style="height:250px" />
+						<p:chart type="pie" model="#{statisticsController.thirdRanks}"
+							responsive="true" style="height:250px" />
+						<p:chart type="pie" model="#{statisticsController.DNFRanks}"
+							responsive="true" style="height:250px" />
 					</p:panelGrid>
 					<hr></hr>
-					<p:panelGrid columns="2" styleClass="ui-panelgrid-blank ui-fluid" layout="grid">
-						<p:chart type="pie" model="#{statisticsController.bestLarge}" responsive="true" style="height:250px" />
-						<p:chart type="pie" model="#{statisticsController.bestMedium}" responsive="true" style="height:250px" />
+					<p:panelGrid columns="2" styleClass="ui-panelgrid-blank ui-fluid"
+						layout="grid">
+						<p:chart type="pie" model="#{statisticsController.bestLarge}"
+							responsive="true" style="height:250px" />
+						<p:chart type="pie" model="#{statisticsController.bestMedium}"
+							responsive="true" style="height:250px" />
 					</p:panelGrid>
 				</h:form>
 			</p:panel>

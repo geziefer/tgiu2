@@ -133,7 +133,6 @@ public class GamesController implements Serializable {
 		return "";
 	}
 
-	
 	public void editName(CellEditEvent event) {
 		String oldValue = (String) event.getOldValue();
 		String newValue = (String) event.getNewValue();
