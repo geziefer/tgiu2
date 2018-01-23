@@ -62,7 +62,7 @@ public class StatisticsController implements Serializable {
 	private List<String> games;
 
 	public void initFields() {
-		TypedQuery<Rank> query1 = em.createNamedQuery("Rank.findAll", Rank.class);
+		TypedQuery<Rank> query1 = em.createNamedQuery("Rank.findAllVisible", Rank.class);
 		ranks = query1.getResultList();
 
 		TypedQuery<Player> query2 = em.createNamedQuery("Player.findAll", Player.class);
