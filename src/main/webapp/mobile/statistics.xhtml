@@ -20,13 +20,13 @@
 					<p:selectOneMenu value="#{statisticsController.year}">
 						<f:selectItems value="#{statisticsController.years}" />
 						<p:ajax update="statisticsCharts"
-							listener="#{statisticsController.changeYear()}" />
+							listener="#{statisticsController.changeFilter()}" />
 					</p:selectOneMenu>
 
 					<p:selectOneMenu value="#{statisticsController.game}">
 						<f:selectItems value="#{statisticsController.games}" />
 						<p:ajax update="statisticsCharts"
-							listener="#{statisticsController.changeGame()}" />
+							listener="#{statisticsController.changeFilter()}" />
 					</p:selectOneMenu>
 
 					<p:panelGrid id="statisticsCharts">

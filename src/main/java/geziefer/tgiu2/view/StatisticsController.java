@@ -11,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -85,30 +86,22 @@ public class StatisticsController implements Serializable {
 		query.getResultList().forEach(g -> games.add(g.toString()));
 		game = games.get(0);
 
-		changeYear();
+		changeFilter();
 	}
 
-	public void changeYear() {
-		if (year.equals(msg.getString("statistics.selection.all"))) {
-			filteredRanks = ranks.stream().collect(Collectors.toList());
-			roundCount = filteredRanks.stream().filter(distinctByKey(r -> r.getRound().getId())).count();
-		} else {
-			filteredRanks = ranks.stream().filter(
+	public void changeFilter() {
+		Stream<Rank> rankStream = ranks.stream();
+		if (!year.equals(msg.getString("statistics.selection.all"))) {
+			rankStream = rankStream.filter(
 					r -> r.getRound().getDate().isAfter(LocalDate.of(Integer.parseInt(year), 1, 1).minusDays(1)))
 					.filter(r -> r.getRound().getDate()
-							.isBefore(LocalDate.of(Integer.parseInt(year), 12, 31).plusDays(1)))
-					.collect(Collectors.toList());
-			roundCount = filteredRanks.stream().filter(distinctByKey(r -> r.getRound().getId())).count();
+							.isBefore(LocalDate.of(Integer.parseInt(year), 12, 31).plusDays(1)));
 		}
-		changeGame();
-	}
-
-	public void changeGame() {
 		if (!game.equals(msg.getString("statistics.selection.allGames"))) {
-			filteredRanks = ranks.stream().filter(r -> r.getRound().getGame().getName().equals(game))
-					.collect(Collectors.toList());
-			roundCount = filteredRanks.stream().filter(distinctByKey(r -> r.getRound().getId())).count();
+			rankStream = rankStream.filter(r -> r.getRound().getGame().getName().equals(game));
 		}
+		filteredRanks = rankStream.collect(Collectors.toList());
+		roundCount = filteredRanks.stream().filter(distinctByKey(r -> r.getRound().getId())).count();
 	}
 
 	public Long getRoundCount() {
