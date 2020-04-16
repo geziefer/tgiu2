@@ -18,12 +18,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.primefaces.context.RequestContext;
 
 import au.com.flyingkite.mobiledetect.UAgentInfo;
 import geziefer.tgiu2.MyMessageBundle;
 import geziefer.tgiu2.entity.Player;
 import geziefer.tgiu2.entity.Role;
+import org.primefaces.PrimeFaces;
 
 @Named
 @SessionScoped
@@ -163,7 +163,7 @@ public class LoginController implements Serializable {
 			Player player = players.get(0);
 			player.setPassword(DigestUtils.sha1Hex(newPassword));
 			em.merge(player);
-			RequestContext.getCurrentInstance().execute("PF('passwordDialog').hide()");
+			PrimeFaces.current().executeScript("PF('passwordDialog').hide()");
 			FacesContext.getCurrentInstance().addMessage(null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO, msg.getString("login.password.success"), ""));
 		}

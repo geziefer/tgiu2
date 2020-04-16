@@ -17,7 +17,6 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import javax.transaction.Transactional.TxType;
 
-import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
 
 import geziefer.tgiu2.MyMessageBundle;
@@ -25,6 +24,7 @@ import geziefer.tgiu2.entity.Comment;
 import geziefer.tgiu2.entity.Game;
 import geziefer.tgiu2.entity.GameValue;
 import geziefer.tgiu2.entity.Player;
+import org.primefaces.PrimeFaces;
 
 @Named
 @SessionScoped
@@ -162,14 +162,14 @@ public class GamesController implements Serializable {
 				.filter(g -> g.getPlayer().getName().equals(player.getName())).findFirst();
 		comment = commentPlayer.orElse(new Comment(game, player, ""));
 		commentText = comment.getComment();
-		RequestContext.getCurrentInstance().execute("PF('commentDialog').show()");
+		PrimeFaces.current().executeScript("PF('commentDialog').show()");
 	}
 
 	public String storeComment() {
 		comment.setComment(commentText);
 		em.merge(comment);
 		initFields();
-		RequestContext.getCurrentInstance().execute("PF('commentDialog').hide()");
+		PrimeFaces.current().executeScript("PF('commentDialog').hide()");
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO, msg.getString("games.comment.success"), ""));
 
