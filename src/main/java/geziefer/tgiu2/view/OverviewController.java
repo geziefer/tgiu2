@@ -75,8 +75,8 @@ public class OverviewController implements Serializable {
 		for (Player player : players) {
 			Ranking ranking = new Ranking();
 			ranking.setName(player.getName());
-			ranking.setRounds((int) rounds.stream().filter(r -> r.checkPlayer(player.getName())).count());
-			ranking.setSum(rounds.stream().mapToDouble(r -> r.getPlayerPoints(player.getName())).sum());
+			ranking.setRounds((int) rounds.stream().filter(r -> r.getIsRated() ==true && r.checkPlayer(player.getName())).count());
+			ranking.setSum(rounds.stream().filter(r -> r.getIsRated() ==true).mapToDouble(r -> r.getPlayerPoints(player.getName())).sum());
 			ranking.setScore(ranking.getRounds() == 0 ? 0 : ranking.getSum() / ranking.getRounds());
 			rankings.add(ranking);
 		}
@@ -92,9 +92,9 @@ public class OverviewController implements Serializable {
 		for (Player player : players) {
 			Ranking ranking = new Ranking();
 			ranking.setName(player.getName());
-			ranking.setRounds((int) rounds.stream().filter(r -> r.checkPlayer(player.getName()))
+			ranking.setRounds((int) rounds.stream().filter(r ->r.getIsRated() ==true && r.checkPlayer(player.getName()))
 					.filter(r -> (r.getDate().getYear() == year)).count());
-			ranking.setSum(rounds.stream().filter(r -> (r.getDate().getYear() == year))
+			ranking.setSum(rounds.stream().filter(r -> r.getIsRated() ==true && (r.getDate().getYear() == year))
 					.mapToDouble(r -> r.getPlayerPoints(player.getName())).sum());
 			ranking.setScore(ranking.getRounds() == 0 ? 0 : ranking.getSum() / ranking.getRounds());
 			ranking.setEligible(ranking.getRounds() >= 10);

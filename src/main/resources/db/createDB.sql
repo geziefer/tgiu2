@@ -40,6 +40,7 @@ create table Round(
 	date date not null,
 	game_id integer not null,
 	deleted boolean not null default false,
+	isRated boolean not null default true,
 	primary key (id),
 	foreign key (game_id) references Game (id)
 );
