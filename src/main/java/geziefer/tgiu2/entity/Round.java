@@ -32,6 +32,8 @@ public class Round extends Base {
 
 	@Column
 	private boolean deleted;
+        @Column
+	private boolean isRated;
 
 	public LocalDate getDate() {
 		return date;
@@ -63,6 +65,14 @@ public class Round extends Base {
 
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
+	}
+        
+        public boolean getIsRated() {
+		return isRated;
+	}
+
+	public void setIsRated(boolean isRated) {
+		this.isRated = isRated;
 	}
 
 	public boolean checkPlayer(String name) {
