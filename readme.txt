@@ -5,10 +5,10 @@ https://github.com/geziefer/tgiu2.git
 # Software
 Git
 Maven 3
-JDK 1.8
-WildFly 11
-MariaDB 10.2.x (with HeidiSQL)
-Eclipse Oxygen Java EE edition
+JDK 11
+WildFly 21
+MariaDB 10.5.x (with HeidiSQL)
+Eclipse Oxygen Java EE edition or Netbeans 12
 
 # Config Wildfly
 copy standalone folder in folder wildfly to WildFly installation
@@ -19,7 +19,7 @@ run src/main/resources/db/createDB.sql as tgiu in HeidiSQL
 run src/main/resources/import.sql as tgiu in HeidiSQL
 
 # Config Eclipse
-add JDK 1.8 as installed JRE
+add JDK 11 as installed JRE
 add WildFly as Server (may require JBoss AS tools from marketplace)
 import existing Maven project
 	
