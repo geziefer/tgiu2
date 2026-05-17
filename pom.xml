@@ -52,7 +52,7 @@
 		<dependency>
 			<groupId>org.omnifaces</groupId>
 			<artifactId>omnifaces</artifactId>
-			<version>3.5</version>
+			<version>3.14.16</version>
 		</dependency>
 		<dependency>
 			<groupId>au.com.flyingkite</groupId>
